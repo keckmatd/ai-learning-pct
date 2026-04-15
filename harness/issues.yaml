@@ -168,8 +168,8 @@ issues:
   # ============================================================
   - id: 13
     title: "Design and build landing page"
-    state: open
-    labels: [phase-1c, polish, next]
+    state: closed
+    labels: [phase-1c, polish]
     body: |
       Create compelling index.astro:
       - Workshop overview
@@ -181,7 +181,7 @@ issues:
 
   - id: 14
     title: "Implement slide overview grid (O key)"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Add overview mode to SlideNav:
@@ -193,7 +193,7 @@ issues:
 
   - id: 15
     title: "Add light mode toggle for docs"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Participants may prefer light mode for reference docs:
@@ -205,7 +205,7 @@ issues:
 
   - id: 16
     title: "Mobile responsiveness pass"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Ensure acceptable mobile experience:

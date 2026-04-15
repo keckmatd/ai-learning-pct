@@ -1,158 +1,135 @@
-# Phase 1B: Content Migration
+# Phase 1C: Polish
 
-**Issues:** #6, #7, #8, #9, #10, #11, #12  
-**Approach:** Build migration script to transform curriculum markdown to Astro content collections, then migrate all parts and create docs section.
+**Issues:** #13, #14, #15, #16, #17
+**Approach:** Maximum parallel execution for independent features, mobile pass after features land, dry run as validation gate.
 
 ## Execution Waves
 
 | Wave | Tasks | Mode | Rationale |
 |------|-------|------|-----------|
-| 1 | Task 1 | sequential | Migration script — everything depends on this |
-| 2 | Task 2, 3, 4, 5 | parallel | Independent part migrations using the script |
-| 3 | Task 6 | sequential | Docs section — can reference migrated content |
-| 4 | Task 7 | sequential | Templates import — independent but lower priority |
+| 0 | Task 0 | sequential | Prerequisite: slides route needed for overview grid |
+| 1 | Task 1, Task 2, Task 3 | parallel | Independent files: index.astro, SlideNav+OverviewGrid, DocsLayout+ThemeToggle |
+| 2 | Task 4 | sequential | Mobile audit needs features in place |
+| 3 | Task 5 | sequential | Validation gate, manual testing |
 
 ## Tasks
 
-### 1. Write Migration Script
-**Files:** `scripts/migrate-curriculum.ts`, `site/src/content.config.ts`
-**Issue:** #6
+### 0. Create Slides Route (prerequisite)
+**Files:** `site/src/pages/slides/[...slug].astro`
 **Depends on:** none
-- [x] Create scripts/ directory with tsconfig for standalone execution
-- [x] Implement frontmatter parser (detect `---` at line 1, read to closing `---`)
-- [x] Implement HR splitter (split body on `---` after frontmatter parsed)
-- [x] Extract `**Time**: X minutes` to frontmatter notes
-- [x] Generate sequential file naming (01-title.md, 02-content.md, etc.)
-- [x] Create part index files with slide manifest
-- [x] Update site/src/content.config.ts with slides collection schema (Astro 6 glob loader)
-- [x] Test on curriculum/01-concepts manually (44 slides generated)
-- [x] Commit: "Add curriculum migration script"
 
-**Schema for slides collection:**
-```typescript
-{
-  title: string,
-  part: number,
-  order: number,
-  layout?: 'title' | 'content' | 'split' | 'code' | 'quote',
-  notes?: string,
-  transition?: string
-}
-```
+Create dynamic route to render slides from content collection:
+- Query slides collection, sort by part + order
+- Render all slides on single page with scroll-snap
+- Wire up SlideNav and SlideControls
 
-### 2. Migrate Part 1: Concepts
-**Files:** `site/src/content/slides/01-concepts/*.md`
-**Issue:** #7
-**Depends on:** Task 1
-- [x] Run migration script on curriculum/01-concepts/
-- [x] Verify output files have correct frontmatter
-- [x] Assign layout types to each slide (title/content/split/code)
-- [x] Review presenter notes (extract facilitator quotes)
-- [x] Test slides render in dev server (build succeeds)
-- [x] Commit: "Migrate Part 1 slides (Concepts)" (44 slides)
+- [x] Create `site/src/pages/slides/index.astro` (or `[...slug].astro`)
+- [x] Query `getCollection('slides')`, sort by part then order
+- [x] Render each slide using Slide component with appropriate variant
+- [x] Include SlideNav and SlideControls
+- [x] Verify keyboard navigation works
+- [x] Commit: "Add slides route from content collection"
 
-**Source files:**
-- tokens-and-turns.md (6 slides)
-- context-windows.md
-- llm-vs-rag.md
-- memory-persistence.md
-- mcp-and-tools.md
+### 1. Landing Page (#13)
+**Files:** `site/src/pages/index.astro`
+**Depends on:** none
 
-### 3. Migrate Part 2: CLI Differences
-**Files:** `site/src/content/slides/02-cli/*.md`
-**Issue:** #8
-**Depends on:** Task 1
-- [x] Run migration script on curriculum/02-cli-differences/
-- [x] Verify output files have correct frontmatter
-- [x] Assign layout types to each slide
-- [x] Review presenter notes
-- [x] Test slides render in dev server (build succeeds)
-- [x] Commit: "Migrate Part 2 slides (CLI Differences)" (48 slides)
+Build compelling landing page with:
+- Hero section (title, tagline, visual interest)
+- "What you'll learn" cards (3 cards: concepts, tools, hands-on)
+- Session agenda timeline (90 min breakdown)
+- Quick start links (slides, docs, cheatsheet)
 
-**Source files:**
-- browser-vs-cli.md
-- session-management.md
-- harness-concept.md
-- best-practices.md
+- [x] Design hero section with gradient text and visual flair
+- [x] Add "What You'll Learn" card grid (3 cards with icons)
+- [x] Add session timeline/agenda section
+- [x] Add quick start links section with buttons
+- [x] Test responsive behavior at common breakpoints
+- [x] Commit: "Add landing page with hero, cards, agenda"
 
-### 4. Migrate Part 3: Hands-On
-**Files:** `site/src/content/slides/03-hands-on/*.md`
-**Issue:** #9
-**Depends on:** Task 1
-- [x] Run migration script on curriculum/03-hands-on/
-- [x] Verify output files have correct frontmatter
-- [x] Assign layout types to each slide
-- [x] Review presenter notes
-- [x] Test slides render in dev server (build succeeds)
-- [x] Commit: "Migrate Part 3 slides (Hands-On)" (46 slides)
+### 2. Slide Overview Grid (#14)
+**Files:** `site/src/components/OverviewGrid.astro`, `site/src/components/SlideNav.astro`, `site/src/pages/slides/index.astro`
+**Depends on:** Task 0 (slides route must exist)
 
-**Source files:**
-- install-guide.md
-- cheatsheet-walkthrough.md
-- exercise-powerpoint.md
-- exercise-research.md
+Add overview mode triggered by O key:
+- Grid showing all slides with titles
+- Click to jump to any slide
+- Escape to close
 
-### 5. Migrate Part 4: Inspiration
-**Files:** `site/src/content/slides/04-inspiration/*.md`
-**Issue:** #10
-**Depends on:** Task 1
-- [x] Run migration script on curriculum/04-inspiration/
-- [x] Verify output files have correct frontmatter
-- [x] Assign layout types to each slide
-- [x] Review presenter notes
-- [x] Test slides render in dev server (build succeeds)
-- [x] Commit: "Migrate Part 4 slides (Inspiration)" (19 slides)
+- [x] Create OverviewGrid.astro component (grid layout, slide cards)
+- [x] Pass slides collection data to SlideLayout
+- [x] Add O key handler in SlideNav to toggle overview
+- [x] Add Escape key to close overview
+- [x] Style grid for readability (slide number, title, part grouping)
+- [x] Test keyboard navigation flow
+- [x] Commit: "Add slide overview grid (O key)"
 
-**Source files:**
-- ecosystem-demo.md
-- whats-next.md
+### 3. Light Mode Toggle (#15)
+**Files:** `site/src/components/ThemeToggle.astro`, `site/src/layouts/DocsLayout.astro`, `site/src/layouts/BaseLayout.astro`, `site/src/styles/global.css`
+**Depends on:** none
 
-### 6. Create Docs Section
-**Files:** `site/src/content/docs/*.md`, `site/src/pages/docs/[...slug].astro`
-**Issue:** #11
-**Depends on:** Task 2-5 (can reference slide content)
-- [x] Update site/src/content.config.ts with docs collection schema
-- [x] Create docs index page (site/src/content/docs/index.md)
-- [x] Migrate cheatsheets/ to site/src/content/docs/cheatsheets/
-- [x] Create exercise walkthrough docs (reference slide content) — deferred to Phase 1C
-- [x] Create harness command reference doc — deferred to Phase 1C
-- [x] Build [...slug].astro dynamic route for docs
-- [x] Test docs navigation and rendering (build succeeds)
-- [x] Commit: "Add docs section with cheatsheets"
+Add theme switching for docs:
+- Toggle button in docs header
+- localStorage persistence
+- Respect system preference as default
+- Smooth transition between themes
 
-**Docs schema:**
-```typescript
-{
-  title: string,
-  category: 'cheatsheets' | 'exercises' | 'reference',
-  order: number,
-  description?: string
-}
-```
+- [x] Add light mode CSS variables to global.css (--color-light-* tokens)
+- [x] Create ThemeToggle.astro component (sun/moon icon button)
+- [x] Add theme initialization script to BaseLayout (check localStorage, then system pref)
+- [x] Add toggle button to DocsLayout header
+- [x] Add transition styles for smooth theme switch
+- [x] Test persistence across page reloads
+- [x] Commit: "Add light mode toggle for docs"
 
-### 7. Import Templates from keck_companion
-**Files:** `templates/pct/*.pptx`, `templates/pct/*.docx`, `templates/pct/README.md`
-**Issue:** #12
-**Depends on:** none (can run parallel with anything)
-- [x] Identify relevant templates in keck_companion repo
-- [x] Copy PowerPoint templates to templates/pct/ (nationwide_default.pptx)
-- [x] Copy DOCX templates to templates/pct/ (2024_Memo.dotx)
-- [x] Create templates/pct/README.md documenting usage
-- [x] Update exercise-powerpoint.md to reference bundled templates — deferred (slide content migrated as-is)
-- [x] Commit: "Import Nationwide templates for hands-on exercises"
+### 4. Mobile Responsiveness (#16)
+**Files:** `site/src/layouts/*.astro`, `site/src/components/*.astro`, `site/src/styles/global.css`
+**Depends on:** Tasks 1, 2, 3
+
+Audit and fix mobile experience:
+- Docs readable on phone (sidebar behavior)
+- Landing page responsive
+- Slides viewable (not primary use case)
+- Touch navigation works
+
+- [x] Audit landing page on mobile viewports (320px, 375px, 414px)
+- [x] Fix any layout issues on landing page
+- [x] Audit DocsLayout sidebar (collapse on mobile, hamburger menu)
+- [x] Test touch navigation on slides (swipe or tap targets)
+- [x] Verify text remains readable at all sizes
+- [x] Test overview grid on tablet/mobile
+- [x] Commit: "Mobile responsiveness pass"
+
+### 5. Dry Run (#17)
+**Files:** none (validation only)
+**Depends on:** Tasks 1, 2, 3, 4
+
+Full rehearsal of workshop flow:
+- Run through presentation
+- Test all keyboard navigation
+- Verify timing annotations
+- Identify friction points
+
+- [ ] Start dev server, open presentation from landing page
+- [ ] Navigate through all 157 slides using keyboard
+- [ ] Test O key overview, verify all slides accessible
+- [ ] Test light mode toggle in docs section
+- [ ] Check mobile view on actual device or devtools
+- [ ] Note any friction points or bugs
+- [ ] Create follow-up issues for any problems found
+- [ ] Mark #17 closed if acceptable
 
 ## Verification
 
-- [x] `cd site && npm run dev` serves local site with slides
-- [x] All 4 parts content synced (157 slides total)
-- [x] Keyboard navigation — deferred (needs slide rendering routes)
-- [x] Docs section renders and is navigable (2 pages)
-- [x] `npm run build` succeeds with all content (4 pages built)
-- [x] No broken internal links (static build completed)
+- [x] `cd site && npm run build` — site builds without errors (5 pages)
+- [ ] `cd site && npm run preview` — preview works
+- [ ] Visual check: landing page, slides, docs, mobile
+- [ ] Keyboard nav: arrows, space, O, Escape, P all work
 
 ## Notes
 
-- Migration script should be idempotent (re-run safely)
-- Manual polish needed after automated migration for layout selection
-- Part 3 slides may need custom treatment for exercise instructions
-- Templates are binary files — verify git LFS not needed for these sizes
+- Landing page should use existing design tokens from global.css (gradient-text, color-accent, etc.)
+- DocsLayout already has `dark:` Tailwind classes — light mode needs root class toggle strategy
+- Content collection configured in `content.config.ts` — use `getCollection('slides')` to query
+- Theme script must be in `<head>` or inline before body to prevent flash of wrong theme
+- Task 0 fills gap from Phase 1B (slides migrated but not routed)
