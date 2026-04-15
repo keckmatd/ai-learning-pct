@@ -59,7 +59,7 @@ const parts = Object.keys(slidesByPart)
 <!-- Drawer Panel -->
 <nav
   id="slide-drawer"
-  class="fixed top-0 left-0 z-50 h-full w-64 bg-slate-800 border-r border-slate-700 transform -translate-x-full transition-transform duration-200 ease-out overflow-y-auto"
+  class="fixed top-0 left-0 z-50 h-full w-64 bg-slate-800 border-r border-slate-700 transition-transform duration-200 ease-out overflow-y-auto"
   aria-label="Slide navigation"
 >
   <div class="p-4">
@@ -133,6 +133,10 @@ const parts = Object.keys(slidesByPart)
     border-left: 2px solid #38bdf8;
     margin-left: -2px;
     padding-left: calc(0.5rem + 2px);
+  }
+
+  #slide-drawer {
+    transform: translateX(-100%);
   }
 
   #slide-drawer.open {
