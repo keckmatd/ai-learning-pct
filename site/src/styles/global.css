@@ -26,15 +26,15 @@
    ========================================================================== */
 
 :root {
-  /* Colors - Background (Dark mode default) */
-  --color-bg-primary: #0f172a;   /* slate-900 */
-  --color-bg-secondary: #1e293b; /* slate-800 */
-  --color-bg-tertiary: #334155;  /* slate-700 */
+  /* Colors - Background (Dark mode default - warmer grays) */
+  --color-bg-primary: #111827;   /* gray-900 (was slate-900) */
+  --color-bg-secondary: #1f2937; /* gray-800 (was slate-800) */
+  --color-bg-tertiary: #374151;  /* gray-700 (was slate-700) */
 
-  /* Colors - Text (Dark mode default) */
-  --color-text-primary: #f8fafc;  /* slate-50 */
-  --color-text-secondary: #e2e8f0; /* slate-200 */
-  --color-text-muted: #94a3b8;    /* slate-400 */
+  /* Colors - Text (Dark mode default - softer contrast) */
+  --color-text-primary: #f9fafb;  /* gray-50 (was slate-50) */
+  --color-text-secondary: #d1d5db; /* gray-300 (was slate-200) */
+  --color-text-muted: #9ca3af;    /* gray-400 (was slate-400) */
 
   /* Colors - Accent */
   --color-accent: #38bdf8;        /* sky-400 */
