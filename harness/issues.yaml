@@ -337,3 +337,13 @@ issues:
       - Consider: graduated complexity? start simple, add as they learn?
 
       Depends on: understanding GHCP instruction hierarchy
+
+      ## Important: GHCP not Claude Code
+
+      Participants will use **GHCP** (GitHub Copilot CLI), not Claude Code.
+      Deliverables must use GHCP constructs:
+      - `copilot-instructions.md` (not CLAUDE.md)
+      - `.claude/commands/` for skills (already done)
+      - GHCP's config and hierarchy conventions
+
+      Matt's project management stays in Claude Code (CLAUDE.md, /ws /wd, tape).
