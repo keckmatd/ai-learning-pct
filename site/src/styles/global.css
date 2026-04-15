@@ -25,12 +25,12 @@
    ========================================================================== */
 
 :root {
-  /* Colors - Background */
+  /* Colors - Background (Dark mode default) */
   --color-bg-primary: #0f172a;   /* slate-900 */
   --color-bg-secondary: #1e293b; /* slate-800 */
   --color-bg-tertiary: #334155;  /* slate-700 */
 
-  /* Colors - Text */
+  /* Colors - Text (Dark mode default) */
   --color-text-primary: #f8fafc;  /* slate-50 */
   --color-text-secondary: #e2e8f0; /* slate-200 */
   --color-text-muted: #94a3b8;    /* slate-400 */
@@ -44,6 +44,14 @@
   --color-success: #4ade80;       /* green-400 */
   --color-warning: #fbbf24;       /* amber-400 */
   --color-error: #f87171;         /* red-400 */
+
+  /* Light mode colors */
+  --color-light-bg-primary: #ffffff;
+  --color-light-bg-secondary: #f8fafc;  /* slate-50 */
+  --color-light-bg-tertiary: #f1f5f9;   /* slate-100 */
+  --color-light-text-primary: #0f172a;  /* slate-900 */
+  --color-light-text-secondary: #334155; /* slate-700 */
+  --color-light-text-muted: #64748b;    /* slate-500 */
 
   /* Typography Scale (responsive with clamp) */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
