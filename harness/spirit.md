@@ -31,20 +31,18 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 1A: Infrastructure** (ready to execute)
+**Phase 1B: Content Migration** (ready to plan)
 
-Completed (Session 1):
-- Curriculum structure (Parts 1-4, 23 files)
-- copilot-dotfiles bundled (20 skills, templates, MCP)
-- Presentation site spec written and reviewed
-- 22 issues created (Phases 1-4)
-- Phase 1A plan written
+Completed:
+- Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
+- Session 2: Phase 1A infrastructure complete (Astro + Tailwind, layouts, slide nav, design system, GH Pages workflow)
 
 Next:
-- Execute Phase 1A plan (harness/plan.md)
-- Initialize Astro site
-- Create layouts and navigation
-- Deploy to GitHub Pages
+- Add content rendering infrastructure (MDX, syntax highlighting, Mermaid)
+- Write curriculum migration script
+- Migrate Parts 1-4 slides
+- Create docs section with cheatsheets
 
 Blocked:
 - GitHub repo creation (token permissions on work-aws) — create manually
+- Deployment verification (needs repo pushed first)

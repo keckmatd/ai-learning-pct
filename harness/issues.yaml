@@ -7,8 +7,8 @@ issues:
   # ============================================================
   - id: 1
     title: "Initialize Astro project with Tailwind"
-    state: open
-    labels: [phase-1a, infrastructure, next]
+    state: closed
+    labels: [phase-1a, infrastructure]
     body: |
       Set up the Astro project foundation:
       - Create site/ directory with Astro + Tailwind
@@ -20,7 +20,7 @@ issues:
 
   - id: 2
     title: "Create base layouts (Slide, Docs, Base)"
-    state: open
+    state: closed
     labels: [phase-1a, infrastructure]
     body: |
       Build the three core layouts:
@@ -32,7 +32,7 @@ issues:
 
   - id: 3
     title: "Implement slide navigation component"
-    state: open
+    state: closed
     labels: [phase-1a, infrastructure]
     body: |
       Build SlideNav.astro with:
@@ -45,7 +45,7 @@ issues:
 
   - id: 4
     title: "Design system CSS variables and global styles"
-    state: open
+    state: closed
     labels: [phase-1a, infrastructure]
     body: |
       Implement the design system from spec:
@@ -58,7 +58,7 @@ issues:
 
   - id: 5
     title: "GitHub Pages deployment workflow"
-    state: open
+    state: closed
     labels: [phase-1a, infrastructure]
     body: |
       Create .github/workflows/deploy.yml:
@@ -75,7 +75,7 @@ issues:
   - id: 6
     title: "Write curriculum migration script"
     state: open
-    labels: [phase-1b, content]
+    labels: [phase-1b, content, next]
     body: |
       Create scripts/migrate-curriculum.ts:
       - Parse existing frontmatter

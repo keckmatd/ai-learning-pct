@@ -17,62 +17,62 @@
 ### 1. Initialize Astro Project
 **Files:** `site/package.json`, `site/astro.config.mjs`, `site/tailwind.config.mjs`, `site/tsconfig.json`
 **Depends on:** none
-- [ ] Create site/ directory
-- [ ] Run `npm create astro@latest` with TypeScript, Tailwind
-- [ ] Configure astro.config.mjs (base: '/ai-learning-pct', shiki theme)
-- [ ] Add Pagefind integration for search
-- [ ] Verify `npm run dev` works
-- [ ] Commit: "Initialize Astro project with Tailwind"
+- [x] Create site/ directory
+- [x] Run `npm create astro@latest` with TypeScript, Tailwind
+- [x] Configure astro.config.mjs (base: '/ai-learning-pct', shiki theme)
+- [x] Add Pagefind integration for search
+- [x] Verify `npm run dev` works
+- [x] Commit: "Initialize Astro project with Tailwind"
 
 ### 2. Create Base Layouts
 **Files:** `site/src/layouts/BaseLayout.astro`, `site/src/layouts/SlideLayout.astro`, `site/src/layouts/DocsLayout.astro`
 **Depends on:** Task 1
-- [ ] Create BaseLayout.astro with HTML shell, font loading, global styles
-- [ ] Create SlideLayout.astro extending Base, full-screen presentation mode
-- [ ] Create DocsLayout.astro extending Base, sidebar navigation
-- [ ] Create placeholder index.astro using BaseLayout
-- [ ] Verify all layouts render
-- [ ] Commit: "Add base layouts for slides and docs"
+- [x] Create BaseLayout.astro with HTML shell, font loading, global styles
+- [x] Create SlideLayout.astro extending Base, full-screen presentation mode
+- [x] Create DocsLayout.astro extending Base, sidebar navigation
+- [x] Create placeholder index.astro using BaseLayout
+- [x] Verify all layouts render
+- [x] Commit: "Add base layouts for slides and docs"
 
 ### 3. Implement Slide Navigation
 **Files:** `site/src/components/SlideNav.astro`, `site/src/components/Slide.astro`
 **Depends on:** Task 1
-- [ ] Create Slide.astro component for rendering single slide
-- [ ] Create SlideNav.astro with keyboard event listeners
-- [ ] Implement arrow key navigation (left/right)
-- [ ] Implement progress bar component
-- [ ] Add presenter notes toggle (P key)
-- [ ] Test navigation with dummy slides
-- [ ] Commit: "Add slide navigation component with keyboard controls"
+- [x] Create Slide.astro component for rendering single slide
+- [x] Create SlideNav.astro with keyboard event listeners
+- [x] Implement arrow key navigation (left/right)
+- [x] Implement progress bar component
+- [x] Add presenter notes toggle (P key)
+- [x] Test navigation with dummy slides
+- [x] Commit: "Add slide navigation component with keyboard controls"
 
 ### 4. Design System and Global Styles
 **Files:** `site/src/styles/global.css`, `site/public/fonts/*`, `site/tailwind.config.mjs`
 **Depends on:** Task 2
-- [ ] Download Inter and JetBrains Mono variable fonts
-- [ ] Add @font-face declarations in global.css
-- [ ] Define CSS custom properties (colors, typography)
-- [ ] Configure Tailwind with design tokens
-- [ ] Create slide layout variants (title, content, split, code)
-- [ ] Verify dark mode styling
-- [ ] Commit: "Add design system with fonts and color palette"
+- [x] Download Inter and JetBrains Mono variable fonts
+- [x] Add @font-face declarations in global.css
+- [x] Define CSS custom properties (colors, typography)
+- [x] Configure Tailwind with design tokens
+- [x] Create slide layout variants (title, content, split, code)
+- [x] Verify dark mode styling
+- [x] Commit: "Add design system with fonts and color palette"
 
 ### 5. GitHub Pages Deployment
 **Files:** `.github/workflows/deploy.yml`, `site/astro.config.mjs`
 **Depends on:** Task 1, Task 2
-- [ ] Create .github/workflows/deploy.yml
-- [ ] Configure for push to main trigger
+- [x] Create .github/workflows/deploy.yml
+- [x] Configure for push to main trigger
 - [ ] Set up GitHub Pages in repo settings (when repo exists)
 - [ ] Test deployment with placeholder content
 - [ ] Verify site loads at correct base path
-- [ ] Commit: "Add GitHub Pages deployment workflow"
+- [x] Commit: "Add GitHub Pages deployment workflow"
 
 ## Verification
 
-- [ ] `cd site && npm run dev` serves local site
-- [ ] Slide navigation works with keyboard
-- [ ] Fonts load correctly (no FOUT)
-- [ ] Dark mode colors render as designed
-- [ ] `npm run build` succeeds
+- [x] `cd site && npm run dev` serves local site
+- [x] Slide navigation works with keyboard
+- [x] Fonts load correctly (no FOUT)
+- [x] Dark mode colors render as designed
+- [x] `npm run build` succeeds
 - [ ] (After repo) GitHub Pages deployment succeeds
 
 ## Notes
