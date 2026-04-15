@@ -1,17 +1,12 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="AI Learning Workshop">
+  <main class="min-h-screen bg-slate-900 text-white flex items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold mb-4">AI Learning Workshop</h1>
+      <p class="text-slate-400">PCT Cabinet - From Browser to CLI</p>
+    </div>
+  </main>
+</BaseLayout>

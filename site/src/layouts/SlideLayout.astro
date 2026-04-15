@@ -1,0 +1,23 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  slideNumber?: number;
+}
+
+const { title, slideNumber } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <main class="min-h-screen bg-slate-900 text-white flex flex-col">
+    {slideNumber && (
+      <div class="absolute top-4 right-4 text-slate-500 text-sm font-mono">
+        {slideNumber}
+      </div>
+    )}
+    <div class="flex-1 flex items-center justify-center p-8">
+      <slot />
+    </div>
+  </main>
+</BaseLayout>
