@@ -2,7 +2,7 @@
 title: "The Better Approach: Automatic Context Loading"
 part: 2
 order: 42
-layout: "split"
+layout: "diagram"
 sourceFile: "session-management"
 ---
 

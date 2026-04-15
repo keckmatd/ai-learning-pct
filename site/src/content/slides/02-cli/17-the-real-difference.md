@@ -2,7 +2,7 @@
 title: "The Real Difference"
 part: 2
 order: 17
-layout: "code"
+layout: "diagram"
 sourceFile: "browser-vs-cli"
 ---
 

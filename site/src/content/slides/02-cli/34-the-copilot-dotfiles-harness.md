@@ -2,7 +2,7 @@
 title: "The copilot-dotfiles Harness"
 part: 2
 order: 34
-layout: "code"
+layout: "diagram"
 sourceFile: "harness-concept"
 ---
 
