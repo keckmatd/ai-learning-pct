@@ -25,23 +25,32 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 |--------|------|---------|
 | Site | `site/` | Astro presentation (GH Pages) |
 | Curriculum | `curriculum/` | Source markdown for slides/docs |
-| Skills | `skills/` | Bundled workflow skills |
+| Skills | `.claude/commands/` | GHCP-compatible workflow skills |
 | Templates | `templates/` | Output templates + PCT additions |
 | Facilitator | `facilitator/` | Workshop running notes |
 
 ## Current Phase
 
-**Phase 1B: Content Migration** (planned, ready to execute)
+**Phase 1C: Polish** (ready to plan)
 
 Completed:
 - Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
 - Session 2: Phase 1A infrastructure complete (Astro + Tailwind, layouts, slide nav, design system, GH Pages workflow)
 - Session 3: GitHub repo created, Pages deployed, Phase 1B plan written
+- Session 4: Phase 1B complete (157 slides migrated, docs section, templates, PCT skills with GHCP compatibility)
 
 Site live: https://keckmatd.github.io/ai-learning-pct/
+Repo: https://github.com/keckmatd/ai-learning-pct
 
-Next:
-- Write curriculum migration script
-- Migrate Parts 1-4 slides
-- Create docs section with cheatsheets
-- Import templates from keck_companion
+Skills added:
+- `/pct-deck` - PowerPoint generation
+- `/pct-memo` - Business memos
+- `/pct-research` - Research briefs
+- `/pct-cheatsheet` - Quick reference cards (markdown + HTML)
+
+Next (Phase 1C):
+- Design and build landing page (#13)
+- Implement slide overview grid (#14)
+- Add light mode toggle for docs (#15)
+- Mobile responsiveness pass (#16)
+- Dry run workshop (#17)

@@ -74,8 +74,8 @@ issues:
   # ============================================================
   - id: 6
     title: "Write curriculum migration script"
-    state: open
-    labels: [phase-1b, content, next]
+    state: closed
+    labels: [phase-1b, content]
     body: |
       Create scripts/migrate-curriculum.ts:
       - Parse existing frontmatter
@@ -88,7 +88,7 @@ issues:
 
   - id: 7
     title: "Migrate Part 1 slides (Concepts)"
-    state: open
+    state: closed
     labels: [phase-1b, content]
     body: |
       Transform curriculum/01-concepts/ to site/src/content/slides/01-concepts/:
@@ -102,7 +102,7 @@ issues:
 
   - id: 8
     title: "Migrate Part 2 slides (CLI Differences)"
-    state: open
+    state: closed
     labels: [phase-1b, content]
     body: |
       Transform curriculum/02-cli-differences/ to slides:
@@ -115,7 +115,7 @@ issues:
 
   - id: 9
     title: "Migrate Part 3 slides (Hands-on)"
-    state: open
+    state: closed
     labels: [phase-1b, content]
     body: |
       Transform curriculum/03-hands-on/ to slides:
@@ -128,7 +128,7 @@ issues:
 
   - id: 10
     title: "Migrate Part 4 slides (Inspiration)"
-    state: open
+    state: closed
     labels: [phase-1b, content]
     body: |
       Transform curriculum/04-inspiration/ to slides:
@@ -139,7 +139,7 @@ issues:
 
   - id: 11
     title: "Create docs section with cheatsheets"
-    state: open
+    state: closed
     labels: [phase-1b, content]
     body: |
       Build site/src/content/docs/:
@@ -152,7 +152,7 @@ issues:
 
   - id: 12
     title: "Import templates from keck_companion"
-    state: open
+    state: closed
     labels: [phase-1b, templates]
     body: |
       Pull existing templates from keck_companion repo:
@@ -169,7 +169,7 @@ issues:
   - id: 13
     title: "Design and build landing page"
     state: open
-    labels: [phase-1c, polish]
+    labels: [phase-1c, polish, next]
     body: |
       Create compelling index.astro:
       - Workshop overview
