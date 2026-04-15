@@ -1,17 +1,21 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import SlideDrawer from "../components/SlideDrawer.astro";
 
 interface Props {
   title: string;
+  slides?: Array<{ id: string; title: string; part: number; slideNumber: number }>;
 }
 
-const { title } = Astro.props;
+const { title, slides = [] } = Astro.props;
 ---
 
 <BaseLayout title={title}>
   <main class="bg-bg-primary text-text-primary">
     <slot />
   </main>
+
+  {slides.length > 0 && <SlideDrawer slides={slides} />}
 
   <!-- Mermaid diagram rendering -->
   <script>
