@@ -2,7 +2,7 @@
 title: "Projects & Custom Instructions"
 part: 1
 order: 33
-layout: "split"
+layout: "diagram"
 sourceFile: "memory-persistence"
 ---
 

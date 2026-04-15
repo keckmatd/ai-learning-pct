@@ -2,7 +2,7 @@
 title: "How \"Memory\" Actually Works"
 part: 1
 order: 31
-layout: "code"
+layout: "diagram"
 sourceFile: "memory-persistence"
 ---
 

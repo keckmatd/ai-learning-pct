@@ -2,7 +2,7 @@
 title: "Why MCP Matters to You"
 part: 1
 order: 23
-layout: "split"
+layout: "diagram"
 sourceFile: "mcp-and-tools"
 ---
 
