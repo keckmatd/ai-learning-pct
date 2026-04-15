@@ -6,8 +6,8 @@ This document tracks all work needed to build out the full curriculum and suppor
 
 ## Current State
 
-**Phase**: Initial curriculum scaffolded  
-**Next**: Complete copilot-dotfiles prerequisites, create cheatsheets, run first workshop
+**Phase**: Foundation complete, Phase 1A ready to execute  
+**Next**: Build Astro site infrastructure (see `harness/plan.md`)
 
 ---
 
@@ -178,11 +178,13 @@ Low-effort, high-value items to do between major phases.
 
 | Session | Date | Focus | Outcome |
 |---------|------|-------|---------|
-| 1 | 2025-04-15 | Initial curriculum scaffold | Complete |
-| 2 | TBD | copilot-dotfiles prerequisites | |
-| 3 | TBD | Templates and cheatsheets | |
-| 4 | TBD | Workshop dry run | |
-| 5 | TBD | First live workshop | |
+| 1 | 2025-04-15 | Initial curriculum scaffold + harness setup | Complete |
+| 2 | TBD | Phase 1A: Astro infrastructure | |
+| 3 | TBD | Phase 1A: Layouts + navigation | |
+| 4 | TBD | Phase 1B: Content migration | |
+| 5 | TBD | Phase 1B: Templates from keck_companion | |
+| 6 | TBD | Phase 1C: Polish + dry run | |
+| 7 | TBD | First live workshop | |
 | ... | ... | ... | ... |
 
 ---
@@ -208,8 +210,12 @@ Low-effort, high-value items to do between major phases.
 ### 2025-04-15
 - Initial scaffold complete
 - Curriculum follows: Concepts → CLI → Hands-on → Inspiration arc
-- copilot-dotfiles is the target harness (not claude-dotfiles, even though we prefer it)
-- 90 minutes is tight - be prepared to cut Part 1 short if concepts land quickly
+- copilot-dotfiles bundled into this repo (point-in-time snapshot)
+- Two-tier approach: passive benefits (instructions) + active workflow (/ws→/wp→/we→/wd)
+- Spec written for Astro presentation site
+- 22 issues created covering Phases 1-4
+- Plan written for Phase 1A (infrastructure)
+- ~1 month to workshop - comfortable timeline
 
 ---
 

@@ -4,66 +4,88 @@
 
 ## Project Overview
 
-Training curriculum and materials for the PCT cabinet's 90-minute AI workshop. Teaches foundational concepts (tokens, context windows, RAG, MCP) then transitions to hands-on CLI work with the copilot-dotfiles harness.
+Complete AI workshop package for PCT cabinet — interactive presentation site, bundled copilot-dotfiles harness, Nationwide templates, and hands-on exercises. Transforms browser AI users into CLI builders.
+
+**Two usage tiers:**
+1. **Passive**: Just having harness installed improves AI interactions (instructions, superpowers, templates)
+2. **Active**: `/ws` → `/wp` → `/we` → `/wd` workflow for session continuity and parallel execution
 
 ## Architecture
 
-This is a **curriculum project**, not a code project. Structure:
-
 ```
-curriculum/
-  00-overview.md       # Session flow, timing, goals
-  01-concepts/         # Part 1: Foundational knowledge
-  02-cli-differences/  # Part 2: Why CLI > browser
-  03-hands-on/         # Part 3: Install & use harness
-  04-inspiration/      # Part 4: What's possible
-cheatsheets/           # Quick reference cards for participants
-examples/              # Follow-along exercises
-roadmap.md             # Master plan for building all materials
+site/                       # Astro presentation (planned)
+curriculum/                 # Source markdown for slides/docs
+facilitator/                # Workshop running notes
+cheatsheets/                # Quick reference cards
+
+# Bundled copilot-dotfiles harness
+copilot-instructions.md     # Global instructions
+skills/                     # Workflow skills (work-*, housekeeping, etc.)
+templates/                  # Output templates + PCT additions
+mcp/                        # MCP server (session-context)
+agents/                     # Agent definitions
+
+harness/                    # THIS PROJECT's state
+├── config.yaml             # issue_backend: local
+├── spirit.md               # Project vision/phase
+├── plan.md                 # Active execution plan
+└── issues.yaml             # Local issue tracker
 ```
 
 ## Key Files
 
-- `curriculum/00-overview.md` - The 90-minute session plan
-- `roadmap.md` - What needs to be built, prioritized
-- `cheatsheets/` - Takeaways participants keep
+- `harness/plan.md` - Current execution plan (Phase 1A: Astro infrastructure)
+- `harness/issues.yaml` - 22 issues covering Phases 1-4
+- `docs/superpowers/specs/2025-04-15-presentation-site-design.md` - Site architecture spec
+- `curriculum/00-overview.md` - 90-minute session flow
 
 ## Development
 
-### Preview Materials
+### Session Start
 ```bash
-# Markdown preview (if using VS Code)
-code curriculum/
+/ws   # Loads spirit + plan + issues
 ```
 
-### Validate Links
+### Execute Plan
 ```bash
-# Check for broken internal links
-grep -r '\[.*\](.*\.md)' curriculum/ | grep -v '#'
+/we   # Execute current plan with subagents
+```
+
+### Preview Site (after Phase 1A)
+```bash
+cd site && npm run dev
 ```
 
 ## Project-Specific Conventions
 
-### Writing Style
+### Content Style
 - Conversational, not academic
 - Show > tell (examples over explanations)
-- Build on what they already know (ChatGPT/Gemini experience)
+- Dark mode presentation, light mode docs option
 
-### Time Annotations
-- Every section has `[XX min]` timing
-- Buffer time built into transitions
+### Issue Workflow
+- `issue_backend: local` — uses `harness/issues.yaml`
+- Labels: `phase-1a`, `phase-1b`, `next`, etc.
+- `next` label = priority for current work
 
-### Difficulty Markers
-- No markers needed - assume baseline is "used ChatGPT in browser"
+## Current Phase
 
-## Areas of Complexity
+**Phase 1A: Infrastructure** (in progress)
+- Initialize Astro project with Tailwind
+- Create layouts (Slide, Docs, Base)
+- Implement slide navigation
+- Design system (dark mode, fonts)
+- GitHub Pages deployment
 
-- **Pacing**: 90 minutes is tight; must resist going deep on any one topic
-- **Hands-on setup**: copilot-dotfiles install could hit snags on corp machines
+See `harness/plan.md` for detailed tasks.
 
-## Current Work
+## Timeline
 
-See `roadmap.md` for the master build plan.
+~1 month to workshop:
+- Week 1: Astro infrastructure (Phase 1A)
+- Week 2: Content migration + templates (Phase 1B)
+- Week 3: Polish + dry run (Phase 1C)
+- Week 4: Buffer
 
 ---
 
