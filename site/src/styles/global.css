@@ -301,15 +301,20 @@ a:hover {
   color: var(--color-text-primary);
   font-weight: 600;
   text-align: left;
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1.25rem;
   border-bottom: 2px solid var(--color-accent);
 }
 
 .slide td,
 .prose td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--color-bg-tertiary);
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--color-bg-secondary);
   color: var(--color-text-secondary);
+}
+
+.slide tr:nth-child(even) td,
+.prose tr:nth-child(even) td {
+  background-color: rgba(31, 41, 55, 0.5);
 }
 
 .slide tr:hover td,
