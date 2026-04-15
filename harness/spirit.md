@@ -31,7 +31,7 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 1C: Polish** (mostly complete)
+**Phase 1C: Polish** (complete)
 
 Completed:
 - Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
@@ -39,6 +39,7 @@ Completed:
 - Session 3: GitHub repo created, Pages deployed, Phase 1B plan written
 - Session 4: Phase 1B complete (157 slides migrated, docs section, templates, PCT skills with GHCP compatibility)
 - Session 5: Phase 1C polish (landing page, overview grid, light mode, mobile, Mermaid diagrams)
+- Session 6: Slide polish (diagram layouts, M-key drawer navigation, visual refinements)
 
 Site live: https://keckmatd.github.io/ai-learning-pct/
 Repo: https://github.com/keckmatd/ai-learning-pct
