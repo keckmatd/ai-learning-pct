@@ -347,3 +347,41 @@ issues:
       - GHCP's config and hierarchy conventions
 
       Matt's project management stays in Claude Code (CLAUDE.md, /ws /wd, tape).
+
+  - id: 24
+    title: "Review installer for GHCP compatibility"
+    state: open
+    labels: [phase-1c, validation, needs-review]
+    body: |
+      Before shipping, verify install-harness.sh sets up GHCP correctly.
+
+      ## What installer should do for participants
+
+      - Wire up `copilot-instructions.md` to GHCP's user-level location
+      - Link `.claude/commands/` for skills
+      - Install Python deps for document generation
+      - NOT set up Claude Code specific things (tape, MCP, etc.)
+
+      ## Review checklist
+
+      - [ ] Verify GHCP's expected paths for user instructions
+      - [ ] Verify GHCP's expected paths for commands/skills
+      - [ ] Remove or skip Claude Code-specific setup (MCP, tape)
+      - [ ] Test on clean machine with only GHCP installed
+      - [ ] Verify skills work after install (`/pct-deck`, etc.)
+      - [ ] Verify templates are accessible
+      - [ ] Error handling for missing deps (Python, etc.)
+
+      ## Possible changes needed
+
+      - May need separate install modes: `--ghcp` vs `--claude-code`
+      - Or: detect which CLI is available and configure accordingly
+      - Or: two separate scripts (install-ghcp.sh, install-claude.sh)
+
+      ## Test scenarios
+
+      1. Fresh GHCP user, no prior AI CLI setup
+      2. User with existing copilot config (don't clobber)
+      3. Missing Python (graceful degradation)
+
+      Depends on: #23 (instructions design), understanding GHCP paths
