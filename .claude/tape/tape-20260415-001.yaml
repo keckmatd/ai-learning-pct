@@ -1,0 +1,10 @@
+id: tape-20260415-001
+timestamp: '2026-04-15T16:35:55.151Z'
+type: decision
+scope:
+  - phase-1b
+  - site
+  - project/ai-learning-pct
+content: 'Phase 1B needs content rendering infrastructure before migrating curriculum: (1) Markdown/MDX support, (2) code blocks with syntax highlighting (shiki already configured), (3) Mermaid diagram rendering. Add these as first tasks in 1B.'
+source: agent
+expires: '2026-04-29T16:35:55.151Z'

@@ -1,0 +1,9 @@
+# PCT Workshop - Python Dependencies
+# Install: pip install -r requirements.txt
+
+# Document generation
+python-pptx>=0.6.21    # PowerPoint generation
+python-docx>=1.1.0     # Word document generation
+
+# Optional: for enhanced features
+Pillow>=10.0.0         # Image handling in documents

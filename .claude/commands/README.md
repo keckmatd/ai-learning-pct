@@ -1,6 +1,8 @@
-# PCT Workshop Skills
+# PCT Workshop Skills (GHCP Commands)
 
-Standalone skills for the AI workshop hands-on exercises. These work without any backend dependencies.
+Standalone skills for the AI workshop hands-on exercises. These work with GitHub Copilot CLI (ghcp) and Claude Code.
+
+**Location**: `.claude/commands/` (GHCP convention)
 
 ## Available Skills
 
@@ -34,6 +36,16 @@ Generate research briefs to inform decisions.
 /pct-research "Cloud migration options" --focus=comparison
 /pct-research "GenAI landscape" --depth=deep
 ```
+
+### `/pct-cheatsheet` - Cheatsheet Generator
+Generate one-page quick reference cards.
+
+```bash
+/pct-cheatsheet "Git Commands"
+/pct-cheatsheet "New Tool" --sections=commands,workflows
+```
+
+Output: Markdown cheatsheet in proven PCT format
 
 ## How Skills Work
 
@@ -89,9 +101,30 @@ These skills map to the hands-on exercises:
 | Research Brief | `/pct-research` | (text output) |
 | Memo Draft | `/pct-memo` | 2024_Memo.dotx |
 
+## Document Generation
+
+Skills can generate actual PPTX and DOCX files using Python scripts:
+
+```bash
+# Install dependencies (one time)
+pip install -r requirements.txt
+
+# Generate PowerPoint
+python scripts/generate-pptx.py content.json output.pptx
+
+# Generate Word document
+python scripts/generate-docx.py content.json output.docx
+
+# Pipe JSON directly
+echo '{"title": "...", "slides": [...]}' | python scripts/generate-pptx.py - output.pptx
+```
+
+The installer (`./install-harness.sh`) handles Python dependency setup.
+
 ## Tips
 
 - Skills are additive - start simple, add complexity as needed
 - Use `$ARGUMENTS` to capture user input
 - Always preview before generating final output
 - Offer refinement options after first draft
+- Check `cheatsheets/pct-skills-quick-reference.md` for quick reference

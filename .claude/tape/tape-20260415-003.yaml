@@ -1,0 +1,9 @@
+id: tape-20260415-003
+timestamp: '2026-04-15T16:36:45.940Z'
+type: checkpoint
+scope:
+  - global
+  - project/ai-learning-pct
+content: 'Phase 1A done, ready for 1B (content migration). Site builds and runs locally. Next: add MDX/Mermaid rendering, then migrate curriculum slides. Commit: c7c855f'
+source: agent
+expires: '2026-04-22T16:36:45.940Z'

@@ -195,6 +195,33 @@ else
   fi
 fi
 
+# ─── Phase 9: Python Tooling ────────────────────────────────────────────────
+echo ""
+echo "Phase 9: Python Tooling (for document generation)"
+echo "──────────────────────────────────────────────────"
+
+if command -v python3 &>/dev/null; then
+  log_ok "python3 found: $(python3 --version)"
+
+  # Check for required packages
+  MISSING_PKGS=()
+  python3 -c "import pptx" 2>/dev/null || MISSING_PKGS+=("python-pptx")
+  python3 -c "import docx" 2>/dev/null || MISSING_PKGS+=("python-docx")
+
+  if [ ${#MISSING_PKGS[@]} -eq 0 ]; then
+    log_ok "python-pptx and python-docx installed"
+  else
+    log_warn "Missing Python packages: ${MISSING_PKGS[*]}"
+    if prompt_fix "Install Python dependencies (pip install -r requirements.txt)"; then
+      pip install -r "$DOTFILES_DIR/requirements.txt"
+      log_fix "Installed Python dependencies"
+    fi
+  fi
+else
+  log_warn "python3 not found - document generation skills won't work"
+  echo "         Install: https://www.python.org/downloads/"
+fi
+
 # ─── Summary ─────────────────────────────────────────────────────────────────
 echo ""
 echo "════════════════════════════"
