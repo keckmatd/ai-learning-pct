@@ -44,6 +44,17 @@
 
       const currentIndex = getCurrentSlideIndex();
 
+      // Check if overview is visible - if so, only handle Escape and O
+      const overviewVisible = (window as any).slideOverview?.isVisible?.();
+
+      if (overviewVisible) {
+        if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {
+          e.preventDefault();
+          document.dispatchEvent(new CustomEvent('overview:close'));
+        }
+        return;
+      }
+
       switch (e.key) {
         case 'ArrowLeft':
         case 'ArrowUp':
@@ -61,6 +72,14 @@
           e.preventDefault();
           console.log('[SlideControls] Presenter notes toggle (placeholder)');
           document.dispatchEvent(new CustomEvent('presenternotes'));
+          break;
+        case 'o':
+        case 'O':
+          e.preventDefault();
+          document.dispatchEvent(new CustomEvent('overview:toggle'));
+          break;
+        case 'Escape':
+          // Close overview if open (handled above), otherwise do nothing
           break;
         case 'Home':
           e.preventDefault();

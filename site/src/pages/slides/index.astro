@@ -4,6 +4,7 @@ import SlideLayout from '../../layouts/SlideLayout.astro';
 import Slide from '../../components/Slide.astro';
 import SlideNav from '../../components/SlideNav.astro';
 import SlideControls from '../../components/SlideControls.astro';
+import OverviewGrid from '../../components/OverviewGrid.astro';
 
 // Get all slides and sort by part, then order
 const allSlides = await getCollection('slides');
@@ -28,6 +29,14 @@ const renderedSlides = await Promise.all(
     };
   })
 );
+
+// Prepare slides data for overview grid
+const slidesForOverview = renderedSlides.map(({ slide, slideNumber }) => ({
+  id: `slide-${slideNumber}`,
+  title: slide.data.title,
+  part: slide.data.part,
+  slideNumber,
+}));
 ---
 
 <SlideLayout title="AI-Powered Development Workshop">
@@ -39,6 +48,7 @@ const renderedSlides = await Promise.all(
 
   <SlideNav currentSlide={1} totalSlides={totalSlides} />
   <SlideControls />
+  <OverviewGrid slides={slidesForOverview} />
 </SlideLayout>
 
 <script>
