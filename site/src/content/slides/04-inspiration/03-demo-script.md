@@ -2,7 +2,7 @@
 title: "Demo Script"
 part: 4
 order: 3
-layout: "code"
+layout: "diagram"
 notes: "What you built today is the starting point. Here's where it can go after months of iteration."
 sourceFile: "ecosystem-demo"
 ---

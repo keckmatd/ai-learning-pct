@@ -2,7 +2,7 @@
 title: "What Got Installed"
 part: 3
 order: 45
-layout: "code"
+layout: "diagram"
 sourceFile: "install-guide"
 ---
 
