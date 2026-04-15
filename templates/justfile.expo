@@ -1,0 +1,52 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# Expo/React Native application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    npx expo export
+
+build-android:
+    eas build --platform android --profile preview --local
+
+test:
+    npx vitest run
+
+dev:
+    npx expo start
+
+preflight:
+    @echo "Running preflight checks..."
+    npx tsc --noEmit
+    npx vitest run
+    npx expo export
+    @echo "Preflight complete!"
+
+clean:
+    rm -rf node_modules/.cache dist
+    rm -rf android/.gradle android/app/build
+
+# === Project Specific ===
+
+deps:
+    npm install
+
+lint:
+    npx biome check
+
+fmt:
+    npx biome check --write
+
+typecheck:
+    npx tsc --noEmit
+
+# Run on Android device/emulator
+android:
+    npx expo run:android
+
+# Start web dev server
+web:
+    npx expo start --web

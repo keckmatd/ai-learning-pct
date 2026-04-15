@@ -1,0 +1,5 @@
+{
+  "shouldConfirmBeforeCreate": true,
+  "showWeeklyNote": false,
+  "weekStart": "monday"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "session-context-mcp",
+  "version": "2.0.0",
+  "description": "MCP server for session context optimization - indexes plans, specs, decisions, and session tape",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "session-context-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": ["mcp", "claude", "context", "session", "tape"],
+  "author": "keckmatd",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "fast-glob": "^3.3.3",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
+  }
+}

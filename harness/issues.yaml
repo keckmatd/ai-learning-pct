@@ -1,0 +1,288 @@
+# AI Learning PCT - Issue Tracker
+# issue_backend: local
+
+issues:
+  # ============================================================
+  # PHASE 1A: Infrastructure
+  # ============================================================
+  - id: 1
+    title: "Initialize Astro project with Tailwind"
+    state: open
+    labels: [phase-1a, infrastructure, next]
+    body: |
+      Set up the Astro project foundation:
+      - Create site/ directory with Astro + Tailwind
+      - Configure astro.config.mjs (base path, Shiki, integrations)
+      - Set up tailwind.config.mjs with design tokens
+      - Create package.json with scripts
+
+      Spec: docs/superpowers/specs/2025-04-15-presentation-site-design.md
+
+  - id: 2
+    title: "Create base layouts (Slide, Docs, Base)"
+    state: open
+    labels: [phase-1a, infrastructure]
+    body: |
+      Build the three core layouts:
+      - BaseLayout.astro: HTML shell, fonts, global styles
+      - SlideLayout.astro: Full-screen presentation mode
+      - DocsLayout.astro: Navigable documentation mode
+
+      Depends on: #1
+
+  - id: 3
+    title: "Implement slide navigation component"
+    state: open
+    labels: [phase-1a, infrastructure]
+    body: |
+      Build SlideNav.astro with:
+      - Keyboard navigation (arrows, space, escape)
+      - Progress indicator
+      - URL-driven state (shareable links)
+      - Presenter notes toggle (P key)
+
+      Depends on: #2
+
+  - id: 4
+    title: "Design system CSS variables and global styles"
+    state: open
+    labels: [phase-1a, infrastructure]
+    body: |
+      Implement the design system from spec:
+      - Color palette (dark mode default)
+      - Typography scale (display + mono fonts)
+      - Slide layouts (title, content, split, code)
+      - Self-hosted Inter + JetBrains Mono fonts
+
+      Depends on: #1
+
+  - id: 5
+    title: "GitHub Pages deployment workflow"
+    state: open
+    labels: [phase-1a, infrastructure]
+    body: |
+      Create .github/workflows/deploy.yml:
+      - Trigger on push to main
+      - Build Astro site
+      - Deploy to GitHub Pages
+      - Verify deployment works
+
+      Depends on: #1
+
+  # ============================================================
+  # PHASE 1B: Content Migration
+  # ============================================================
+  - id: 6
+    title: "Write curriculum migration script"
+    state: open
+    labels: [phase-1b, content]
+    body: |
+      Create scripts/migrate-curriculum.ts:
+      - Parse existing frontmatter
+      - Split content on HR markers
+      - Generate slide files with sequential ordering
+      - Extract time notes to frontmatter
+      - Handle all 4 parts
+
+      See spec for frontmatter handling details.
+
+  - id: 7
+    title: "Migrate Part 1 slides (Concepts)"
+    state: open
+    labels: [phase-1b, content]
+    body: |
+      Transform curriculum/01-concepts/ to site/src/content/slides/01-concepts/:
+      - tokens-and-turns
+      - context-windows
+      - llm-vs-rag
+      - memory-persistence
+      - mcp-and-tools
+
+      Depends on: #6
+
+  - id: 8
+    title: "Migrate Part 2 slides (CLI Differences)"
+    state: open
+    labels: [phase-1b, content]
+    body: |
+      Transform curriculum/02-cli-differences/ to slides:
+      - browser-vs-cli
+      - session-management
+      - harness-concept
+      - best-practices
+
+      Depends on: #6
+
+  - id: 9
+    title: "Migrate Part 3 slides (Hands-on)"
+    state: open
+    labels: [phase-1b, content]
+    body: |
+      Transform curriculum/03-hands-on/ to slides:
+      - install-guide
+      - cheatsheet-walkthrough
+      - exercise-powerpoint
+      - exercise-research
+
+      Depends on: #6
+
+  - id: 10
+    title: "Migrate Part 4 slides (Inspiration)"
+    state: open
+    labels: [phase-1b, content]
+    body: |
+      Transform curriculum/04-inspiration/ to slides:
+      - ecosystem-demo
+      - whats-next
+
+      Depends on: #6
+
+  - id: 11
+    title: "Create docs section with cheatsheets"
+    state: open
+    labels: [phase-1b, content]
+    body: |
+      Build site/src/content/docs/:
+      - Index page
+      - CLI quick reference (from cheatsheets/)
+      - Exercise walkthroughs
+      - Harness command reference
+
+      Depends on: #2
+
+  - id: 12
+    title: "Import templates from keck_companion"
+    state: open
+    labels: [phase-1b, templates]
+    body: |
+      Pull existing templates from keck_companion repo:
+      - PowerPoint templates (Nationwide branded)
+      - DOCX one-pager templates
+      - Bundle in templates/pct/
+      - Document pattern for adding new templates
+
+      This makes hands-on exercises produce REAL output.
+
+  # ============================================================
+  # PHASE 1C: Polish
+  # ============================================================
+  - id: 13
+    title: "Design and build landing page"
+    state: open
+    labels: [phase-1c, polish]
+    body: |
+      Create compelling index.astro:
+      - Workshop overview
+      - What they'll learn
+      - Links to slides and docs
+      - Visual appeal (first impression)
+
+      Depends on: #4
+
+  - id: 14
+    title: "Implement slide overview grid (O key)"
+    state: open
+    labels: [phase-1c, polish]
+    body: |
+      Add overview mode to SlideNav:
+      - Press O to see all slides in grid
+      - Click to jump to slide
+      - Visual navigation aid
+
+      Depends on: #3
+
+  - id: 15
+    title: "Add light mode toggle for docs"
+    state: open
+    labels: [phase-1c, polish]
+    body: |
+      Participants may prefer light mode for reference docs:
+      - Toggle button in docs layout
+      - Persist preference in localStorage
+      - Respect system preference as default
+
+      Depends on: #2, #4
+
+  - id: 16
+    title: "Mobile responsiveness pass"
+    state: open
+    labels: [phase-1c, polish]
+    body: |
+      Ensure acceptable mobile experience:
+      - Docs readable on phone
+      - Slides viewable (not primary use case)
+      - Touch navigation works
+
+      Depends on: all content migrated
+
+  - id: 17
+    title: "Dry run workshop with presentation"
+    state: open
+    labels: [phase-1c, validation]
+    body: |
+      Full rehearsal:
+      - Run through all 90 minutes
+      - Test all keyboard navigation
+      - Verify timing annotations
+      - Identify friction points
+
+      Depends on: all Phase 1A and 1B complete
+
+  # ============================================================
+  # PHASE 2: Post-Workshop
+  # ============================================================
+  - id: 18
+    title: "Incorporate feedback from first workshop"
+    state: open
+    labels: [phase-2, feedback]
+    body: |
+      After running the workshop:
+      - Review feedback forms
+      - Identify confusion points
+      - Update content and timing
+      - Document lessons learned
+
+  - id: 19
+    title: "Create self-paced mode"
+    state: open
+    labels: [phase-2, enhancement]
+    body: |
+      For participants who want to review later:
+      - Timing indicators optional
+      - All content accessible without facilitator
+      - Progress tracking (optional)
+
+  # ============================================================
+  # PHASE 3+: Future Work (Parking Lot)
+  # ============================================================
+  - id: 20
+    title: "Advanced workshop: Building Your First Skill"
+    state: open
+    labels: [phase-3, future]
+    body: |
+      60-minute follow-on workshop:
+      - Anatomy of a skill
+      - Identifying candidates
+      - Writing and testing skills
+      - Adding to personal harness
+
+  - id: 21
+    title: "Advanced workshop: Project-Specific Harnesses"
+    state: open
+    labels: [phase-3, future]
+    body: |
+      60-minute follow-on workshop:
+      - When to create project instructions
+      - What goes in project vs global
+      - Session continuity patterns
+
+  - id: 22
+    title: "Build PCT shared template library"
+    state: open
+    labels: [phase-4, ecosystem]
+    body: |
+      Curated templates for PCT work:
+      - Additional PowerPoint formats
+      - Email templates
+      - Meeting prep templates
+      - Documentation templates

@@ -1,0 +1,45 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# TypeScript/Node application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    pnpm run build
+
+test:
+    pnpm run test
+
+dev:
+    pnpm run dev
+
+preflight:
+    @echo "Running preflight checks..."
+    pnpm run typecheck
+    pnpm run lint
+    pnpm run test
+    pnpm run build
+    @echo "Preflight complete!"
+
+clean:
+    rm -rf dist node_modules/.cache
+
+# === Project Specific ===
+
+deps:
+    pnpm install
+
+lint:
+    pnpm run lint
+
+fmt:
+    pnpm run format
+
+typecheck:
+    pnpm run typecheck
+
+# Run tests in watch mode
+test-watch:
+    pnpm run test -- --watch

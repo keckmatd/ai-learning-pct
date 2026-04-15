@@ -1,0 +1,49 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# .NET application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    dotnet build
+
+build-release:
+    dotnet build -c Release
+
+test:
+    dotnet test
+
+dev:
+    dotnet run
+
+preflight:
+    @echo "Running preflight checks..."
+    dotnet format --verify-no-changes
+    dotnet test
+    dotnet build -c Release
+    @echo "Preflight complete!"
+
+clean:
+    dotnet clean
+    rm -rf bin/ obj/
+
+# === Project Specific ===
+
+deps:
+    dotnet restore
+
+lint:
+    dotnet format --verify-no-changes
+
+fmt:
+    dotnet format
+
+# Publish for deployment
+publish:
+    dotnet publish -c Release
+
+# Run with watch (hot reload)
+watch:
+    dotnet watch run

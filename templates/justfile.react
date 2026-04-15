@@ -1,0 +1,40 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# React application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    npm run build
+
+test:
+    npm test
+
+dev:
+    npm run dev
+
+preflight:
+    @echo "Running preflight checks..."
+    npm run lint
+    npm test
+    npm run build
+    @echo "Preflight complete!"
+
+clean:
+    rm -rf dist node_modules/.cache
+
+# === Project Specific ===
+
+deps:
+    npm install
+
+lint:
+    npm run lint
+
+fmt:
+    npm run format
+
+typecheck:
+    npx tsc --noEmit

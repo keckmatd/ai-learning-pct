@@ -1,0 +1,10 @@
+{
+  "model": "claude-sonnet-4-6",
+  "statusLine": "node /home/keckmatd/projects/copilot-dotfiles/lib/statusline.cjs",
+  "includeCoAuthoredBy": true,
+  "hooks": {
+    "sessionStart": [],
+    "preToolUse": [],
+    "postToolUse": []
+  }
+}

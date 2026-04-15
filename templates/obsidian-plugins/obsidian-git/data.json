@@ -1,0 +1,14 @@
+{
+  "autoSaveInterval": 10,
+  "autoPullOnBoot": true,
+  "autoPullInterval": 0,
+  "syncMethod": "merge",
+  "commitMessage": "vault backup: {{date}}",
+  "autoCommitMessage": "vault backup: {{date}}",
+  "listChangedFilesInMessageBody": false,
+  "showStatusBar": true,
+  "updateSubmodules": false,
+  "gitPath": "",
+  "autoBackupAfterFileChange": false,
+  "treeStructure": false
+}

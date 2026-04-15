@@ -1,0 +1,41 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# Python application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    @echo "No build step - Python scripts"
+
+test:
+    pytest
+
+dev:
+    python main.py
+
+preflight:
+    @echo "Running preflight checks..."
+    python -m py_compile *.py
+    pytest
+    @echo "Preflight complete!"
+
+clean:
+    rm -rf __pycache__ .pytest_cache dist build *.egg-info
+    find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+
+# === Project Specific ===
+
+deps:
+    pip install -r requirements.txt
+
+lint:
+    ruff check .
+
+fmt:
+    ruff format .
+
+# Type checking
+typecheck:
+    mypy .

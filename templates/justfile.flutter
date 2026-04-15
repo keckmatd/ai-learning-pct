@@ -1,0 +1,53 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# Flutter application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    flutter build apk
+
+build-ios:
+    flutter build ios
+
+test:
+    flutter test
+
+dev:
+    flutter run
+
+preflight:
+    @echo "Running preflight checks..."
+    flutter analyze
+    flutter test
+    flutter build apk
+    @echo "Preflight complete!"
+
+clean:
+    flutter clean
+    rm -rf build/
+
+# === Project Specific ===
+
+deps:
+    flutter pub get
+
+lint:
+    flutter analyze
+
+fmt:
+    dart format .
+
+# Generate code (freezed, json_serializable, etc.)
+generate:
+    dart run build_runner build --delete-conflicting-outputs
+
+# Watch for code generation
+generate-watch:
+    dart run build_runner watch --delete-conflicting-outputs
+
+# Run on specific device
+run-device device:
+    flutter run -d {{device}}

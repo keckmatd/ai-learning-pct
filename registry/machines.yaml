@@ -1,0 +1,409 @@
+# Machine Registry
+# Keys match ~/.machine-id on each machine
+# The brain (claude-dotfiles) knows all the bodies
+
+machines:
+  wsl-personal:
+    description: WSL2 on personal Windows machine
+    projects:
+      everything-health:
+        name: Everything Health
+        path: ~/projects/Everything-Health
+        stack: flutter
+        description: Privacy-first family health management platform
+        backend: supabase
+        targets:
+          - android
+        features:
+          - ai-chat
+          - health-connect
+          - health-modules
+        justfile: true
+        repo: github.com/keckmatd/Everything-Health
+
+      atlas-privacy:
+        name: Atlas Privacy
+        path: ~/projects/atlas-privacy
+        stack: shell
+        description: Privacy policy page for Atlas of the Depths
+        features: []
+        justfile: false
+        repo: github.com/keckmatd/atlas-privacy
+
+      adventures-in-growing-old:
+        name: Adventures in Growing Old
+        path: ~/projects/adventures-in-growing-old
+        stack: dotnet
+        description: Indie metroidvania where aging is a mechanic
+        framework: monogame
+        targets:
+          - windows
+          - linux
+          - android
+        features:
+          - ecs-architecture
+          - phase-system
+          - monocle-engine
+        justfile: true
+        repo: github.com/keckmatd/adventures-in-growing-old
+
+      claude-dotfiles:
+        name: Claude Dotfiles
+        path: ~/projects/claude-dotfiles
+        stack: shell
+        description: Claude Code configuration - the brain
+        features:
+          - harness-system
+          - slash-commands
+          - swarm
+        justfile: false
+        repo: github.com/keckmatd/claude-dotfiles
+
+      mobile-dev-helper:
+        name: Mobile Dev Helper
+        path: ~/projects/mobile-dev-helper
+        stack: shell
+        description: Environment and infrastructure helper - the body
+        features:
+          - machine-setup
+          - project-templates
+          - troubleshooting
+        justfile: false
+        repo: github.com/keckmatd/mobile-dev-helper
+
+      atlas-of-the-depths:
+        name: Atlas of the Depths
+        path: ~/projects/atlas-of-the-depths
+        stack: expo
+        description: Mobile dungeon crawler RPG - roguelike with turn-based combat
+        framework: react-native
+        targets:
+          - android
+        features:
+          - procedural-dungeons
+          - css-pixel-art
+          - admob-monetization
+          - zustand-state
+        justfile: true
+        repo: github.com/keckmatd/atlas-of-the-depths
+
+      keckmate-games:
+        name: Keckmate Games
+        path: ~/projects/keckmate-games
+        stack: typescript
+        description: Multi-game monorepo - Phaser 4 + Capacitor, currently shipping Siltrune
+        framework: phaser4
+        targets:
+          - android
+          - web
+        features:
+          - turbo-monorepo
+          - capacitor-mobile
+          - shared-packages
+          - procedural-tiles
+        justfile: true
+        repo: github.com/keckmatd/keckmate-games
+
+      happy-fork:
+        name: Happy Fork
+        path: ~/projects/happy-fork
+        stack: typescript
+        description: Fork of Happy Coder - mobile client for remote Claude Code sessions
+        framework: expo
+        targets:
+          - android
+          - web
+        features:
+          - e2e-encryption
+          - remote-session-control
+          - fastify-backend
+        justfile: true
+        repo: github.com/keckmatd/happy-fork
+
+      backbone:
+        name: Backbone
+        path: ~/projects/backbone
+        stack: go
+        description: Personal infrastructure platform — k3s, Cloudflare, MCP control plane
+        features:
+          - k3s-cluster
+          - cloudflare-tunnel
+          - mcp-server
+          - project-manifests
+        justfile: true
+        repo: github.com/keckmatd/backbone
+
+  work-wsl:
+    description: WSL2 on work Windows machine
+    projects:
+      cls-clearquote-original:
+        name: ClearQuote
+        path: ~/code/cls-clearquote-original
+        stack: angular
+        description: Insurance quote engine - Angular 20 + AngularJS hybrid
+        features:
+          - gap-analysis-testing
+          - material-design
+          - legacy-angularjs-hybrid
+        justfile: true
+        repo: null
+
+      underwriting-helper:
+        name: Underwriting Helper
+        path: ~/code/underwriting-helper
+        stack: angular
+        description: Full-stack document analysis (Angular 18 + Express + PostgreSQL)
+        features:
+          - multi-provider-ai
+          - websocket-signals
+          - kubernetes-deployment
+          - 69-field-extraction
+        justfile: true
+        repo: null
+
+      pct-capabilities:
+        name: PCT Capabilities
+        path: ~/code/PCTCapabilities
+        stack: angular
+        description: Capabilities visualizer - Excel to interactive web
+        features:
+          - xlsx-conversion
+          - pptx-generation
+          - playwright-e2e
+        justfile: true
+        repo: null
+
+      payloads:
+        name: Payloads
+        path: ~/code/payloads
+        stack: python
+        description: PolicyCenter API payload capture and processing
+        features:
+          - proxy-capture
+          - sqlite-tracking
+          - auto-integration
+        justfile: true
+        repo: null
+
+      ppt-helper:
+        name: PPT Helper
+        path: ~/code/PPTHelper
+        stack: python
+        description: Claude Code skill for PowerPoint generation
+        features:
+          - interactive-discovery
+          - multiple-templates
+          - quality-analysis
+        justfile: false
+        repo: null
+
+      coding-challenge:
+        name: AI Modernization Challenge
+        path: ~/code/coding_challenge
+        stack: shell
+        description: Multi-agent modernization challenge (AngularJS, Perl, Struts migrations)
+        features:
+          - 12-agent-pipeline
+          - multi-stack-migration
+        justfile: false
+        repo: null
+
+      claude-dotfiles:
+        name: Claude Dotfiles
+        path: ~/code/claude-dotfiles
+        stack: shell
+        description: Claude Code configuration - the brain
+        features:
+          - harness-system
+          - slash-commands
+          - swarm
+        justfile: false
+        repo: github.com/keckmatd/claude-dotfiles
+
+      mobile-dev-helper:
+        name: Mobile Dev Helper
+        path: ~/code/mobile-dev-helper
+        stack: shell
+        description: Environment and infrastructure helper - the body
+        features:
+          - machine-setup
+          - project-templates
+          - troubleshooting
+        justfile: false
+        repo: github.com/keckmatd/mobile-dev-helper
+
+  work-aws:
+    description: AWS Linux dev environment (work)
+    # Same projects as work-wsl - parallel dev environment
+    projects:
+      cls-clearquote-original:
+        name: ClearQuote
+        path: ~/code/cls-clearquote-original
+        stack: angular
+        description: Insurance quote engine - Angular 20 + AngularJS hybrid
+        features:
+          - gap-analysis-testing
+          - material-design
+          - legacy-angularjs-hybrid
+        justfile: true
+        repo: null
+
+      underwriting-helper:
+        name: Underwriting Helper
+        path: ~/code/underwriting-helper
+        stack: angular
+        description: Full-stack document analysis (Angular 18 + Express + PostgreSQL)
+        features:
+          - multi-provider-ai
+          - websocket-signals
+          - kubernetes-deployment
+          - 69-field-extraction
+        justfile: true
+        repo: null
+
+      pct-capabilities:
+        name: PCT Capabilities
+        path: ~/code/PCTCapabilities
+        stack: angular
+        description: Capabilities visualizer - Excel to interactive web
+        features:
+          - xlsx-conversion
+          - pptx-generation
+          - playwright-e2e
+        justfile: true
+        repo: null
+
+      payloads:
+        name: Payloads
+        path: ~/code/payloads
+        stack: python
+        description: PolicyCenter API payload capture and processing
+        features:
+          - proxy-capture
+          - sqlite-tracking
+          - auto-integration
+        justfile: true
+        repo: null
+
+      ppt-helper:
+        name: PPT Helper
+        path: ~/code/PPTHelper
+        stack: python
+        description: Claude Code skill for PowerPoint generation
+        features:
+          - interactive-discovery
+          - multiple-templates
+          - quality-analysis
+        justfile: false
+        repo: null
+
+      coding-challenge:
+        name: AI Modernization Challenge
+        path: ~/code/coding_challenge
+        stack: shell
+        description: Multi-agent modernization challenge (AngularJS, Perl, Struts migrations)
+        features:
+          - 12-agent-pipeline
+          - multi-stack-migration
+        justfile: false
+        repo: null
+
+      claude-dotfiles:
+        name: Claude Dotfiles
+        path: ~/code/claude-dotfiles
+        stack: shell
+        description: Claude Code configuration - the brain
+        features:
+          - harness-system
+          - slash-commands
+          - swarm
+        justfile: false
+        repo: github.com/keckmatd/claude-dotfiles
+
+      mobile-dev-helper:
+        name: Mobile Dev Helper
+        path: ~/code/mobile-dev-helper
+        stack: shell
+        description: Environment and infrastructure helper - the body
+        features:
+          - machine-setup
+          - project-templates
+          - troubleshooting
+        justfile: false
+        repo: null
+
+  # Template for adding new machines:
+  # new-machine:
+  #   description: Description of machine
+  #   projects:
+  #     project-name:
+  #       name: Human Readable Name
+  #       path: ~/path/to/project
+  #       stack: flutter|dotnet|go|java|angular|python|shell
+  #       description: What it does
+  #       features: []
+  #       justfile: false
+  #       repo: null
+
+# Stack definitions (global, not per-machine)
+stacks:
+  flutter:
+    template: justfile.flutter
+    tools:
+      - flutter
+      - dart
+    build_dir: build
+
+  dotnet:
+    template: justfile.dotnet
+    tools:
+      - dotnet
+    build_dir: bin
+
+  go:
+    template: justfile.go
+    tools:
+      - go
+    build_dir: bin
+
+  java:
+    template: justfile.java
+    tools:
+      - java
+      - gradle
+    build_dir: build
+
+  angular:
+    template: justfile.angular
+    tools:
+      - node
+      - npm
+    build_dir: dist
+
+  python:
+    template: justfile.python
+    tools:
+      - python3
+      - pip
+    build_dir: dist
+
+  typescript:
+    template: justfile.typescript
+    tools:
+      - node
+      - pnpm
+    build_dir: dist
+
+  expo:
+    template: justfile.expo
+    tools:
+      - node
+      - npx
+      - eas
+    build_dir: dist
+
+  shell:
+    template: null
+    tools:
+      - bash
+    build_dir: null

@@ -1,0 +1,11 @@
+{
+  "enableDataviewJs": true,
+  "enableInlineDataviewJs": true,
+  "enableInlineDataview": true,
+  "prettyRenderInlineFields": true,
+  "tableIdColumnName": "File",
+  "tableGroupColumnName": "Group",
+  "defaultDateFormat": "MMMM dd, yyyy",
+  "refreshEnabled": true,
+  "refreshInterval": 2500
+}

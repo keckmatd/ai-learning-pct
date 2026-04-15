@@ -1,0 +1,53 @@
+# {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+# Angular application
+
+default:
+    @just --list
+
+# === Standard Vocabulary ===
+
+build:
+    npm run build
+
+build-prod:
+    npm run build -- --configuration production
+
+test:
+    npm run test
+
+test-coverage:
+    npm run test:ci
+
+dev:
+    npm start
+
+preflight:
+    @echo "Running preflight checks..."
+    npm run lint
+    npm run test:ci
+    npm run build
+    @echo "Preflight complete!"
+
+clean:
+    rm -rf dist node_modules/.cache .angular
+
+# === Project Specific ===
+
+deps:
+    npm install
+
+lint:
+    npm run lint
+
+fmt:
+    npm run prettier:fix
+
+# E2E tests with Playwright
+e2e:
+    npm run test:e2e
+
+e2e-headed:
+    npm run test:e2e:headed
+
+e2e-report:
+    npm run test:e2e:report
