@@ -12,6 +12,60 @@ const { title } = Astro.props;
   <main class="bg-bg-primary text-text-primary">
     <slot />
   </main>
+
+  <!-- Mermaid diagram rendering -->
+  <script>
+    import mermaid from 'mermaid';
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f8fafc',
+        primaryBorderColor: '#38bdf8',
+        lineColor: '#94a3b8',
+        secondaryColor: '#334155',
+        tertiaryColor: '#0f172a',
+        background: 'transparent',
+        mainBkg: '#1e293b',
+        nodeBorder: '#38bdf8',
+        clusterBkg: '#1e293b',
+        titleColor: '#f8fafc',
+        edgeLabelBackground: '#0f172a',
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        padding: 20,
+      },
+    });
+
+    // Find and render mermaid code blocks
+    async function renderMermaidBlocks() {
+      const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid, code.language-mermaid');
+
+      for (const block of mermaidBlocks) {
+        const pre = block.closest('pre') || block.parentElement;
+        if (!pre) continue;
+
+        const code = block.textContent || '';
+        const container = document.createElement('div');
+        container.className = 'mermaid-diagram';
+
+        try {
+          const { svg } = await mermaid.render(`mermaid-${Math.random().toString(36).slice(2)}`, code);
+          container.innerHTML = svg;
+          pre.replaceWith(container);
+        } catch (e) {
+          console.error('Mermaid render error:', e);
+        }
+      }
+    }
+
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+  </script>
   <style is:global>
     html {
       scroll-snap-type: y mandatory;

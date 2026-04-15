@@ -319,3 +319,20 @@ a:hover {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ==========================================================================
+   Mermaid Diagrams
+   ========================================================================== */
+
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+  padding: 1rem;
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
