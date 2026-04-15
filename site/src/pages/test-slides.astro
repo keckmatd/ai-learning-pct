@@ -1,0 +1,67 @@
+---
+import SlideLayout from '../layouts/SlideLayout.astro';
+import Slide from '../components/Slide.astro';
+import SlideNav from '../components/SlideNav.astro';
+import SlideControls from '../components/SlideControls.astro';
+---
+
+<SlideLayout title="Test Slides">
+  <Slide id="slide-1" variant="title">
+    <h1 class="text-5xl font-bold">Welcome to the Presentation</h1>
+    <p class="text-xl text-slate-400">Use arrow keys or click the nav buttons</p>
+  </Slide>
+
+  <Slide id="slide-2" variant="content">
+    <h2 class="text-3xl font-semibold">Content Slide</h2>
+    <ul class="text-lg text-slate-300 space-y-2">
+      <li>Arrow Left/Right to navigate</li>
+      <li>Space bar advances</li>
+      <li>Home/End for first/last</li>
+      <li>P for presenter notes (console.log)</li>
+    </ul>
+  </Slide>
+
+  <Slide id="slide-3" variant="code">
+    <h2 class="text-2xl font-semibold mb-4">Code Example</h2>
+    <pre class="bg-slate-800 p-4 rounded-lg text-sm overflow-x-auto"><code class="text-green-400" set:text={`// SlideControls emits custom events
+document.addEventListener('slidechange', (e) => {
+  console.log('Slide:', e.detail.slide);
+});`} /></pre>
+  </Slide>
+
+  <SlideNav currentSlide={1} totalSlides={3} />
+  <SlideControls />
+</SlideLayout>
+
+<script>
+  // Update nav dynamically based on current slide
+  document.addEventListener('slidechange', (e) => {
+    const { slide, total } = e.detail;
+
+    // Update progress bar
+    const progress = total > 1 ? ((slide - 1) / (total - 1)) * 100 : 0;
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) {
+      progressBar.style.width = progress + '%';
+    }
+
+    // Update counter
+    const counter = document.querySelector('.slide-nav .font-mono');
+    if (counter) {
+      counter.textContent = slide + ' / ' + total;
+    }
+
+    // Update nav button visibility
+    const prevBtn = document.querySelector('.nav-prev');
+    const nextBtn = document.querySelector('.nav-next');
+
+    if (prevBtn) {
+      prevBtn.classList.toggle('invisible', slide <= 1);
+      prevBtn.setAttribute('href', slide > 1 ? '#slide-' + (slide - 1) : '');
+    }
+    if (nextBtn) {
+      nextBtn.classList.toggle('invisible', slide >= total);
+      nextBtn.setAttribute('href', slide < total ? '#slide-' + (slide + 1) : '');
+    }
+  });
+</script>

@@ -1,0 +1,37 @@
+---
+interface Props {
+  id: string;
+  variant?: 'title' | 'content' | 'split' | 'code';
+}
+
+const { id, variant = 'content' } = Astro.props;
+
+const variantClasses: Record<string, string> = {
+  title: 'items-center justify-center text-center',
+  content: 'items-center justify-center',
+  split: 'items-center justify-center',
+  code: 'items-start justify-center font-mono',
+};
+---
+
+<section
+  id={id}
+  class:list={[
+    'slide',
+    'min-h-screen w-full flex flex-col px-8 py-12',
+    'bg-slate-900 text-white',
+    variantClasses[variant],
+  ]}
+  data-variant={variant}
+>
+  <div class:list={[
+    'slide-content',
+    'max-w-4xl w-full',
+    variant === 'split' && 'grid grid-cols-2 gap-8',
+    variant === 'title' && 'space-y-6',
+    variant === 'content' && 'space-y-6',
+    variant === 'code' && 'space-y-4',
+  ]}>
+    <slot />
+  </div>
+</section>
