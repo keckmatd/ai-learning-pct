@@ -1,0 +1,68 @@
+# Session Tape - AI Learning PCT
+# Auto-decay: checkpoints 7d, milestones 30d, decisions 14d
+
+entries:
+  - id: "2025-04-15-001"
+    type: checkpoint
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: |
+      Session 1 complete. Project scaffolded with curriculum (Parts 1-4),
+      bundled copilot-dotfiles harness, and Phase 1A plan ready to execute.
+      Commit: d34ae7d
+    expires: "2025-04-22"
+
+  - id: "2025-04-15-002"
+    type: milestone
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: "Curriculum structure created - 23 markdown files covering 90-minute workshop"
+    expires: "2025-05-15"
+
+  - id: "2025-04-15-003"
+    type: milestone
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: "copilot-dotfiles bundled - full harness (20 skills, templates, MCP) included in repo"
+    expires: "2025-05-15"
+
+  - id: "2025-04-15-004"
+    type: milestone
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: "Presentation site spec written and reviewed - Astro + Tailwind + GH Pages"
+    expires: "2025-05-15"
+
+  - id: "2025-04-15-005"
+    type: milestone
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: "22 issues created covering Phases 1-4 in harness/issues.yaml"
+    expires: "2025-05-15"
+
+  - id: "2025-04-15-006"
+    type: decision
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: |
+      Two-tier harness approach: passive benefits (instructions, superpowers, templates)
+      vs active workflow (/ws→/wp→/we→/wd). Don't strip down for beginners - respect their intelligence.
+    expires: "2025-04-29"
+
+  - id: "2025-04-15-007"
+    type: decision
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: |
+      Astro for presentation site (not Slidev or pure React). Enables both /slides
+      and /docs modes from same content. Tailwind for styling, Pagefind for search.
+    expires: "2025-04-29"
+
+  - id: "2025-04-15-008"
+    type: decision
+    timestamp: "2025-04-15T10:00:00Z"
+    scope: ["global", "project/ai-learning-pct"]
+    content: |
+      Templates from keck_companion - pull existing PPT/DOCX templates rather than
+      create placeholders. Exercises produce REAL output participants can use.
+    expires: "2025-04-29"

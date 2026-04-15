@@ -31,17 +31,20 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 0: Foundation scaffolded**
+**Phase 1A: Infrastructure** (ready to execute)
 
-Completed:
-- Curriculum structure (Parts 1-4)
-- Concept teaching materials
-- Cheatsheet
-- copilot-dotfiles bundled
+Completed (Session 1):
+- Curriculum structure (Parts 1-4, 23 files)
+- copilot-dotfiles bundled (20 skills, templates, MCP)
+- Presentation site spec written and reviewed
+- 22 issues created (Phases 1-4)
+- Phase 1A plan written
 
-Next (Phase 1):
+Next:
+- Execute Phase 1A plan (harness/plan.md)
 - Initialize Astro site
-- Design system (make it pop)
-- Migrate curriculum to slides
-- Add PCT-specific templates
+- Create layouts and navigation
 - Deploy to GitHub Pages
+
+Blocked:
+- GitHub repo creation (token permissions on work-aws) — create manually
