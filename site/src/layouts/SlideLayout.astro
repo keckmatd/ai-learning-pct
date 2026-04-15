@@ -99,6 +99,29 @@ const { title, slides = [] } = Astro.props;
     // Run on page load
     document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
   </script>
+  <!-- Slide visibility transitions -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    slides.forEach((slide) => {
+      observer.observe(slide);
+    });
+
+    // Make first slide visible immediately
+    slides[0]?.classList.add('visible');
+  </script>
+
   <style is:global>
     html {
       scroll-snap-type: y mandatory;
@@ -106,6 +129,11 @@ const { title, slides = [] } = Astro.props;
     .slide {
       scroll-snap-align: start;
       scroll-snap-stop: always;
+      opacity: 0;
+      transition: opacity 200ms ease-out;
+    }
+    .slide.visible {
+      opacity: 1;
     }
   </style>
 </BaseLayout>
