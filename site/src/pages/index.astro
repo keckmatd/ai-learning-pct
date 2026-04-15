@@ -104,61 +104,73 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
         <div class="space-y-6">
           <!-- Part 1 -->
-          <div class="flex gap-6 items-start">
-            <div class="flex-shrink-0 w-20 text-right">
+          <div class="flex gap-4 md:gap-6 items-start">
+            <div class="hidden md:block flex-shrink-0 w-20 text-right">
               <span class="text-sky-400 font-mono font-semibold">25 min</span>
             </div>
-            <div class="flex-shrink-0 w-8 flex flex-col items-center">
-              <div class="w-4 h-4 bg-sky-400 rounded-full"></div>
+            <div class="flex-shrink-0 w-6 md:w-8 flex flex-col items-center">
+              <div class="w-3 h-3 md:w-4 md:h-4 bg-sky-400 rounded-full"></div>
               <div class="w-0.5 h-full bg-slate-700 mt-2"></div>
             </div>
-            <div class="pb-8">
-              <h3 class="text-xl font-semibold mb-2">Part 1: Core Concepts</h3>
-              <p class="text-slate-400">Tokens, context windows, RAG, and MCP. The foundation you need to use AI effectively.</p>
+            <div class="pb-8 flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-lg md:text-xl font-semibold">Part 1: Core Concepts</h3>
+                <span class="md:hidden text-sky-400 font-mono text-sm">25 min</span>
+              </div>
+              <p class="text-slate-400 text-sm md:text-base">Tokens, context windows, RAG, and MCP. The foundation you need to use AI effectively.</p>
             </div>
           </div>
 
           <!-- Part 2 -->
-          <div class="flex gap-6 items-start">
-            <div class="flex-shrink-0 w-20 text-right">
+          <div class="flex gap-4 md:gap-6 items-start">
+            <div class="hidden md:block flex-shrink-0 w-20 text-right">
               <span class="text-sky-400 font-mono font-semibold">20 min</span>
             </div>
-            <div class="flex-shrink-0 w-8 flex flex-col items-center">
-              <div class="w-4 h-4 bg-sky-400 rounded-full"></div>
+            <div class="flex-shrink-0 w-6 md:w-8 flex flex-col items-center">
+              <div class="w-3 h-3 md:w-4 md:h-4 bg-sky-400 rounded-full"></div>
               <div class="w-0.5 h-full bg-slate-700 mt-2"></div>
             </div>
-            <div class="pb-8">
-              <h3 class="text-xl font-semibold mb-2">Part 2: CLI Differences</h3>
-              <p class="text-slate-400">Browser vs CLI, best practices, and the harness system that amplifies your workflow.</p>
+            <div class="pb-8 flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-lg md:text-xl font-semibold">Part 2: CLI Differences</h3>
+                <span class="md:hidden text-sky-400 font-mono text-sm">20 min</span>
+              </div>
+              <p class="text-slate-400 text-sm md:text-base">Browser vs CLI, best practices, and the harness system that amplifies your workflow.</p>
             </div>
           </div>
 
           <!-- Part 3 -->
-          <div class="flex gap-6 items-start">
-            <div class="flex-shrink-0 w-20 text-right">
+          <div class="flex gap-4 md:gap-6 items-start">
+            <div class="hidden md:block flex-shrink-0 w-20 text-right">
               <span class="text-sky-400 font-mono font-semibold">35 min</span>
             </div>
-            <div class="flex-shrink-0 w-8 flex flex-col items-center">
-              <div class="w-4 h-4 bg-sky-400 rounded-full"></div>
+            <div class="flex-shrink-0 w-6 md:w-8 flex flex-col items-center">
+              <div class="w-3 h-3 md:w-4 md:h-4 bg-sky-400 rounded-full"></div>
               <div class="w-0.5 h-full bg-slate-700 mt-2"></div>
             </div>
-            <div class="pb-8">
-              <h3 class="text-xl font-semibold mb-2">Part 3: Hands-On</h3>
-              <p class="text-slate-400">Install tools, work through exercises with templates, build workflows you can use tomorrow.</p>
+            <div class="pb-8 flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-lg md:text-xl font-semibold">Part 3: Hands-On</h3>
+                <span class="md:hidden text-sky-400 font-mono text-sm">35 min</span>
+              </div>
+              <p class="text-slate-400 text-sm md:text-base">Install tools, work through exercises with templates, build workflows you can use tomorrow.</p>
             </div>
           </div>
 
           <!-- Part 4 -->
-          <div class="flex gap-6 items-start">
-            <div class="flex-shrink-0 w-20 text-right">
+          <div class="flex gap-4 md:gap-6 items-start">
+            <div class="hidden md:block flex-shrink-0 w-20 text-right">
               <span class="text-sky-400 font-mono font-semibold">10 min</span>
             </div>
-            <div class="flex-shrink-0 w-8 flex flex-col items-center">
-              <div class="w-4 h-4 bg-sky-400 rounded-full"></div>
+            <div class="flex-shrink-0 w-6 md:w-8 flex flex-col items-center">
+              <div class="w-3 h-3 md:w-4 md:h-4 bg-sky-400 rounded-full"></div>
             </div>
-            <div>
-              <h3 class="text-xl font-semibold mb-2">Part 4: Inspiration</h3>
-              <p class="text-slate-400">What's next? Advanced patterns, community resources, and where to go from here.</p>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-lg md:text-xl font-semibold">Part 4: Inspiration</h3>
+                <span class="md:hidden text-sky-400 font-mono text-sm">10 min</span>
+              </div>
+              <p class="text-slate-400 text-sm md:text-base">What's next? Advanced patterns, community resources, and where to go from here.</p>
             </div>
           </div>
         </div>

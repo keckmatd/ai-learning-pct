@@ -12,27 +12,55 @@ const { title, description } = Astro.props;
 
 <BaseLayout title={title} description={description}>
   <div class="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
-    <!-- Header with theme toggle -->
+    <!-- Header with theme toggle and mobile menu -->
     <header class="sticky top-0 z-10 border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm">
       <div class="flex items-center justify-between px-4 py-2">
-        <span class="font-semibold text-sm">AI Learning PCT</span>
+        <div class="flex items-center gap-2">
+          <!-- Mobile menu button -->
+          <button
+            id="mobile-menu-toggle"
+            class="md:hidden p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <a href="/ai-learning-pct/" class="font-semibold text-sm hover:text-sky-500 transition-colors">AI Learning PCT</a>
+        </div>
         <ThemeToggle />
       </div>
     </header>
 
-    <div class="flex">
-      <!-- Sidebar placeholder -->
-      <aside class="hidden md:block w-64 border-r border-slate-200 dark:border-slate-700 min-h-[calc(100vh-49px)] p-4">
+    <div class="flex flex-col md:flex-row">
+      <!-- Sidebar - collapsible on mobile -->
+      <aside
+        id="docs-sidebar"
+        class="hidden md:block w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700 md:min-h-[calc(100vh-49px)] p-4 bg-slate-50 dark:bg-slate-800/50 md:bg-transparent"
+      >
         <!-- TODO: Add navigation component -->
         <nav>
-          <p class="text-sm text-slate-500">Navigation placeholder</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Navigation placeholder</p>
         </nav>
       </aside>
 
       <!-- Main content -->
-      <main class="flex-1 max-w-4xl mx-auto px-6 py-8">
+      <main class="flex-1 max-w-4xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <slot />
       </main>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  const toggleButton = document.getElementById('mobile-menu-toggle');
+  const sidebar = document.getElementById('docs-sidebar');
+
+  toggleButton?.addEventListener('click', () => {
+    const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+    toggleButton.setAttribute('aria-expanded', String(!isExpanded));
+    sidebar?.classList.toggle('hidden');
+    sidebar?.classList.toggle('block');
+  });
+</script>
