@@ -41,7 +41,7 @@ const slidesForOverview = renderedSlides.map(({ slide, slideNumber }) => ({
 }));
 ---
 
-<SlideLayout title="AI-Powered Development Workshop">
+<SlideLayout title="AI-Powered Development Workshop" slides={slidesForOverview}>
   {renderedSlides.map(({ slide, Content, slideNumber, variant }) => (
     <Slide id={`slide-${slideNumber}`} variant={variant}>
       <Content />
