@@ -31,18 +31,17 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 1B: Content Migration** (ready to plan)
+**Phase 1B: Content Migration** (planned, ready to execute)
 
 Completed:
 - Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
 - Session 2: Phase 1A infrastructure complete (Astro + Tailwind, layouts, slide nav, design system, GH Pages workflow)
+- Session 3: GitHub repo created, Pages deployed, Phase 1B plan written
+
+Site live: https://keckmatd.github.io/ai-learning-pct/
 
 Next:
-- Add content rendering infrastructure (MDX, syntax highlighting, Mermaid)
 - Write curriculum migration script
 - Migrate Parts 1-4 slides
 - Create docs section with cheatsheets
-
-Blocked:
-- GitHub repo creation (token permissions on work-aws) — create manually
-- Deployment verification (needs repo pushed first)
+- Import templates from keck_companion
