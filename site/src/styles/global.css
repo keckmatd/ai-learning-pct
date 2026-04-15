@@ -66,7 +66,7 @@
   --text-5xl: clamp(3rem, 2.25rem + 3.75vw, 4rem);
 
   /* Spacing */
-  --space-slide-x: clamp(2rem, 5vw, 6rem);
+  --space-slide-x: clamp(3rem, 6vw, 8rem);
   --space-slide-y: clamp(2rem, 5vh, 4rem);
 
   /* Fonts */
@@ -155,13 +155,13 @@ a:hover {
 /* Content Slide - Standard layout for bullet points and text */
 .slide-content {
   justify-content: center;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .slide-content h2 {
   font-size: var(--text-4xl);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 .slide-content ul,
@@ -170,7 +170,8 @@ a:hover {
   color: var(--color-text-secondary);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+  line-height: 1.8;
 }
 
 .slide-content li::marker {
