@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCT Skills - Quick Reference</title>
+  <link rel="stylesheet" href="../templates/cheatsheet.css">
+</head>
+<body>
+
+<h1>PCT Skills - Quick Reference</h1>
+<p>Your AI workflow commands. Keep this handy.</p>
+
+<hr>
+
+<h2>Available Skills</h2>
+<pre><code>/pct-deck "Topic"              # Generate PowerPoint deck
+/pct-memo "Topic"              # Generate business memo
+/pct-research "Topic"          # Generate research brief
+/pct-cheatsheet "Topic"        # Generate a cheatsheet</code></pre>
+
+<hr>
+
+<h2>/pct-deck - PowerPoint Generator</h2>
+<pre><code>/pct-deck "Q2 Results"                      # Basic deck (5-6 slides)
+/pct-deck "API Migration" --tier=technical  # Technical detail (8-10 slides)
+/pct-deck "Budget Ask" --slides=4           # Specific slide count</code></pre>
+
+<table>
+  <tr><th>Option</th><th>Values</th><th>Default</th></tr>
+  <tr><td><code>--tier</code></td><td><code>executive</code>, <code>technical</code></td><td>executive</td></tr>
+  <tr><td><code>--slides</code></td><td>Number</td><td>5-6</td></tr>
+</table>
+
+<hr>
+
+<h2>/pct-memo - Memo Generator</h2>
+<pre><code>/pct-memo "Request new tools"              # Standard memo
+/pct-memo "Status update" --tone=casual    # Casual tone
+/pct-memo "Executive summary" --length=brief  # Short version</code></pre>
+
+<table>
+  <tr><th>Option</th><th>Values</th><th>Default</th></tr>
+  <tr><td><code>--tone</code></td><td><code>formal</code>, <code>casual</code>, <code>direct</code></td><td>formal</td></tr>
+  <tr><td><code>--length</code></td><td><code>brief</code>, <code>standard</code>, <code>detailed</code></td><td>standard</td></tr>
+</table>
+
+<hr>
+
+<h2>/pct-research - Research Brief</h2>
+<pre><code>/pct-research "Claims AI vendors"              # General landscape
+/pct-research "Options" --focus=comparison     # Compare specific options
+/pct-research "GenAI" --depth=deep             # Detailed analysis</code></pre>
+
+<table>
+  <tr><th>Option</th><th>Values</th><th>Default</th></tr>
+  <tr><td><code>--focus</code></td><td><code>comparison</code>, <code>landscape</code>, <code>recommendation</code></td><td>landscape</td></tr>
+  <tr><td><code>--depth</code></td><td><code>quick</code>, <code>standard</code>, <code>deep</code></td><td>standard</td></tr>
+</table>
+
+<hr>
+
+<h2>Workflow Patterns</h2>
+<table>
+  <tr><th>Goal</th><th>Workflow</th></tr>
+  <tr><td>Quick decision deck</td><td><code>/pct-research "Topic" --focus=comparison</code> → <code>/pct-deck "Topic"</code></td></tr>
+  <tr><td>Formal request</td><td><code>/pct-memo "Request" --tone=formal</code></td></tr>
+  <tr><td>Team update</td><td><code>/pct-deck "Status" --slides=4 --tier=executive</code></td></tr>
+  <tr><td>Vendor eval</td><td><code>/pct-research "Vendors" --focus=comparison</code></td></tr>
+</table>
+
+<hr>
+
+<h2>Best Practices</h2>
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Be specific about topic</td><td>"Make a deck"</td></tr>
+  <tr><td>Specify audience</td><td>Assume AI knows context</td></tr>
+  <tr><td>Review before accepting</td><td>Blindly trust output</td></tr>
+  <tr><td>Iterate with feedback</td><td>Restart from scratch</td></tr>
+</table>
+
+<hr>
+
+<h2>Quick Tips</h2>
+<ol>
+  <li><strong>Preview first</strong> - All skills show preview before generating</li>
+  <li><strong>Iterate</strong> - Ask for changes, don't restart</li>
+  <li><strong>Templates matter</strong> - Skills use Nationwide templates automatically</li>
+  <li><strong>Combine skills</strong> - Research → Deck → Memo workflow</li>
+</ol>
+
+<hr>
+
+<h2>File Generation</h2>
+<pre><code># Install dependencies (one time)
+pip install -r requirements.txt
+
+# Generate files
+python scripts/generate-pptx.py content.json output.pptx
+python scripts/generate-docx.py content.json output.docx</code></pre>
+
+<hr>
+
+<h2>Getting Help</h2>
+<ul>
+  <li>Skill source: <code>.claude/commands/pct-*.md</code></li>
+  <li>Templates: <code>templates/pct/</code></li>
+  <li>Python scripts: <code>scripts/generate-*.py</code></li>
+</ul>
+
+</body>
+</html>

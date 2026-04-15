@@ -7,7 +7,7 @@ Generate a one-page quick reference cheatsheet in the proven PCT format.
 ```
 /pct-cheatsheet "Topic"
 /pct-cheatsheet "Topic" --sections=commands,workflows,tips
-/pct-cheatsheet "Topic" --format=markdown|text
+/pct-cheatsheet "Topic" --format=markdown|html|text
 ```
 
 ## Instructions
@@ -21,7 +21,7 @@ The user said: $ARGUMENTS
 Determine:
 - **Topic**: What the cheatsheet covers
 - **Sections**: Which sections to include (default: all that apply)
-- **Format**: markdown (default) or plain text
+- **Format**: markdown (default), html (styled, shareable), or text (plain)
 - **Audience**: Beginners, intermediate, or reference
 
 ### Step 2: Gather content
@@ -130,11 +130,42 @@ Want me to adjust anything?
 
 ### Step 5: Save if requested
 
-If the user approves, save to the cheatsheets directory:
+If the user approves, save to the cheatsheets directory.
 
+**Markdown format:**
 ```bash
-# Save location
 cheatsheets/[topic]-quick-reference.md
+```
+
+**HTML format:**
+Generate a standalone HTML file with embedded styles:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Topic] - Quick Reference</title>
+  <link rel="stylesheet" href="../templates/cheatsheet.css">
+</head>
+<body>
+  [Converted markdown content as HTML]
+</body>
+</html>
+```
+
+Save to: `cheatsheets/[topic]-quick-reference.html`
+
+The stylesheet at `templates/cheatsheet.css` provides:
+- Dark mode by default, light mode for printing
+- Print-optimized layout (fits on one page)
+- Proper code block and table styling
+- Two-column option for dense content
+
+**To convert markdown to HTML**, use the content directly or a tool like pandoc:
+```bash
+pandoc cheatsheets/topic.md -o cheatsheets/topic.html --standalone --css=../templates/cheatsheet.css
 ```
 
 ## Example
