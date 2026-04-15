@@ -235,6 +235,55 @@ a:hover {
 .slide-code .number { color: #f78c6c; }
 
 /* ==========================================================================
+   Table Styles (for slides and docs)
+   ========================================================================== */
+
+.slide table,
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: var(--text-base);
+}
+
+.slide th,
+.prose th {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.slide td,
+.prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+}
+
+.slide tr:hover td,
+.prose tr:hover td {
+  background-color: var(--color-bg-secondary);
+}
+
+/* Responsive tables */
+@media (max-width: 640px) {
+  .slide table,
+  .prose table {
+    font-size: var(--text-sm);
+  }
+
+  .slide th,
+  .slide td,
+  .prose th,
+  .prose td {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* ==========================================================================
    Utility Classes
    ========================================================================== */
 
