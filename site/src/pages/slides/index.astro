@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from 'astro:content';
+import SlideLayout from '../../layouts/SlideLayout.astro';
+import Slide from '../../components/Slide.astro';
+import SlideNav from '../../components/SlideNav.astro';
+import SlideControls from '../../components/SlideControls.astro';
+
+// Get all slides and sort by part, then order
+const allSlides = await getCollection('slides');
+const sortedSlides = allSlides.sort((a, b) => {
+  if (a.data.part !== b.data.part) {
+    return a.data.part - b.data.part;
+  }
+  return a.data.order - b.data.order;
+});
+
+const totalSlides = sortedSlides.length;
+
+// Pre-render all slides to get Content components
+const renderedSlides = await Promise.all(
+  sortedSlides.map(async (slide, index) => {
+    const { Content } = await render(slide);
+    return {
+      slide,
+      Content,
+      slideNumber: index + 1,
+      variant: slide.data.layout === 'quote' ? 'content' : slide.data.layout,
+    };
+  })
+);
+---
+
+<SlideLayout title="AI-Powered Development Workshop">
+  {renderedSlides.map(({ slide, Content, slideNumber, variant }) => (
+    <Slide id={`slide-${slideNumber}`} variant={variant}>
+      <Content />
+    </Slide>
+  ))}
+
+  <SlideNav currentSlide={1} totalSlides={totalSlides} />
+  <SlideControls />
+</SlideLayout>
+
+<script>
+  // Update nav dynamically based on current slide
+  document.addEventListener('slidechange', (e) => {
+    const { slide, total } = (e as CustomEvent).detail;
+
+    // Update progress bar
+    const progress = total > 1 ? ((slide - 1) / (total - 1)) * 100 : 0;
+    const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+    if (progressBar) {
+      progressBar.style.width = progress + '%';
+    }
+
+    // Update counter
+    const counter = document.querySelector('.slide-nav .font-mono');
+    if (counter) {
+      counter.textContent = slide + ' / ' + total;
+    }
+
+    // Update nav button visibility
+    const prevBtn = document.querySelector('.nav-prev') as HTMLElement;
+    const nextBtn = document.querySelector('.nav-next') as HTMLElement;
+
+    if (prevBtn) {
+      prevBtn.classList.toggle('invisible', slide <= 1);
+      prevBtn.setAttribute('href', slide > 1 ? '#slide-' + (slide - 1) : '');
+    }
+    if (nextBtn) {
+      nextBtn.classList.toggle('invisible', slide >= total);
+      nextBtn.setAttribute('href', slide < total ? '#slide-' + (slide + 1) : '');
+    }
+  });
+</script>
