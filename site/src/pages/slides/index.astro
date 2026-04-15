@@ -25,7 +25,9 @@ const renderedSlides = await Promise.all(
       slide,
       Content,
       slideNumber: index + 1,
-      variant: slide.data.layout === 'quote' ? 'content' : slide.data.layout,
+      variant: slide.data.layout === 'quote' ? 'content' :
+               slide.data.layout === 'diagram' ? 'diagram' :
+               slide.data.layout,
     };
   })
 );
