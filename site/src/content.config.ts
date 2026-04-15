@@ -13,7 +13,7 @@ const slides = defineCollection({
     title: z.string(),
     part: z.number().min(1).max(4),
     order: z.number().min(1),
-    layout: z.enum(['title', 'content', 'split', 'code', 'quote']).optional().default('content'),
+    layout: z.enum(['title', 'content', 'split', 'code', 'quote', 'diagram']).optional().default('content'),
     notes: z.string().optional(),
     transition: z.string().optional(),
     sourceFile: z.string().optional(),

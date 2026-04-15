@@ -2,7 +2,7 @@
 title: "The Reveal: Working Memory"
 part: 1
 order: 3
-layout: "code"
+layout: "diagram"
 sourceFile: "context-windows"
 ---
 

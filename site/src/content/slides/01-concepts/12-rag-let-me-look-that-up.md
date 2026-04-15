@@ -2,7 +2,7 @@
 title: "RAG: \"Let me look that up\""
 part: 1
 order: 12
-layout: "code"
+layout: "diagram"
 sourceFile: "llm-vs-rag"
 ---
 

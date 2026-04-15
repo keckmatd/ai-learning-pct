@@ -2,7 +2,7 @@
 title: "How Tool Use Works"
 part: 1
 order: 21
-layout: "code"
+layout: "diagram"
 sourceFile: "mcp-and-tools"
 ---
 

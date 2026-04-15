@@ -2,7 +2,7 @@
 title: "The Shift: From Talking to Doing"
 part: 1
 order: 20
-layout: "code"
+layout: "diagram"
 sourceFile: "mcp-and-tools"
 ---
 
