@@ -2,7 +2,7 @@
 title: "Projects & Custom Instructions"
 part: 1
 order: 33
-layout: "split"
+layout: "diagram"
 sourceFile: "memory-persistence"
 ---
 
@@ -14,9 +14,14 @@ Same concept, scoped differently:
 - **Personal memory**: applies everywhere
 - **Project context**: applies to specific work
 
-```
-Project: "Q4 Planning"
-├── Custom instructions for this project
-├── Uploaded reference files
-└── Conversation history within project
+```mermaid
+flowchart TB
+    P["📁 Project: 'Q4 Planning'"]
+    I["📝 Custom instructions<br/>for this project"]
+    F["📎 Uploaded reference files"]
+    H["💬 Conversation history<br/>within project"]
+
+    P --> I
+    P --> F
+    P --> H
 ```

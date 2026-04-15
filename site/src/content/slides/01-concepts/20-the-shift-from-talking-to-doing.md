@@ -2,7 +2,7 @@
 title: "The Shift: From Talking to Doing"
 part: 1
 order: 20
-layout: "code"
+layout: "diagram"
 sourceFile: "mcp-and-tools"
 ---
 
@@ -12,12 +12,18 @@ sourceFile: "mcp-and-tools"
 
 **Modern AI:** Input text → DECIDE to use tools → Output text + actions
 
-```
-You: "What's the weather in Columbus?"
+```mermaid
+flowchart LR
+    subgraph WITHOUT["❌ WITHOUT tools"]
+        Q1["❓ Weather?"]
+        A1["🤷 'I don't have access<br/>to current weather data...'"]
+        Q1 --> A1
+    end
 
-WITHOUT tools:
-  AI: "I don't have access to current weather data..."
-
-WITH tools:
-  AI: [Calls weather API] → "It's 72°F and sunny in Columbus"
+    subgraph WITH["✅ WITH tools"]
+        Q2["❓ Weather?"]
+        T["⚡ weather_api()"]
+        A2["☀️ '72°F and sunny<br/>in Columbus'"]
+        Q2 --> T --> A2
+    end
 ```

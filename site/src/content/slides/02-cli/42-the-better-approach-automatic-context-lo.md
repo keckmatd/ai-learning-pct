@@ -2,18 +2,24 @@
 title: "The Better Approach: Automatic Context Loading"
 part: 2
 order: 42
-layout: "split"
+layout: "diagram"
 sourceFile: "session-management"
 ---
 
 ### The Better Approach: Automatic Context Loading
 
-```
-project/
-├── instructions.md      ← AI reads this automatically
-├── src/
-├── docs/
-└── ...
+```mermaid
+flowchart TB
+    P["📁 project/"]
+    I["📋 instructions.md<br/><i>AI reads this automatically</i>"]
+    S["📂 src/"]
+    D["📂 docs/"]
+    E["..."]
+
+    P --> I
+    P --> S
+    P --> D
+    P --> E
 ```
 
 CLI tools like Copilot and Claude Code look for instruction files:

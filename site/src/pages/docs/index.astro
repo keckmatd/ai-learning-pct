@@ -1,0 +1,20 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+// Get the docs index entry
+const docs = await getCollection('docs');
+const indexEntry = docs.find(d => d.id === 'index');
+
+if (!indexEntry) {
+  throw new Error('No index.md found in docs collection');
+}
+
+const { Content } = await render(indexEntry);
+---
+
+<DocsLayout title={indexEntry.data.title} description={indexEntry.data.description}>
+  <article class="prose prose-slate dark:prose-invert max-w-none">
+    <Content />
+  </article>
+</DocsLayout>

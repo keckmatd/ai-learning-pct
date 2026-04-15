@@ -2,18 +2,23 @@
 title: "2. Project Instructions"
 part: 2
 order: 30
-layout: "content"
+layout: "diagram"
 sourceFile: "harness-concept"
 ---
 
 ### 2. Project Instructions
 **Context for specific work**
 
-```
-project/
-├── CLAUDE.md or instructions.md
-├── src/
-└── ...
+```mermaid
+flowchart TB
+    P["📁 project/"]
+    C["📋 CLAUDE.md<br/><i>or instructions.md</i>"]
+    S["📂 src/"]
+    E["..."]
+
+    P --> C
+    P --> S
+    P --> E
 ```
 
 Contains:

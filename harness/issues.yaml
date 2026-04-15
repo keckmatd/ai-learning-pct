@@ -168,8 +168,8 @@ issues:
   # ============================================================
   - id: 13
     title: "Design and build landing page"
-    state: open
-    labels: [phase-1c, polish, next]
+    state: closed
+    labels: [phase-1c, polish]
     body: |
       Create compelling index.astro:
       - Workshop overview
@@ -181,7 +181,7 @@ issues:
 
   - id: 14
     title: "Implement slide overview grid (O key)"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Add overview mode to SlideNav:
@@ -193,7 +193,7 @@ issues:
 
   - id: 15
     title: "Add light mode toggle for docs"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Participants may prefer light mode for reference docs:
@@ -205,7 +205,7 @@ issues:
 
   - id: 16
     title: "Mobile responsiveness pass"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Ensure acceptable mobile experience:
@@ -385,3 +385,45 @@ issues:
       3. Missing Python (graceful degradation)
 
       Depends on: #23 (instructions design), understanding GHCP paths
+
+  - id: 25
+    title: "Convert ASCII diagrams to Mermaid"
+    state: closed
+    labels: [phase-1c, polish]
+    body: |
+      Mermaid support is now in place. Convert remaining ASCII diagrams to
+      interactive Mermaid flowcharts for a more polished presentation.
+
+      ## Slides to convert (14 remaining)
+
+      **Part 1 - Concepts:**
+      - 01-concepts/03-the-reveal-working-memory.md (context window diagram)
+      - 01-concepts/20-the-shift-from-talking-to-doing.md
+      - 01-concepts/23-why-mcp-matters-to-you.md
+      - 01-concepts/31-how-memory-actually-works.md
+      - 01-concepts/33-projects-custom-instructions.md
+
+      **Part 2 - CLI:**
+      - 02-cli/17-the-real-difference.md
+      - 02-cli/18-cli-ai-in-your-workspace.md
+      - 02-cli/28-what-is-a-harness.md
+      - 02-cli/30-2-project-instructions.md
+      - 02-cli/34-the-copilot-dotfiles-harness.md
+      - 02-cli/42-the-better-approach-automatic-context-lo.md
+
+      **Part 3 - Hands-on:**
+      - 03-hands-on/34-discussion-points.md
+      - 03-hands-on/45-what-got-installed.md
+
+      **Part 4 - Inspiration:**
+      - 04-inspiration/03-demo-script.md
+
+      ## Already converted (2)
+      - 01-concepts/12-rag-let-me-look-that-up.md ✓
+      - 01-concepts/21-how-tool-use-works.md ✓
+
+      ## Notes
+      - Copy button appears on hover for each diagram
+      - Use flowchart TD/LR for vertical/horizontal flow
+      - Keep labels concise for readability
+      - Emojis work in node labels for visual interest
