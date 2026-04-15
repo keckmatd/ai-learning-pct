@@ -388,7 +388,7 @@ issues:
 
   - id: 25
     title: "Convert ASCII diagrams to Mermaid"
-    state: open
+    state: closed
     labels: [phase-1c, polish]
     body: |
       Mermaid support is now in place. Convert remaining ASCII diagrams to
