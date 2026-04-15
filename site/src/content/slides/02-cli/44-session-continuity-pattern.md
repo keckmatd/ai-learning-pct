@@ -10,7 +10,7 @@ sourceFile: "session-management"
 
 **End of session:**
 ```markdown
-## Session Notes - 2025-04-15
+## Session Notes - 2026-04-15
 
 Completed:
 - Batch upload endpoint

@@ -10,24 +10,17 @@ sourceFile: "context-windows"
 
 **The context window is the AI's "desk" - everything must fit on it.**
 
-```
-┌─────────────────────────────────────────────┐
-│           CONTEXT WINDOW (the desk)         │
-│                                             │
-│  ┌─────────────┐  ┌──────────────────────┐  │
-│  │   System    │  │   Conversation       │  │
-│  │   Prompt    │  │   History            │  │
-│  │             │  │                      │  │
-│  │  (rules,    │  │  User: ...           │  │
-│  │   persona)  │  │  AI: ...             │  │
-│  │             │  │  User: ...           │  │
-│  └─────────────┘  └──────────────────────┘  │
-│                                             │
-│         EVERYTHING MUST FIT HERE            │
-└─────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph CW["🖥️ CONTEXT WINDOW (the desk)"]
+        direction LR
+        S["📋 System Prompt<br/><i>rules, persona</i>"]
+        H["💬 Conversation<br/>History<br/><i>User: ...<br/>AI: ...<br/>User: ...</i>"]
+    end
+    CW --> N["⚠️ EVERYTHING MUST FIT HERE"]
 ```
 
-**Window sizes** (as of 2024-2025):
-- GPT-4: ~128K tokens (~300 pages of text)
-- Claude: ~200K tokens (~500 pages)
-- Gemini: up to 1M tokens (but quality degrades)
+**Window sizes** (current, 2026):
+- GPT-4o: ~128K tokens (~300 pages of text)
+- Claude 4.6: ~1M tokens (~2,000 pages)
+- Gemini: up to 2M tokens (but quality degrades)

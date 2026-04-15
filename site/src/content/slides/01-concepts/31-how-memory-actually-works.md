@@ -10,19 +10,15 @@ sourceFile: "memory-persistence"
 
 ### Browser AI Memory (ChatGPT, Gemini)
 
-```
-┌─────────────────────────────────────────┐
-│           System Instructions           │
-│                                         │
-│  Base persona + YOUR SAVED PREFERENCES  │
-│                                         │
-│  "User prefers bullet points"           │
-│  "User works in insurance"              │
-│  "User's name is Matt"                  │
-│                                         │
-└─────────────────────────────────────────┘
-                    ↓
-          Injected every session
+```mermaid
+flowchart TD
+    subgraph SI["📋 System Instructions"]
+        B["Base persona +<br/>YOUR SAVED PREFERENCES"]
+        P1["<i>'User prefers bullet points'</i>"]
+        P2["<i>'User works in insurance'</i>"]
+        P3["<i>'User's name is Matt'</i>"]
+    end
+    SI -->|"Injected every session"| S["💬 New Session"]
 ```
 
 **It's just text** prepended to every conversation.

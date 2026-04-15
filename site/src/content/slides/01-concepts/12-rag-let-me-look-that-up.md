@@ -10,22 +10,24 @@ sourceFile: "llm-vs-rag"
 
 **RAG = Retrieval-Augmented Generation**
 
-```
-You: "What did our Q3 report say about revenue?"
+```mermaid
+flowchart LR
+    Q["❓ Your Question<br/><i>'Q3 revenue?'</i>"]
+    R["🔍 RETRIEVE<br/>Search docs"]
+    A["📎 AUGMENT<br/>Add to context"]
+    G["✨ GENERATE<br/>AI answers"]
 
-Step 1: RETRIEVE - Search your documents for relevant chunks
-Step 2: AUGMENT  - Add those chunks to the context window  
-Step 3: GENERATE - AI answers using that context
+    Q --> R --> A --> G
 ```
 
-```
-┌─────────────────────────────────────────┐
-│            Context Window               │
-│                                         │
-│  [System] + [Retrieved Q3 data] + [Q]   │
-│                                         │
-│  AI can now answer about YOUR revenue   │
-└─────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph CW["📦 Context Window"]
+        S["System Prompt"]
+        D["Retrieved Q3 Data"]
+        U["Your Question"]
+    end
+    CW --> O["💬 AI answers about YOUR revenue"]
 ```
 
 **RAG = external memory.** Brings in information at query time.
