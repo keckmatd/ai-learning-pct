@@ -7,29 +7,44 @@ import SlideControls from '../components/SlideControls.astro';
 
 <SlideLayout title="Test Slides">
   <Slide id="slide-1" variant="title">
-    <h1 class="text-5xl font-bold">Welcome to the Presentation</h1>
-    <p class="text-xl text-slate-400">Use arrow keys or click the nav buttons</p>
+    <h1>AI-Powered Development</h1>
+    <p class="subtitle">From browser AI to CLI builders</p>
   </Slide>
 
   <Slide id="slide-2" variant="content">
-    <h2 class="text-3xl font-semibold">Content Slide</h2>
-    <ul class="text-lg text-slate-300 space-y-2">
+    <h2>Navigation Controls</h2>
+    <ul>
       <li>Arrow Left/Right to navigate</li>
       <li>Space bar advances</li>
       <li>Home/End for first/last</li>
-      <li>P for presenter notes (console.log)</li>
+      <li>Press <span class="code-inline">P</span> for presenter notes</li>
     </ul>
   </Slide>
 
-  <Slide id="slide-3" variant="code">
-    <h2 class="text-2xl font-semibold mb-4">Code Example</h2>
-    <pre class="bg-slate-800 p-4 rounded-lg text-sm overflow-x-auto"><code class="text-green-400" set:text={`// SlideControls emits custom events
+  <Slide id="slide-3" variant="split">
+    <h2>Two-Column Layout</h2>
+    <div class="columns">
+      <div>
+        <h3 class="text-fluid-xl font-semibold text-accent mb-4">Left Column</h3>
+        <p class="text-text-secondary">Perfect for comparing concepts, showing before/after, or pairing text with images.</p>
+      </div>
+      <div>
+        <h3 class="text-fluid-xl font-semibold text-accent mb-4">Right Column</h3>
+        <p class="text-text-secondary">Each column adapts to content. On mobile, columns stack vertically.</p>
+      </div>
+    </div>
+  </Slide>
+
+  <Slide id="slide-4" variant="code">
+    <h2>Code Example</h2>
+    <pre><code set:text={`// SlideControls emits custom events
 document.addEventListener('slidechange', (e) => {
-  console.log('Slide:', e.detail.slide);
+  const { slide, total } = e.detail;
+  console.log('Slide ' + slide + ' of ' + total);
 });`} /></pre>
   </Slide>
 
-  <SlideNav currentSlide={1} totalSlides={3} />
+  <SlideNav currentSlide={1} totalSlides={4} />
   <SlideControls />
 </SlideLayout>
 

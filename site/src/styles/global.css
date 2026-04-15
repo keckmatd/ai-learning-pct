@@ -1,1 +1,263 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+   Font Face Declarations
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/ai-learning-pct/fonts/inter-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/ai-learning-pct/fonts/jetbrains-mono-variable.woff2') format('woff2');
+}
+
+/* ==========================================================================
+   CSS Custom Properties (Design Tokens)
+   ========================================================================== */
+
+:root {
+  /* Colors - Background */
+  --color-bg-primary: #0f172a;   /* slate-900 */
+  --color-bg-secondary: #1e293b; /* slate-800 */
+  --color-bg-tertiary: #334155;  /* slate-700 */
+
+  /* Colors - Text */
+  --color-text-primary: #f8fafc;  /* slate-50 */
+  --color-text-secondary: #e2e8f0; /* slate-200 */
+  --color-text-muted: #94a3b8;    /* slate-400 */
+
+  /* Colors - Accent */
+  --color-accent: #38bdf8;        /* sky-400 */
+  --color-accent-hover: #7dd3fc;  /* sky-300 */
+  --color-accent-muted: #0ea5e9;  /* sky-500 */
+
+  /* Colors - Semantic */
+  --color-success: #4ade80;       /* green-400 */
+  --color-warning: #fbbf24;       /* amber-400 */
+  --color-error: #f87171;         /* red-400 */
+
+  /* Typography Scale (responsive with clamp) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+  --text-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+  --text-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3rem);
+  --text-5xl: clamp(3rem, 2.25rem + 3.75vw, 4rem);
+
+  /* Spacing */
+  --space-slide-x: clamp(2rem, 5vw, 6rem);
+  --space-slide-y: clamp(2rem, 5vh, 4rem);
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+/* Code elements */
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
+}
+
+/* ==========================================================================
+   Slide Layout Variants
+   ========================================================================== */
+
+/* Base slide container */
+.slide {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-slide-y) var(--space-slide-x);
+}
+
+/* Title Slide - Large centered heading, dramatic impact */
+.slide-title {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.slide-title h1 {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.slide-title p,
+.slide-title .subtitle {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  max-width: 40ch;
+}
+
+/* Content Slide - Standard layout for bullet points and text */
+.slide-content {
+  justify-content: center;
+  gap: 2rem;
+}
+
+.slide-content h2 {
+  font-size: var(--text-4xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.slide-content ul,
+.slide-content ol {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slide-content li::marker {
+  color: var(--color-accent);
+}
+
+/* Split Slide - Two column layout */
+.slide-split {
+  justify-content: center;
+  gap: 2rem;
+}
+
+.slide-split h2 {
+  font-size: var(--text-3xl);
+  font-weight: 600;
+}
+
+.slide-split .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .slide-split .columns {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Code Slide - Monospace-focused layout for code examples */
+.slide-code {
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.slide-code h2 {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+.slide-code pre {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-bg-tertiary);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.slide-code code {
+  color: var(--color-text-secondary);
+}
+
+/* Syntax highlighting accents */
+.slide-code .keyword { color: #c792ea; }
+.slide-code .string { color: #c3e88d; }
+.slide-code .comment { color: var(--color-text-muted); }
+.slide-code .function { color: #82aaff; }
+.slide-code .number { color: #f78c6c; }
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+/* Accent text */
+.text-accent {
+  color: var(--color-accent);
+}
+
+/* Muted text */
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* Code inline */
+.code-inline {
+  font-family: var(--font-mono);
+  background-color: var(--color-bg-secondary);
+  padding: 0.125em 0.375em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+/* Focus ring for accessibility */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
