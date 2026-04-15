@@ -17,11 +17,18 @@ sourceFile: "mcp-and-tools"
 - Connect to your systems: files, databases, APIs
 - The harness manages tool access
 
-```
-CLI AI + MCP:
-├── File system tools (read/write your actual files)
-├── Git tools (commit, branch, PR)
-├── Browser tools (research, scrape)
-├── Custom tools YOU build
-└── Whatever you need
+```mermaid
+flowchart TB
+    CLI["🖥️ CLI AI + MCP"]
+    F["📁 File system tools<br/><i>read/write your actual files</i>"]
+    G["🔀 Git tools<br/><i>commit, branch, PR</i>"]
+    B["🌐 Browser tools<br/><i>research, scrape</i>"]
+    C["🔧 Custom tools YOU build"]
+    W["✨ Whatever you need"]
+
+    CLI --> F
+    CLI --> G
+    CLI --> B
+    CLI --> C
+    CLI --> W
 ```

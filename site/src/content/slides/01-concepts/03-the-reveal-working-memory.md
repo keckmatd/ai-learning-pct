@@ -10,21 +10,14 @@ sourceFile: "context-windows"
 
 **The context window is the AI's "desk" - everything must fit on it.**
 
-```
-┌─────────────────────────────────────────────┐
-│           CONTEXT WINDOW (the desk)         │
-│                                             │
-│  ┌─────────────┐  ┌──────────────────────┐  │
-│  │   System    │  │   Conversation       │  │
-│  │   Prompt    │  │   History            │  │
-│  │             │  │                      │  │
-│  │  (rules,    │  │  User: ...           │  │
-│  │   persona)  │  │  AI: ...             │  │
-│  │             │  │  User: ...           │  │
-│  └─────────────┘  └──────────────────────┘  │
-│                                             │
-│         EVERYTHING MUST FIT HERE            │
-└─────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph CW["🖥️ CONTEXT WINDOW (the desk)"]
+        direction LR
+        S["📋 System Prompt<br/><i>rules, persona</i>"]
+        H["💬 Conversation<br/>History<br/><i>User: ...<br/>AI: ...<br/>User: ...</i>"]
+    end
+    CW --> N["⚠️ EVERYTHING MUST FIT HERE"]
 ```
 
 **Window sizes** (current, 2026):
