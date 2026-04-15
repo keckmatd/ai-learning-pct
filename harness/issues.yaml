@@ -286,3 +286,54 @@ issues:
       - Email templates
       - Meeting prep templates
       - Documentation templates
+
+  - id: 23
+    title: "Design participant global instructions (copilot-instructions.md)"
+    state: open
+    labels: [phase-1c, polish, needs-discussion]
+    body: |
+      Create the user-level instructions that participants will use. This is
+      the foundation that makes skills, tape, and the harness work.
+
+      **Requires interactive session** to calibrate tone/approach.
+
+      ## Key Design Questions
+
+      **Hierarchy understanding:**
+      - How do global vs project instructions work in GHCP?
+      - What goes where? What's the mental model for beginners?
+      - How do we explain this without overwhelming them?
+
+      **Tone/sentiment calibration:**
+      - What "temperature" for new users? (cautious? eager? neutral?)
+      - How skeptical should Claude be? (verify everything? trust user?)
+      - How verbose? (explain reasoning? just do it?)
+      - How proactive? (suggest improvements? wait to be asked?)
+
+      **System awareness:**
+      - Skills: how to discover, use, extend
+      - Tape system: /ws, /wd, /housekeeping - what participants need to know
+      - Session continuity: mental model for "AI has no memory"
+      - Project instructions: when/how to create them
+
+      **Content to include:**
+      - Who this user is (PCT cabinet member, new to CLI AI)
+      - What skills are available (/pct-deck, /pct-memo, etc.)
+      - How to start/end sessions effectively
+      - Best practices distilled for beginners
+      - Links to cheatsheets and docs
+
+      ## Deliverables
+
+      - copilot-instructions.md (bundled in harness)
+      - Section in workshop explaining the hierarchy
+      - "Your first project CLAUDE.md" template/guide
+
+      ## Notes from planning
+
+      - These users are new - err on side of helpful over terse
+      - Instructions should teach while instructing
+      - Balance: enough context to be effective, not so much it's overwhelming
+      - Consider: graduated complexity? start simple, add as they learn?
+
+      Depends on: understanding GHCP instruction hierarchy
