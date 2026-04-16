@@ -22,5 +22,5 @@ flowchart TB
 
 **Window sizes** (current, 2026):
 - GPT-4o: ~128K tokens (~300 pages of text)
-- Claude 4.6: ~1M tokens (~2,000 pages)
+- Claude Opus 4.6: ~1M tokens (~2,000 pages)
 - Gemini: up to 2M tokens (but quality degrades)
