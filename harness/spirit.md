@@ -31,7 +31,7 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 2: Audit Remediation — COMPLETE** (pending push + build verification on clean network)
+**Phase 2: Audit Remediation — COMPLETE** (pushed + build-verified)
 
 Completed:
 - Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
@@ -43,6 +43,7 @@ Completed:
 - Session 7: Full project audit — 5 parallel agents audited UI, content, skills, docs, infra. 38 GitHub issues created. Issue backend switched from local to github.
 - Session 8: Audit Remediation Waves 1-4. 17 tasks via parallel subagents, 16 commits, 18 issues closed (10 blocking + 8 high-priority).
 - Session 9: Audit Remediation Waves 5-7. 18 tasks via parallel subagents, 21 commits, 19 issues closed (16 medium + 3 low). Roadmap renumbered to fix duplicate Phase 3.
+- Session 10: Pushed 39 Phase-2 commits to origin. Added npm registry auto-detection (probes internal artifactory, falls back to public registry; NPM_REGISTRY env override). Normalized lockfile to public URLs so the repo installs anywhere by default. Added missing @astrojs/check + typescript deps. Fixed 3 TS errors blocking CI check gate. Closed #41.
 
 Site live: https://keckmatd.github.io/ai-learning-pct/
 Repo: https://github.com/keckmatd/ai-learning-pct
@@ -53,10 +54,7 @@ Skills added:
 - `/pct-research` - Research briefs
 - `/pct-cheatsheet` - Quick reference cards (markdown + HTML)
 
-Open issues (2 — both low-severity follow-ups):
+Open issues (1 — low-severity follow-up):
 - #40: Commit subjects exceed 50-char CLAUDE.md limit (process discipline)
-- #41: Remove narrating comments in SlideLayout.astro mermaid renderer
 
-Next phase: **Phase 3: Workshop Polish** — pending first live workshop date. Before that:
-- Push 38 unpushed commits to origin/main once on clean network
-- Run `make install && make check && make build` to confirm nothing schema-fragile slipped through during proxy-blocked verification window
+Next phase: **Phase 3: Workshop Polish** — pending first live workshop date.
