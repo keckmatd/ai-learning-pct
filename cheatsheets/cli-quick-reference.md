@@ -94,4 +94,4 @@ ghcp -f CLAUDE.md -f harness/plan.md "Continue the work"
 
 - Slack: `#ai-practitioners`
 - Docs: `github.com/keckmatd/copilot-dotfiles`
-- Office Hours: [TBD]
+- Office Hours: Check the `#ai-practitioners` Slack channel for scheduling and support

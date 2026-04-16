@@ -18,4 +18,4 @@ Welcome to the AI Workshop documentation. Use these pages as a reference during 
 
 - Slack: `#ai-practitioners`
 - GitHub: `github.com/keckmatd/ai-learning-pct`
-- Office Hours: [TBD]
+- Office Hours: Check the `#ai-practitioners` Slack channel for scheduling and support
