@@ -33,7 +33,7 @@ Browser AI User → Understands the machinery → CLI Builder
 
 **Transition**: "So if AI forgets everything... how do we build anything real?"
 
-### Part 2: Why CLI Changes Everything [20 min]
+### Part 2: Why CLI Changes Everything [15 min]
 *"From chatting to building"*
 
 | Topic | Time | Key Takeaway |
@@ -45,7 +45,7 @@ Browser AI User → Understands the machinery → CLI Builder
 
 **Transition**: "Let's stop talking and start doing"
 
-### Part 3: Hands-On with copilot-dotfiles [35 min]
+### Part 3: Hands-On with copilot-dotfiles [40 min]
 *"Install it, use it, build something"*
 
 | Activity | Time | Outcome |

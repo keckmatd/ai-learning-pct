@@ -3,7 +3,7 @@ title: "Exercise: Research Brief"
 part: 3
 order: 25
 layout: "title"
-notes: "10 minutes"
+notes: "Option B — do this if time is tight"
 sourceFile: "exercise-research"
 ---
 

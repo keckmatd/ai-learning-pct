@@ -3,7 +3,7 @@ title: "Exercise: Build a PowerPoint"
 part: 3
 order: 12
 layout: "title"
-notes: "10 minutes"
+notes: "Option A — If short on time, skip to the research exercise — it's more impactful for this audience"
 sourceFile: "exercise-powerpoint"
 ---
 

@@ -3,7 +3,7 @@ title: "Cheatsheet Walkthrough"
 part: 3
 order: 1
 layout: "title"
-notes: "5 minutes"
+notes: "Pace check: should have 40 min remaining"
 sourceFile: "cheatsheet-walkthrough"
 ---
 
