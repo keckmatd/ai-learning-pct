@@ -31,7 +31,7 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 1C: Polish** (complete)
+**Phase 2: Audit Remediation** (in progress)
 
 Completed:
 - Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
@@ -40,6 +40,7 @@ Completed:
 - Session 4: Phase 1B complete (157 slides migrated, docs section, templates, PCT skills with GHCP compatibility)
 - Session 5: Phase 1C polish (landing page, overview grid, light mode, mobile, Mermaid diagrams)
 - Session 6: Slide polish (diagram layouts, M-key drawer navigation, visual refinements)
+- Session 7: Full project audit — 5 parallel agents audited UI, content, skills, docs, infra. 38 GitHub issues created. Issue backend switched from local to github.
 
 Site live: https://keckmatd.github.io/ai-learning-pct/
 Repo: https://github.com/keckmatd/ai-learning-pct
@@ -50,7 +51,14 @@ Skills added:
 - `/pct-research` - Research briefs
 - `/pct-cheatsheet` - Quick reference cards (markdown + HTML)
 
-Remaining:
-- Dry run workshop (#17)
-- Design participant global instructions (#23)
-- Review installer for GHCP compatibility (#24)
+Issue breakdown (38 open):
+- **Blocking** (10): Security content, exercise timing, template refs, participant instructions, MCP path, install guide, slide ordering, broken links, skill paths, MCP config overwrite
+- **High** (8): Design tokens, a11y, CI checks, READMEs, office hours, GHCP boundaries, install syntax, model naming
+- **Medium** (16): Content consolidation, pricing, failure walkthrough, cheatsheet sync, timing annotations, debug cleanup, font preload, roadmap, tokens, linting, installer validation, docs site, Part 4, RAG nuance, bridge slides, walkthrough mismatch
+- **Low** (4): Mermaid/keyboard consolidation, SEO, skill testing, Makefile
+
+Remaining before dry run (#17):
+- Fix all blocking issues (#2-#11)
+- Address high-priority issues (#12-#19)
+- Design participant global instructions (#5, relates to old #23)
+- Review installer for GHCP compatibility (#30, relates to old #24)
