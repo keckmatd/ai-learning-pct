@@ -45,7 +45,7 @@
       const currentIndex = getCurrentSlideIndex();
 
       // Check if overview is visible - if so, only handle Escape and O
-      const overviewVisible = (window as any).slideOverview?.isVisible?.();
+      const overviewVisible = window.slideOverview?.isVisible?.();
 
       if (overviewVisible) {
         if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {

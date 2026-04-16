@@ -1,10 +1,5 @@
 ---
-interface SlideInfo {
-  id: string;
-  title: string;
-  part: number;
-  slideNumber: number;
-}
+import { groupSlidesByPart, type SlideInfo } from '../utils/slides';
 
 interface Props {
   slides: SlideInfo[];
@@ -19,21 +14,7 @@ const partNames: Record<number, string> = {
   4: 'Inspiration',
 };
 
-// Group slides by part
-const slidesByPart = slides.reduce(
-  (acc, slide) => {
-    if (!acc[slide.part]) {
-      acc[slide.part] = [];
-    }
-    acc[slide.part].push(slide);
-    return acc;
-  },
-  {} as Record<number, SlideInfo[]>
-);
-
-const parts = Object.keys(slidesByPart)
-  .map(Number)
-  .sort((a, b) => a - b);
+const { slidesByPart, parts } = groupSlidesByPart(slides);
 ---
 
 <!-- Hamburger Button -->
@@ -270,7 +251,7 @@ const parts = Object.keys(slidesByPart)
   });
 
   // Expose for external use
-  (window as any).slideDrawer = {
+  window.slideDrawer = {
     open: openDrawer,
     close: closeDrawer,
     toggle: toggleDrawer,

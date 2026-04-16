@@ -45,47 +45,36 @@ const { title, slides = [] } = Astro.props;
       },
     });
 
-    // Find and render mermaid code blocks
-    async function renderMermaidBlocks() {
-      // Astro/Shiki uses data-language attribute, not class
-      const mermaidBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
+    async function renderMermaidBlock(pre: Element) {
+      // Get the raw code text (strip any span styling from Shiki)
+      const code = pre.textContent || '';
 
-      for (const pre of mermaidBlocks) {
-        // Get the raw code text (strip any span styling from Shiki)
-        const code = pre.textContent || '';
+      // Create container with download button
+      const container = document.createElement('div');
+      container.className = 'mermaid-diagram';
 
-        // Create container with download button
-        const container = document.createElement('div');
-        container.className = 'mermaid-diagram';
+      // Store raw code for download
+      (container as HTMLElement).dataset.mermaidSource = code.trim();
 
-        // Store raw code for download
-        container.dataset.mermaidSource = code.trim();
+      try {
+        const { svg } = await mermaid.render(`mermaid-${Math.random().toString(36).slice(2)}`, code.trim());
+        container.innerHTML = `
+          <div class="mermaid-wrapper">
+            ${svg}
+            <button class="mermaid-download" title="Copy Mermaid source">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+        pre.replaceWith(container);
 
-        try {
-          const { svg } = await mermaid.render(`mermaid-${Math.random().toString(36).slice(2)}`, code.trim());
-          container.innerHTML = `
-            <div class="mermaid-wrapper">
-              ${svg}
-              <button class="mermaid-download" title="Copy Mermaid source">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-              </button>
-            </div>
-          `;
-          pre.replaceWith(container);
-        } catch (e) {
-          console.error('Mermaid render error:', e);
-          // On error, keep original code block visible
-        }
-      }
-
-      // Add click handlers for download buttons
-      document.querySelectorAll('.mermaid-download').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const container = (e.target as HTMLElement).closest('.mermaid-diagram');
-          const source = container?.dataset.mermaidSource || '';
+        // Wire up the download button for this diagram
+        const btn = container.querySelector('.mermaid-download');
+        btn?.addEventListener('click', (e) => {
+          const source = (container as HTMLElement).dataset.mermaidSource || '';
           navigator.clipboard.writeText(source);
 
           // Visual feedback
@@ -93,11 +82,42 @@ const { title, slides = [] } = Astro.props;
           button.classList.add('copied');
           setTimeout(() => button.classList.remove('copied'), 1500);
         });
-      });
+      } catch (e) {
+        console.error('Mermaid render error:', e);
+        // On error, keep original code block visible
+      }
+    }
+
+    // Lazily render mermaid blocks only when they enter the viewport — a
+    // meaningful perf win for presentations that show one slide at a time.
+    function initMermaidLazyLoad() {
+      // Astro/Shiki uses data-language attribute, not class
+      const mermaidBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
+      if (mermaidBlocks.length === 0) return;
+
+      // Fall back to eager rendering if IntersectionObserver is unavailable.
+      if (typeof IntersectionObserver === 'undefined') {
+        mermaidBlocks.forEach((pre) => { void renderMermaidBlock(pre); });
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              obs.unobserve(entry.target);
+              void renderMermaidBlock(entry.target);
+            }
+          });
+        },
+        { rootMargin: '200px' }
+      );
+
+      mermaidBlocks.forEach((pre) => observer.observe(pre));
     }
 
     // Run on page load
-    document.addEventListener('DOMContentLoaded', renderMermaidBlocks);
+    document.addEventListener('DOMContentLoaded', initMermaidLazyLoad);
   </script>
   <!-- Slide visibility transitions -->
   <script>
