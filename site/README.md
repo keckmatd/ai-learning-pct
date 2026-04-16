@@ -1,43 +1,75 @@
-# Astro Starter Kit: Minimal
+# AI Learning PCT -- Presentation Site
 
-```sh
-npm create astro@latest -- --template minimal
+Astro-based presentation site with slide navigation, dark mode, and docs pages.
+
+## Local Development
+
+```bash
+npm install
+npm run dev       # Dev server at localhost:4321
+npm run build     # Production build to ./dist/
+npm run preview   # Preview production build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Content Collections
 
-## 🚀 Project Structure
+### Slides
 
-Inside of your Astro project, you'll see the following folders and files:
+Markdown files in `src/content/slides/`, organized by part:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/content/slides/
+  01-concepts/      Part 1: The Machinery
+  02-cli/           Part 2: Why CLI Changes Everything
+  03-hands-on/      Part 3: Hands-On
+  04-inspiration/   Part 4: The Promise
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Slides are sorted by `part` then `order` from frontmatter. Each file uses
+this frontmatter schema:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```yaml
+---
+title: "Slide Title"
+part: 1
+order: 3
+layout: "content"       # title | content | diagram
+notes: "Speaker notes"
+sourceFile: "topic-name"
+---
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Docs
 
-## 🧞 Commands
+Markdown files in `src/content/docs/` for reference material:
 
-All commands are run from the root of the project, from a terminal:
+- `cheatsheets/` -- command reference cards
+- `exercises/` -- hands-on exercise instructions
+- `index.md` -- docs landing page
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Key Components
 
-## 👀 Want to learn more?
+| Component | Purpose |
+|-----------|---------|
+| `SlideLayout` | Full-screen slide presentation layout |
+| `SlideNav` | Previous/next navigation between slides |
+| `SlideDrawer` | Slide list panel for quick navigation |
+| `SlideControls` | Keyboard and touch controls |
+| `OverviewGrid` | Grid view of all slides by part |
+| `ThemeToggle` | Dark/light mode switch |
+| `Mermaid` | Renders Mermaid diagrams in slides |
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Layouts
+
+- **SlideLayout** -- presentation mode (dark, full-screen)
+- **DocsLayout** -- documentation pages (sidebar navigation)
+- **BaseLayout** -- shared HTML shell, theme, fonts
+
+## Adding Content
+
+**New slide**: Create a `.md` file in the appropriate part folder under
+`src/content/slides/`. Set `part` and `order` in frontmatter to control
+sort position.
+
+**New docs page**: Create a `.md` file under `src/content/docs/`. It will
+be picked up automatically and rendered with DocsLayout.
