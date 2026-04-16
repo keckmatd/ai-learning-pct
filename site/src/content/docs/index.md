@@ -12,7 +12,7 @@ Welcome to the AI Workshop documentation. Use these pages as a reference during 
 ## Quick Links
 
 - **[CLI Quick Reference](/docs/cheatsheets/cli-quick-reference)** - One-page cheatsheet for common commands
-- **[Exercise Walkthroughs](/docs/exercises/)** - Step-by-step guides for hands-on exercises
+- **[Exercise Walkthroughs](/ai-learning-pct/docs/exercises/)** - Step-by-step guides for hands-on exercises
 
 ## Getting Help
 
