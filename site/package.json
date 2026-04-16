@@ -15,12 +15,14 @@
     "format:check": "prettier --check 'src/**/*.{astro,ts,css}'"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.8",
     "@pagefind/default-ui": "^1.5.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.6",
     "mermaid": "^11.14.0",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "prettier": "^3.3.0",
