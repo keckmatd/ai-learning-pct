@@ -1,7 +1,7 @@
 ---
 title: "The Real Takeaway"
 part: 4
-order: 16
+order: 15
 layout: "content"
 notes: "You're not learning a tool. You're building a system that grows with you."
 sourceFile: "whats-next"

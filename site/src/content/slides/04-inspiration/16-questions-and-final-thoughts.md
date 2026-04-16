@@ -1,14 +1,13 @@
 ---
-title: "Final Words"
+title: "Questions & Final Thoughts"
 part: 4
-order: 17
+order: 16
 layout: "content"
+notes: "Open floor for questions. Close with the takeaway: what happens next is up to them."
 sourceFile: "whats-next"
 ---
 
-## Final Words
-
-Thank you for your time and attention.
+## Questions & Final Thoughts
 
 **What you learned today:**
 - The machinery (tokens, context, RAG, tools)
@@ -19,3 +18,7 @@ Thank you for your time and attention.
 **What happens next is up to you.**
 
 Go build something.
+
+---
+
+### Questions?

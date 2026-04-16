@@ -1,7 +1,7 @@
 ---
 title: "Mindset for the Journey"
 part: 4
-order: 15
+order: 14
 layout: "content"
 sourceFile: "whats-next"
 ---
