@@ -30,10 +30,10 @@
 **Files:** `mcp-config.json`
 **Depends on:** none
 
-- [ ] Replace `/home/keckmatd/projects/copilot-dotfiles/mcp/session-context/dist/index.js` with `./mcp/session-context/dist/index.js` in `mcp-config.json:7`
-- [ ] Update `install-harness.sh` Phase 5 to rewrite the path at install time using `sed` to replace `./mcp` with the actual `$DOTFILES_DIR/mcp` absolute path
-- [ ] Verify: `cat mcp-config.json | grep -v keckmatd` succeeds (no hardcoded path)
-- [ ] Commit: "fix: use relative path in mcp-config.json"
+- [x] Replace `/home/keckmatd/projects/copilot-dotfiles/mcp/session-context/dist/index.js` with `./mcp/session-context/dist/index.js` in `mcp-config.json:7`
+- [x] Update `install-harness.sh` Phase 5 to rewrite the path at install time using `sed` to replace `./mcp` with the actual `$DOTFILES_DIR/mcp` absolute path
+- [x] Verify: `cat mcp-config.json | grep -v keckmatd` succeeds (no hardcoded path)
+- [x] Commit: "fix: use relative path in mcp-config.json"
 
 ---
 
@@ -41,12 +41,12 @@
 **Files:** `site/src/content/docs/index.md`, new `site/src/content/docs/exercises/index.md`, new `site/src/content/docs/exercises/powerpoint.md`, new `site/src/content/docs/exercises/research-brief.md`
 **Depends on:** none
 
-- [ ] Create `site/src/content/docs/exercises/index.md` with frontmatter `category: exercises, order: 1` — overview listing both exercises
-- [ ] Create `site/src/content/docs/exercises/powerpoint.md` (order: 2) — migrate from `curriculum/03-hands-on/exercise-powerpoint.md`, adapted for self-paced reference
-- [ ] Create `site/src/content/docs/exercises/research-brief.md` (order: 3) — migrate from `curriculum/03-hands-on/exercise-research.md`
-- [ ] Update `site/src/content/docs/index.md:15` link to point to `/ai-learning-pct/docs/exercises/`
-- [ ] Verify: `cd site && npm run build` succeeds
-- [ ] Commit: "fix: create exercise pages and resolve broken /docs/exercises/ link"
+- [x] Create `site/src/content/docs/exercises/index.md` with frontmatter `category: exercises, order: 1` — overview listing both exercises
+- [x] Create `site/src/content/docs/exercises/powerpoint.md` (order: 2) — migrate from `curriculum/03-hands-on/exercise-powerpoint.md`, adapted for self-paced reference
+- [x] Create `site/src/content/docs/exercises/research-brief.md` (order: 3) — migrate from `curriculum/03-hands-on/exercise-research.md`
+- [x] Update `site/src/content/docs/index.md:15` link to point to `/ai-learning-pct/docs/exercises/`
+- [x] Verify: `cd site && npm run build` succeeds
+- [x] Commit: "fix: create exercise pages and resolve broken /docs/exercises/ link"
 
 ---
 
@@ -54,10 +54,10 @@
 **Files:** `cheatsheets/pct-skills-quick-reference.md`, `cheatsheets/pct-skills-quick-reference.html`
 **Depends on:** none
 
-- [ ] Update `cheatsheets/pct-skills-quick-reference.md:118` — change `Skill source: .claude/commands/pct-*.md` to match actual paths. Verify with `ls .claude/commands/pct-*.md`
-- [ ] Verify the skill invocation syntax documented matches GHCP slash command format (`/pct-deck` etc.)
-- [ ] Regenerate HTML if applicable, or note that HTML is stale and should be regenerated
-- [ ] Commit: "fix: correct skill paths in PCT quick reference"
+- [x] Update `cheatsheets/pct-skills-quick-reference.md:118` — change `Skill source: .claude/commands/pct-*.md` to match actual paths. Verify with `ls .claude/commands/pct-*.md`
+- [x] Verify the skill invocation syntax documented matches GHCP slash command format (`/pct-deck` etc.)
+- [x] Regenerate HTML if applicable, or note that HTML is stale and should be regenerated
+- [x] Commit: "fix: correct skill paths in PCT quick reference"
 
 ---
 
@@ -65,10 +65,10 @@
 **Files:** `site/src/content/slides/01-concepts/03-the-reveal-working-memory.md` and any other slides with model names
 **Depends on:** none
 
-- [ ] In `site/src/content/slides/01-concepts/03-the-reveal-working-memory.md:25`, change `Claude 4.6` to `Claude Opus 4.6`
-- [ ] Grep all slides for model name references: `grep -r "Claude [0-9]" site/src/content/slides/` and fix any that say "Claude 4.6" without the model tier
-- [ ] Verify context window sizes match current specs (GPT-4o: 128K, Claude Opus 4.6: 1M, Gemini 2.5: 1M)
-- [ ] Commit: "fix: correct model naming to Claude Opus 4.6"
+- [x] In `site/src/content/slides/01-concepts/03-the-reveal-working-memory.md:25`, change `Claude 4.6` to `Claude Opus 4.6`
+- [x] Grep all slides for model name references: `grep -r "Claude [0-9]" site/src/content/slides/` and fix any that say "Claude 4.6" without the model tier
+- [x] Verify context window sizes match current specs (GPT-4o: 128K, Claude Opus 4.6: 1M, Gemini 2.5: 1M)
+- [x] Commit: "fix: correct model naming to Claude Opus 4.6"
 
 ---
 
