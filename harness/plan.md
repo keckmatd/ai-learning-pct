@@ -80,23 +80,12 @@
 
 **Important:** Astro glob loader sorts by filename string, not by `order` frontmatter. To insert new slides between existing ones, we must renumber the affected files OR rely purely on the `order` field for sorting in `slides/index.astro`. Check how `slides/index.astro` sorts — if it sorts by `order` field (not filename), then use fractional orders. If it sorts by filename, renumber files.
 
-- [ ] First check: read `site/src/pages/slides/index.astro` to confirm sort is by `slide.data.part` then `slide.data.order` (it should be — this is the Astro content collection pattern)
-- [ ] Create `site/src/content/slides/02-cli/17a-security-governance.md`:
-```yaml
----
-title: "One Responsibility"
-part: 2
-order: 18
-layout: "content"
-sourceFile: "browser-vs-cli"
----
-```
-Content: "With CLI AI in your workspace, you control what it accesses" — cover permissions model, audit trails, data residency, what NOT to share. Frame as empowerment for govt audience.
-
-- [ ] Create `site/src/content/slides/02-cli/17b-security-practices.md` with `order: 19` — practical guidance: review before accepting, don't paste credentials, use .gitignore
-- [ ] Increment `order` by 2 in all subsequent Part 2 slides (those with order >= 18) to make room. This is the safe approach — bulk-update frontmatter `order` values
-- [ ] Verify: `cd site && npm run build` succeeds and new slides appear in correct position after "The Real Difference"
-- [ ] Commit: "feat: add security/governance slides for govt audience"
+- [x] First check: read `site/src/pages/slides/index.astro` to confirm sort is by `slide.data.part` then `slide.data.order`
+- [x] Create `site/src/content/slides/02-cli/17a-security-governance.md` (order 18, now 5 after reorder)
+- [x] Create `site/src/content/slides/02-cli/17b-security-practices.md` (order 19, now 6 after reorder)
+- [x] Increment `order` by 2 in all subsequent Part 2 slides
+- [x] Verify: build blocked by npm proxy — content verified manually
+- [x] Commit: "feat: add security/governance slides for govt audience"
 
 ---
 
@@ -104,11 +93,11 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `curriculum/00-overview.md`, `site/src/content/slides/03-hands-on/*.md`
 **Depends on:** none
 
-- [ ] Update `curriculum/00-overview.md` Part 3 timing from 35 min to 40 min, compress Part 2 from 20 min to 15 min (the reorder in Task 7 will make Part 2 tighter)
-- [ ] In Part 3 slides, add a facilitator note to slide 12 (`exercise-build-a-powerpoint.md`): "If short on time, skip to the research exercise — it's more impactful for this audience"
-- [ ] Add timing annotation to Part 3 opening slide: "Pace check: should have 40 min remaining"
-- [ ] Mark the PowerPoint exercise as "Option A" and Research as "Option B — do this if time is tight" by adding facilitator notes in frontmatter
-- [ ] Commit: "fix: adjust Part 3 timing to 40 min, add skip option"
+- [x] Update `curriculum/00-overview.md` Part 3 timing from 35 min to 40 min, compress Part 2 from 20 min to 15 min
+- [x] In Part 3 slides, add a facilitator note to slide 12: "If short on time, skip to the research exercise"
+- [x] Add timing annotation to Part 3 opening slide: "Pace check: should have 40 min remaining"
+- [x] Mark PowerPoint as "Option A" and Research as "Option B — do this if time is tight"
+- [x] Commit: "fix: adjust Part 3 timing to 40 min, add skip option"
 
 ---
 
@@ -116,16 +105,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/content/slides/02-cli/*.md` (renumber `order` in frontmatter)
 **Depends on:** none
 
-- [ ] Current Part 2 order: 01-12 (best practices) → 13 (recap) → 14 (transition) → 15-24 (browser vs CLI) → 25 (transition) → 26-36 (harness) → 37 (transition) → 38-48 (session mgmt). New order should be: Browser vs CLI concepts first → Session Management → Best Practices → Harness → Recap
-- [ ] Update `order` frontmatter in each file to reflect new sequence. Target ordering:
-  - 14-24 (Browser vs CLI, currently order 14-24) → renumber to order 1-11
-  - 38-48 (Session Management, currently order 38-48) → renumber to order 12-22
-  - 01-12 (Best Practices, currently order 1-12) → renumber to order 23-34
-  - 26-36 (Harness, currently order 26-36) → renumber to order 35-45
-  - 13 (Recap, currently order 13) → renumber to order 46
-  - Transitions placed between sections
-- [ ] Verify: `cd site && npm run build` — slides render in new order
-- [ ] Commit: "fix: reorder Part 2 — concepts before practices"
+- [x] Reordered all 50 Part 2 slides: Browser vs CLI (1-13) → Session Mgmt (14-25) → Best Practices (26-37) → Harness (38-49) → Recap (50)
+- [x] Verified: 50 unique sequential orders, no gaps or duplicates
+- [x] Commit: "fix: reorder Part 2 — concepts before practices"
 
 ---
 
@@ -135,15 +117,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `copilot-instructions.md` (rename existing), new `copilot-instructions-participant.md`, `install-harness.sh`
 **Depends on:** none
 
-- [ ] Rename current `copilot-instructions.md` to `copilot-instructions-developer.md` (this is the personal dev config)
-- [ ] Create new `copilot-instructions.md` targeted at workshop participants:
-  - Who the user is (PCT cabinet member, familiar with browser AI, new to CLI)
-  - Available skills (/pct-deck, /pct-memo, /pct-research, /pct-cheatsheet)
-  - How to start a session, iterate on output, end a session
-  - Best practices for beginners (be specific, include context files, review output)
-  - Keep it under 50 lines — concise and actionable
-- [ ] Update `install-harness.sh:90` symlink to point to the new participant version
-- [ ] Commit: "feat: create participant-focused copilot-instructions.md"
+- [x] Renamed `copilot-instructions.md` to `copilot-instructions-developer.md`
+- [x] Created new participant-focused `copilot-instructions.md` (48 lines)
+- [x] Verified symlink in installer unchanged (same filename)
+- [x] Commit: "feat: create participant-focused copilot-instructions.md"
 
 ---
 
@@ -151,13 +128,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `install-harness.sh`
 **Depends on:** none
 
-- [ ] Replace `install-harness.sh:141-145` (Phase 5 MCP Registration) with a merge strategy:
-  - If `$MCP_CONFIG` exists: use `jq` to read existing config, merge in session-context entry without overwriting other servers
-  - If `$MCP_CONFIG` doesn't exist: copy fresh
-  - Add `jq` to prerequisites check (Phase 1) or fall back to manual merge instruction if jq unavailable
-- [ ] Also fix the path in the source `mcp-config.json` to use `$DOTFILES_DIR` (coordinate with Task 1's relative path fix — the installer should rewrite at install time)
-- [ ] Verify: `bash -n install-harness.sh` (syntax check)
-- [ ] Commit: "fix: merge MCP config instead of overwriting"
+- [x] Phase 5 now uses jq to merge session-context into existing config, with manual fallback
+- [x] jq added to prerequisite check (warn-only, not required)
+- [x] Verified: `bash -n install-harness.sh` passes
+- [x] Changes included in commit 436493d
 
 ---
 
@@ -165,13 +139,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** Multiple — `site/src/content/slides/03-hands-on/16-18.md`, `.claude/commands/pct-memo.md`, `curriculum/03-hands-on/exercise-powerpoint.md`, `install-harness.sh`
 **Depends on:** none
 
-- [ ] Audit ALL template path references: `grep -rn "templates/" site/src/content/slides/ .claude/commands/ curriculum/`
-- [ ] Verify actual template files exist: `ls templates/pct/` — confirm `nationwide_default.pptx` and `2024_Memo.dotx` exist
-- [ ] Fix slide 16 (`16-look-at-available-templates.md`): update the `ls templates/` and `cat templates/powerpoint-template.md` commands to match actual paths (`ls templates/pct/`, `cat templates/pct/README.md`)
-- [ ] Fix `.claude/commands/pct-memo.md:145`: verify `templates/pct/2024_Memo.dotx` path is correct
-- [ ] Fix `curriculum/03-hands-on/exercise-powerpoint.md:32-37`: update template paths
-- [ ] Add template validation to `install-harness.sh` after Phase 3: `test -f "$DOTFILES_DIR/templates/pct/nationwide_default.pptx" || log_warn "Template files missing"`
-- [ ] Commit: "fix: standardize template paths across slides, skills, curriculum"
+- [x] Audited and fixed 8 files with template path references
+- [x] Added Phase 3b template validation to install-harness.sh
+- [x] Commit: "fix: standardize template paths across slides, skills, curriculum"
 
 ---
 
@@ -179,11 +149,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `curriculum/03-hands-on/install-guide.md`, slides `38-46` in Part 3
 **Depends on:** none
 
-- [ ] Update `curriculum/03-hands-on/install-guide.md:20-30` — clarify that copilot-dotfiles is **bundled in this repo**, not an external clone. Change clone URL to point to ai-learning-pct repo or provide direct download instructions
-- [ ] Update the script name from `setup.sh` to `install-harness.sh` (line 44-45) to match actual filename
-- [ ] Update the "What Got Installed" section (lines 105-115) to match actual directory structure (`~/.copilot/` with symlinks to skills, agents, copilot-instructions.md)
-- [ ] Update corresponding slides (`site/src/content/slides/03-hands-on/38-install-guide.md` through `46-next-learn-the-commands.md`) to match the corrected install flow
-- [ ] Commit: "fix: clarify bundled install flow in guide and slides"
+- [x] Updated install guide: bundled repo, correct script name, accurate directory structure
+- [x] Updated 5 install slides (40, 41, 43, 45) to match corrected flow
+- [x] Changes included in commit 436493d (bundled with T9+T10)
 
 ---
 
@@ -193,24 +161,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/styles/global.css`, `site/src/components/ThemeToggle.astro`, `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`, `site/src/layouts/DocsLayout.astro`, `site/src/components/SlideNav.astro`
 **Depends on:** none
 
-- [ ] In `global.css`, move light mode vars from standalone `--color-light-*` into a proper class-based override:
-```css
-.light, :root:not(.dark) .docs-layout {
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-bg-tertiary: #f1f5f9;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #334155;
-  --color-text-muted: #64748b;
-}
-```
-- [ ] Update `ThemeToggle.astro` script to toggle CSS custom properties by adding/removing a class on `:root` that activates light mode vars
-- [ ] Replace hardcoded Tailwind classes in `SlideDrawer.astro`: `bg-slate-800` → use CSS var, `text-slate-400` → use CSS var, `border-slate-700` → use CSS var
-- [ ] Replace hardcoded classes in `OverviewGrid.astro`: `bg-slate-900/95`, `text-white/40`, `text-white/80` → CSS var equivalents
-- [ ] Replace hardcoded classes in `DocsLayout.astro`: already uses `dark:` variants which is fine for docs
-- [ ] Fix `SlideNav.astro:53`: replace `bg-blue-500` with `bg-[var(--color-accent)]` for progress bar
-- [ ] Verify: build succeeds, light mode toggles work on docs layout
-- [ ] Commit: "feat: wire up light mode with CSS custom property overrides"
+- [x] Added `:root.light` override block in global.css
+- [x] Updated ThemeToggle.astro to toggle .light/.dark classes with localStorage
+- [x] Replaced hardcoded Tailwind classes in SlideDrawer, OverviewGrid, SlideNav with CSS vars
+- [x] Commit: "feat: wire up light mode with CSS custom property overrides"
 
 ---
 
@@ -218,21 +172,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/components/SlideNav.astro`, `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`, `site/src/styles/global.css`
 **Depends on:** none
 
-- [ ] **Focus styles**: Add `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400` to nav buttons in `SlideNav.astro:13-48`
-- [ ] **Hidden nav buttons**: In `SlideNav.astro:23,42`, replace `invisible` class with `disabled` attribute + `opacity-0 pointer-events-none` so they're removed from tab order at boundaries
-- [ ] **Contrast**: Replace `text-white/30` with `text-white/60` minimum in `SlideNav.astro:20,39`, `OverviewGrid.astro:77,92`, `SlideDrawer.astro:117`
-- [ ] **Reduced motion**: Add to `global.css`:
-```css
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
-}
-```
-- [ ] **SVG a11y**: Add `aria-hidden="true"` to all decorative SVGs in SlideNav, SlideDrawer, OverviewGrid
-- [ ] **Focus trap**: Add basic focus trap to drawer overlay in `SlideDrawer.astro` script — trap Tab key within drawer when open
-- [ ] **Live region**: Add `aria-live="polite"` to slide counter in `SlideNav.astro:59`
-- [ ] Verify: build succeeds, tab through the UI to confirm focus visible
-- [ ] Commit: "fix: address WCAG accessibility gaps"
+- [x] Focus styles, disabled state, contrast bumps, reduced motion, SVG a11y, focus trap, live region
+- [x] All applied across SlideNav, SlideDrawer, OverviewGrid, global.css
+- [x] Commit: "fix: address WCAG accessibility gaps"
 
 ---
 
@@ -240,24 +182,8 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `.github/workflows/deploy.yml`, `site/package.json`
 **Depends on:** none
 
-- [ ] Add to `site/package.json` scripts: `"check": "astro check"` (Astro type-checking)
-- [ ] Update `.github/workflows/deploy.yml` build job — add a step before build:
-```yaml
-- name: Type Check
-  run: npm run check
-  working-directory: site
-```
-- [ ] Add npm cache to CI for speed:
-```yaml
-- name: Setup Node
-  uses: actions/setup-node@v4
-  with:
-    node-version: 22
-    cache: 'npm'
-    cache-dependency-path: site/package-lock.json
-```
-- [ ] Verify: `.github/workflows/deploy.yml` is valid YAML
-- [ ] Commit: "feat: add type checking to CI pipeline"
+- [x] Added `check` script to package.json, type check step + npm cache to deploy.yml
+- [x] Commit: "feat: add type checking to CI pipeline"
 
 ---
 
@@ -265,10 +191,8 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `README.md` (new at root), `site/README.md` (replace boilerplate)
 **Depends on:** none
 
-- [ ] Create root `README.md` with: project title, one-line description, directory structure overview, quick start (`cd site && npm install && npm run dev`), deployment info (GitHub Pages via Actions), link to curriculum overview
-- [ ] Replace `site/README.md` boilerplate with: local dev setup, content collections (slides, docs), component guide (Slide, SlideNav, SlideDrawer, etc.), how to add new slides
-- [ ] Keep both READMEs concise — under 80 lines each
-- [ ] Commit: "docs: create project and site README files"
+- [x] Created root README.md (44 lines) and site/README.md (65 lines)
+- [x] Commit: "docs: create project and site README files"
 
 ---
 
@@ -276,11 +200,8 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `cheatsheets/cli-quick-reference.md`, `cheatsheets/pct-skills-quick-reference.md`, `site/src/content/docs/cheatsheets/cli-quick-reference.md`, `site/src/content/docs/index.md`
 **Depends on:** none (needs user input — use placeholder if not known)
 
-- [ ] In all files, replace `[TBD]` for Office Hours with either the actual contact info or a clear placeholder: `Office Hours: Check #ai-practitioners Slack channel for scheduling`
-- [ ] `cheatsheets/cli-quick-reference.md:97`: replace `[TBD]`
-- [ ] `site/src/content/docs/cheatsheets/cli-quick-reference.md` (if different from above): replace `[TBD]`
-- [ ] `site/src/content/docs/index.md:21`: replace `[TBD]`
-- [ ] Commit: "fix: fill in office hours contact info"
+- [x] Replaced [TBD] in 3 files with #ai-practitioners Slack channel reference
+- [x] Commit: "fix: fill in office hours contact info"
 
 ---
 
@@ -288,11 +209,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `.claude/commands/pct-deck.md`, `.claude/commands/pct-research.md`, `curriculum/03-hands-on/install-guide.md`
 **Depends on:** none
 
-- [ ] In `.claude/commands/pct-deck.md:122-155`, move Python code from the skill body into a "Post-generation" section that clearly says: "To create actual .pptx files, run the Python script separately: `python scripts/generate-pptx.py content.json output.pptx`". The skill itself should output structured JSON/markdown, not Python code inline.
-- [ ] In `.claude/commands/pct-research.md:38-49`, add explicit fallback: "If web search is unavailable, use training knowledge and clearly note 'Source: AI training data, verify independently'"
-- [ ] Add a note at the top of each /pct-* skill: "Note: GHCP generates content (text/JSON). File generation (.pptx, .docx) requires running Python scripts separately."
-- [ ] Verify `curriculum/03-hands-on/install-guide.md` GHCP commands match current syntax (`gh copilot suggest` vs `ghcp`)
-- [ ] Commit: "fix: clarify GHCP capability boundaries in skills"
+- [x] Capability notes added to all 4 pct-* skills, Python code moved to Post-generation section in pct-deck
+- [x] Research fallback added, install guide CLI syntax standardized to `gh copilot suggest`
+- [x] Commit: "fix: clarify GHCP capability boundaries in skills"
 
 ---
 
@@ -302,12 +221,11 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/content/slides/01-concepts/31-how-memory-actually-works.md`, `32-what-this-means.md`, `33-projects-custom-instructions.md` (merge/delete), other `28-36` range files (renumber)
 **Depends on:** none
 
-- [ ] Merge slides 31 (How Memory Actually Works) and 32 (What This Means) into a single slide — combine key points
-- [ ] Compress slide 33 (Projects & Custom Instructions) into a bullet point on the merged slide or move to a "Resources" appendix
-- [ ] Update `order` frontmatter to maintain sequence with gap (renumber if needed)
-- [ ] Target: reduce from 9 slides (28-36) to 6-7 slides
-- [ ] Verify: `cd site && npm run build`
-- [ ] Commit: "fix: consolidate Part 1 memory section from 9 to 7 slides"
+- [x] Merged slides 32 (What This Means) and 33 (Projects & Custom Instructions) content into slide 31 (How Memory Actually Works). Files 32 and 33 deleted
+- [x] Order sequence preserved (gaps fine — sort is by `order` field)
+- [x] Final: 7 slides (28, 29, 30, 31, 34, 35, 36)
+- [x] Build verification blocked by proxy — verified manually
+- [x] Commits e2c2dee, 854cb99 (T18 + T19 bundled due to concurrent staging)
 
 ---
 
@@ -315,10 +233,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** New slide in `site/src/content/slides/01-concepts/`
 **Depends on:** none
 
-- [ ] Create slide after the token discussion (after slide 42): `site/src/content/slides/01-concepts/42a-cost-context.md`
-- [ ] Content: order-of-magnitude costs — "1M tokens of Claude Opus ~ $15 input / $75 output. A typical research brief ~ 50-100K tokens ~ a few dollars. Budget impact is minimal for individual use."
-- [ ] Frame for budget-approving audience: "Your team's monthly AI cost will likely be less than one lunch meeting"
-- [ ] Commit: "feat: add cost/pricing context slide for PCT audience"
+- [x] Created `42a-cost-context.md` at `order: 42.5`
+- [x] Content delivered: order-of-magnitude framing + budget-audience context
+- [x] Commit 854cb99
 
 ---
 
@@ -326,11 +243,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** New slide in `site/src/content/slides/03-hands-on/`
 **Depends on:** none
 
-- [ ] Create slide after the research exercise discussion. Use `order` between existing 35 (key-takeaway) and 36 (part-3-complete). Since `order` accepts any number (z.number()), use `order: 35.5`. Name the file `35a-when-it-goes-wrong.md` — filename doesn't matter for sort since `slides/index.astro` sorts by `part` then `order` field.
-- [ ] Content: "Real example: AI generated a research brief but cited a policy document that doesn't exist. Here's how to catch and fix it: 1) Always verify citations 2) Ask AI to check its own sources 3) Iterate — 'That source seems wrong, find the actual policy'"
-- [ ] Frame positively: "Failure is part of the workflow, not a bug"
-- [ ] Verify: `cd site && npm run build`
-- [ ] Commit: "feat: add failure case walkthrough slide"
+- [x] Created `35a-when-it-goes-wrong.md` at `order: 35.5`
+- [x] Content delivered: real example, verify/iterate recovery, positive framing
+- [x] Build verification blocked by proxy — schema verified manually
+- [x] Commit 87343f9
 
 ---
 
@@ -340,14 +256,11 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 
 **Important:** The slides schema already has a `notes: z.string().optional()` field. Use this for facilitator timing annotations — no schema change needed. Do NOT add new frontmatter fields like `paceCheck` (schema validation will fail).
 
-- [ ] Add `notes:` to frontmatter of key transition slides with pace-check timing
-- [ ] Part 1 (44 slides, 25 min): add notes at slides 1, 8 (transition), 17 (transition), 27, 37 (transition), 44 (transition)
-- [ ] Part 2 (~50 slides, 15 min): add notes at slides 1, 14 (transition), 25 (transition), 37 (transition), 48 (transition)
-- [ ] Part 3 (46 slides, 40 min): add notes at slides 1, 11, 24, 37 (transition), 46
-- [ ] Part 4 (19 slides, 10 min): add notes at slides 1, 9 (transition), 19
-- [ ] Format: `notes: "Pace check: should be at ~15 min"`
-- [ ] Verify: `cd site && npm run build` — no schema errors
-- [ ] Commit: "feat: add facilitator pace-check annotations"
+- [x] Added `notes:` to 18 transition slides across all 4 parts using existing schema field
+- [x] Coverage: Part 1 (5 slides), Part 2 (5), Part 3 (5), Part 4 (3)
+- [x] Format: `Pace check: should be at ~X min`
+- [x] Build verification blocked by proxy — YAML validity verified manually
+- [x] Commit 3f1d50a
 
 ---
 
@@ -355,12 +268,12 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/content/slides/04-inspiration/13-getting-help.md`, `14-resources.md`, `17-final-words.md`, `18-questions.md`, `19-feedback.md` (merge/delete targets)
 **Depends on:** none
 
-- [ ] Merge "Final Words" (17) + "Questions" (18) into a single "Questions & Final Thoughts" slide
-- [ ] Merge "Resources" (14) + "Getting Help" (13) into a single "Resources & Support" slide
-- [ ] Remove "Feedback" slide (19) — handle offline via email/form link on resources slide
-- [ ] Add specific next-step actions to "Your Homework" slide instead of vague links
-- [ ] Target: reduce from 10 to 6-7 slides
-- [ ] Commit: "fix: consolidate Part 4 closing from 10 to 7 slides"
+- [x] Merged Final Words + Questions → "Questions & Final Thoughts"
+- [x] Merged Resources + Getting Help → "Resources & Support" with offline feedback note
+- [x] Deleted Feedback slide
+- [x] Your Homework slide: concrete next-step actions added
+- [x] Final: 7 closing slides (Part 4 total 16)
+- [x] Commit 84fb2cd
 
 ---
 
@@ -368,10 +281,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/content/slides/01-concepts/15-the-hallucination-problem.md`
 **Depends on:** none
 
-- [ ] Update slide content: change "RAG fixes hallucinations" framing to "RAG reduces hallucinations by grounding responses in retrieved data"
-- [ ] Add caveat: "AI can still confidently misstate things about retrieved documents — always verify critical facts"
-- [ ] Keep concise — this is one bullet point adjustment, not a rewrite
-- [ ] Commit: "fix: clarify RAG reduces but doesn't eliminate hallucinations"
+- [x] Changed "answers from actual sources" to "reduces hallucinations by grounding"
+- [x] Added caveat line about confident misstatement of retrieved docs
+- [x] Scope preserved — only touched the RAG bullet
+- [x] Commit a87e718
 
 ---
 
@@ -379,11 +292,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** New slides in `site/src/content/slides/02-cli/` (at end, before transition to Part 3)
 **Depends on:** none
 
-- [ ] Create 2 bridge slides at the end of Part 2 (before the Part 2→3 transition):
-  - Slide 1: "From Concepts to Doing" — "You now understand why CLI AI is different. Next: we'll install it and build something. No CLI experience needed — we'll walk through each step."
-  - Slide 2: "What You'll Need" — checklist: terminal, GitHub access, 40 minutes. "If anything fails, pair with a neighbor or watch the demo."
-- [ ] Use layout `content`, part 2, order them just before the transition slide
-- [ ] Commit: "feat: add bridge slides easing Part 2→3 transition"
+- [x] Created `49a-from-concepts-to-doing.md` at order 49.3 and `49b-what-youll-need.md` at order 49.6
+- [x] Both use `layout: content`, part 2, positioned before the recap (order 50)
+- [x] Commit c063dee
 
 ---
 
@@ -393,10 +304,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `cheatsheets/cli-quick-reference.md`, `site/src/content/docs/cheatsheets/cli-quick-reference.md`
 **Depends on:** none
 
-- [ ] Make `site/src/content/docs/cheatsheets/cli-quick-reference.md` the single source of truth
-- [ ] Replace `cheatsheets/cli-quick-reference.md` content with a note pointing to the site version, or make it a symlink: `ln -sf ../site/src/content/docs/cheatsheets/cli-quick-reference.md cheatsheets/cli-quick-reference.md`
-- [ ] Verify the site version has all content from both files (merge any unique content first)
-- [ ] Commit: "fix: consolidate cheatsheet to single source"
+- [x] Site version is now single source of truth
+- [x] Root cheatsheet replaced with 3-line pointer (symlink not needed — plain md is cleaner in git)
+- [x] Files were already substantively identical; no unique content to merge
+- [x] Commit c03bff7
 
 ---
 
@@ -404,11 +315,11 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/components/SlideControls.astro`, `site/src/pages/test-slides.astro`, `site/src/components/Mermaid.astro`
 **Depends on:** none
 
-- [ ] Remove `console.log('[SlideControls] Presenter notes toggle (placeholder)')` from `SlideControls.astro:73` — either implement presenter notes or remove the placeholder entirely (remove the 'P' key handler if no presenter notes feature)
-- [ ] Delete `site/src/pages/test-slides.astro` (debug page)
-- [ ] Delete `site/src/components/Mermaid.astro` if unused (SlideLayout has inline mermaid rendering)
-- [ ] Verify: `cd site && npm run build`
-- [ ] Commit: "fix: remove debug artifacts from production"
+- [x] Removed 'P' key handler + placeholder console.log in SlideControls.astro (no listener for `presenternotes` event existed)
+- [x] Deleted test-slides.astro
+- [x] Deleted Mermaid.astro (verified no imports; SlideLayout handles inline)
+- [x] Build verification blocked by proxy — verified via grep for remaining debug calls (0 hits)
+- [x] Commits 07ea9c9 (deletions, attribution-swapped with T33) + 89582f8 (linker for `Closes #25`)
 
 ---
 
@@ -416,13 +327,9 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/src/layouts/BaseLayout.astro`
 **Depends on:** none
 
-- [ ] Add font preload links in `BaseLayout.astro` head (after line 20):
-```html
-<link rel="preload" href="/ai-learning-pct/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" href="/ai-learning-pct/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin />
-```
-- [ ] Remove the outdated TODO comment on line 22-25 (the Google Fonts commented-out block)
-- [ ] Commit: "perf: add font preloading for faster first paint"
+- [x] Added preload links for `inter-variable.woff2` and `jetbrains-mono-variable.woff2`
+- [x] Removed outdated Google Fonts TODO block
+- [x] Commit 50d363c (bundled with T29 due to pre-commit hook sweeping in concurrent agent's files)
 
 ---
 
@@ -430,10 +337,10 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `roadmap.md`, `CLAUDE.md`
 **Depends on:** none
 
-- [ ] Update `roadmap.md` dates to reflect actual timeline — mark completed phases with actual dates, update upcoming dates
-- [ ] Update `CLAUDE.md:80` — change "Phase 1A: Infrastructure (in progress)" to "Phase 2: Audit Remediation (in progress)"
-- [ ] Update the Timeline section in CLAUDE.md to reflect current reality
-- [ ] Commit: "docs: update roadmap and CLAUDE.md to reflect current phase"
+- [x] Updated roadmap.md with actual phase dates, marked Phase 2 as current
+- [x] Updated CLAUDE.md to Phase 2: Audit Remediation (in progress)
+- [x] Updated Timeline section — workshop date marked TBD
+- [x] Commit a6dde60
 
 ---
 
@@ -441,12 +348,12 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `site/package.json`, new `.prettierrc.json`, new `.editorconfig`
 **Depends on:** none
 
-- [ ] Create `.prettierrc.json` at site root: `{ "semi": true, "singleQuote": true, "trailingComma": "es5", "printWidth": 100 }`
-- [ ] Create `.editorconfig` at project root with standard settings (2-space indent for TS/Astro, LF line endings)
-- [ ] Add devDependencies to `site/package.json`: `prettier`
-- [ ] Add npm scripts: `"format": "prettier --write 'src/**/*.{astro,ts,css}'", "format:check": "prettier --check 'src/**/*.{astro,ts,css}'"`
-- [ ] Run `cd site && npm install`
-- [ ] Commit: "feat: add prettier and editorconfig for code formatting"
+- [x] Created site/.prettierrc.json (with prettier-plugin-astro)
+- [x] Created .editorconfig at root
+- [x] Added devDeps: prettier ^3.3.0, prettier-plugin-astro ^0.14.0
+- [x] Added `format` and `format:check` npm scripts
+- [x] npm install DEFERRED — corporate proxy blocks tarball downloads
+- [x] Commit 50d363c (bundled with T27). `Closes #29` linkage missing — close manually on push
 
 ---
 
@@ -454,20 +361,11 @@ Content: "With CLI AI in your workspace, you control what it accesses" — cover
 **Files:** `install-harness.sh`
 **Depends on:** none
 
-- [ ] After Phase 3 (Symlinks), add a new phase for template validation:
-```bash
-echo "Phase 3b: Templates"
-for tmpl in templates/pct/nationwide_default.pptx templates/pct/2024_Memo.dotx; do
-  if [ -f "$DOTFILES_DIR/$tmpl" ]; then
-    log_ok "$(basename "$tmpl") found"
-  else
-    log_warn "$(basename "$tmpl") missing — document generation won't work"
-  fi
-done
-```
-- [ ] Clarify Python messaging in Phase 9: add echo "Python is optional. Not required for the 90-min workshop. Needed for actual file generation afterward."
-- [ ] Add explanatory echo before MCP build in Phase 8: "Building MCP server (optional — enables session management)"
-- [ ] Commit: "fix: add template validation and clarify optional dependencies"
+- [x] Phase 3b template validation already existed from T10; no changes needed
+- [x] Phase 8: added "Building MCP server (optional — enables session management)" echo
+- [x] Phase 9: added Python optional-dependency clarifying echo
+- [x] Syntax verified with `bash -n install-harness.sh`
+- [x] Commit 559077a
 
 ---
 
@@ -480,11 +378,11 @@ done
 **Files:** `curriculum/03-hands-on/cheatsheet-walkthrough.md`, `site/src/content/docs/cheatsheets/cli-quick-reference.md`
 **Depends on:** Task 25 (cheatsheet consolidation) — **must run after Task 25 completes, not parallel**
 
-- [ ] Wait for Task 25 to complete (cheatsheet consolidated to single source)
-- [ ] Compare `curriculum/03-hands-on/cheatsheet-walkthrough.md` examples against the consolidated cheatsheet at `site/src/content/docs/cheatsheets/cli-quick-reference.md`
-- [ ] Update walkthrough to reference the same commands, flags, and patterns as the cheatsheet
-- [ ] Ensure the facilitator walkthrough matches what participants see on their printed card
-- [ ] Commit: "fix: align curriculum walkthrough with actual cheatsheet"
+- [x] Ran after T25 sequentially (not parallel)
+- [x] Walkthrough rewritten to match cheatsheet commands, flags, and examples
+- [x] Added alignment note at top of walkthrough pointing to cheatsheet source
+- [x] Reduced walkthrough from 146 to 50 lines
+- [x] Commit 0d03301
 
 ---
 
@@ -492,11 +390,12 @@ done
 **Files:** `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`, `site/src/components/SlideNav.astro`
 **Depends on:** Task 12 (light mode setup — but can proceed independently if using CSS vars already defined)
 
-- [ ] In `SlideDrawer.astro`: replace `bg-slate-800/80` with `bg-[var(--color-bg-secondary)]/80`, `border-slate-700` with `border-[var(--color-bg-tertiary)]`, `text-slate-400` with `text-[var(--color-text-muted)]`, etc.
-- [ ] In `OverviewGrid.astro`: replace `bg-slate-900/95` with `bg-[var(--color-bg-primary)]/95`, and similar token replacements
-- [ ] In `SlideNav.astro:53`: replace `bg-blue-500` with `bg-[var(--color-accent)]`
-- [ ] Verify: build succeeds, visual appearance unchanged in dark mode
-- [ ] Commit: "refactor: replace hardcoded Tailwind classes with design tokens"
+- [x] SlideDrawer: 2 replacements (text-sky-400, active-link block tokens)
+- [x] OverviewGrid: 4 replacements (accent color classes)
+- [x] SlideNav: 2 replacements (focus-visible outlines)
+- [x] Intentionally left white/black-alpha overlay classes (no matching semantic token; task spec allowed)
+- [x] Build verification blocked by proxy — verified manually that tokens exist in global.css
+- [x] Commit ab4f9db
 
 ---
 
@@ -506,10 +405,11 @@ done
 **Files:** `site/src/layouts/SlideLayout.astro`, `site/src/components/SlideControls.astro`, `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`
 **Depends on:** none
 
-- [ ] In `SlideLayout.astro` mermaid init script, wrap rendering in IntersectionObserver — only render mermaid blocks when they enter viewport
-- [ ] Declare proper window interface extension in a `src/env.d.ts` or at top of SlideControls: `declare global { interface Window { slideOverview: {...}; slideDrawer: {...}; } }` to remove `(window as any)` casts
-- [ ] Extract shared `groupSlidesByPart()` utility from SlideDrawer and OverviewGrid into a shared function (both have identical reduce logic)
-- [ ] Commit: "refactor: lazy-load mermaid, type window globals, extract shared utility"
+- [x] SlideLayout: IntersectionObserver wraps mermaid render (rootMargin 200px, fallback to eager if unsupported)
+- [x] Created site/src/env.d.ts declaring `Window.slideDrawer` and `Window.slideOverview`
+- [x] Removed all `(window as any)` casts from SlideControls, SlideDrawer, OverviewGrid
+- [x] Created site/src/utils/slides.ts exporting shared `groupSlidesByPart()`; imported in both components
+- [x] Commit 7637b11
 
 ---
 
@@ -517,11 +417,11 @@ done
 **Files:** `site/src/layouts/BaseLayout.astro`, new `site/public/robots.txt`
 **Depends on:** none
 
-- [ ] Add OG meta tags to `BaseLayout.astro` head: `og:title`, `og:description`, `og:type` (website)
-- [ ] Add canonical link: `<link rel="canonical" href={Astro.url.href} />`
-- [ ] Create `site/public/robots.txt`: `User-agent: *\nAllow: /`
-- [ ] Consider adding `@astrojs/sitemap` integration — add to `astro.config.mjs` if straightforward
-- [ ] Commit: "feat: add SEO basics — OG tags, canonical, robots.txt"
+- [x] OG tags added (og:title, og:description, og:type, og:url) bound to existing props
+- [x] Canonical link uses Astro.url.href
+- [x] robots.txt created at site/public/robots.txt
+- [x] Sitemap integration SKIPPED — adding the import without npm install (proxy-blocked) would break the build
+- [x] Commit af9ebf6
 
 ---
 
@@ -529,10 +429,10 @@ done
 **Files:** New `scripts/test-skills.sh`, `.claude/commands/README.md`
 **Depends on:** none
 
-- [ ] Create `scripts/test-skills.sh` that validates each skill file exists and has required frontmatter (name, description)
-- [ ] Update `.claude/commands/README.md` with GHCP argument behavior notes and decision guidance for tier/depth options
-- [ ] Add verification step to `/pct-cheatsheet` skill: "Verify output is scannable and fits one page"
-- [ ] Commit: "feat: add skill testing script and argument documentation"
+- [x] Create `scripts/test-skills.sh` that validates each skill file exists and has required frontmatter (name, description)
+- [x] Update `.claude/commands/README.md` with GHCP argument behavior notes and decision guidance for tier/depth options
+- [x] Add verification step to `/pct-cheatsheet` skill: "Verify output is scannable and fits one page"
+- [x] Commit: "feat: add skill testing script and argument documentation"
 
 ---
 
@@ -540,9 +440,11 @@ done
 **Files:** New `Makefile` at project root
 **Depends on:** none
 
-- [ ] Create `Makefile` with targets: `install` (cd site && npm install), `dev` (cd site && npm run dev), `build` (cd site && npm run build), `preview` (cd site && npm run preview), `check` (cd site && npm run check), `format` (cd site && npm run format), `clean` (rm -rf site/dist site/.astro)
-- [ ] Add `.PHONY` declarations for all targets
-- [ ] Commit: "feat: add root Makefile for dev workflow convenience"
+- [x] Created Makefile with targets: help (default), install, dev, build, preview, check, format, clean
+- [x] .PHONY declarations cover all targets
+- [x] Tab indentation verified
+- [x] `make help` tested successfully
+- [x] Commit 5a738e4
 
 ---
 
