@@ -1,1103 +1,565 @@
-# Slide Polish Implementation Plan
+# Full Audit Remediation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Polish the presentation site with better diagram layouts, navigation drawer, and professional visual refinements.
+**Goal:** Remediate all 38 audit issues (10 blocking, 8 high, 16 medium, 4 low) to make the workshop production-ready.
 
-**Architecture:** Three sequential features: (1) new CSS layout variant for diagram slides, (2) SlideDrawer component for within-part navigation, (3) global CSS polish pass. Each feature is independently shippable.
+**Architecture:** Seven execution waves, prioritized by workshop-blocking severity. Within each wave, tasks are parallelizable across independent files/systems.
 
-**Tech Stack:** Astro components, CSS custom properties, vanilla JavaScript for interactivity.
-
----
-
-## File Structure
-
-| File | Action | Responsibility |
-|------|--------|----------------|
-| `site/src/styles/global.css` | Modify | Design tokens, `.slide-diagram` class, all polish styles |
-| `site/src/components/Slide.astro` | Modify | Add "diagram" to variant type union |
-| `site/src/components/SlideDrawer.astro` | Create | Drawer UI, collapse logic, keyboard handling |
-| `site/src/layouts/SlideLayout.astro` | Modify | Import SlideDrawer, add hamburger button |
-| `site/src/content/slides/**/*.md` | Modify (15 files) | Change frontmatter to `layout: "diagram"` |
+**Verification:** `cd site && npm run build` after each wave. Visual check after UI waves.
 
 ---
 
-## Feature 1: Diagram Layout Variant
+## Execution Waves
 
-### Task 1.1: Add diagram layout CSS
+| Wave | Tasks | Mode | Rationale |
+|------|-------|------|-----------|
+| 1 | T1-T4 | parallel | Quick blocking fixes, independent files, <5 min each. T2 also creates exercise pages (#31). |
+| 2 | T5-T7 | parallel | Content blocking, independent slide files |
+| 3 | T8-T11 | parallel | Skills/installer blocking, independent scripts/docs |
+| 4 | T12-T17 | parallel | High priority UI/docs/infra, independent systems |
+| 5 | T18-T24 | parallel | Medium content, independent slide files |
+| 6 | T25-T30, T33 | parallel then T32 sequential | Medium docs/UI/infra. T32 depends on T25 — runs after T25 completes. |
+| 7 | T34-T37 | parallel | Low priority, independent systems |
 
-**Files:**
-- Modify: `site/src/styles/global.css` (after line 235, the `.slide-code` section)
+---
 
-- [ ] **Step 1: Add `.slide-diagram` CSS class**
+## Wave 1: Quick Blocking Fixes
 
-Add after the `.slide-code` section (around line 235):
+### Task 1: Fix hardcoded absolute path in mcp-config.json (#6)
+**Files:** `mcp-config.json`
+**Depends on:** none
 
+- [ ] Replace `/home/keckmatd/projects/copilot-dotfiles/mcp/session-context/dist/index.js` with `./mcp/session-context/dist/index.js` in `mcp-config.json:7`
+- [ ] Update `install-harness.sh` Phase 5 to rewrite the path at install time using `sed` to replace `./mcp` with the actual `$DOTFILES_DIR/mcp` absolute path
+- [ ] Verify: `cat mcp-config.json | grep -v keckmatd` succeeds (no hardcoded path)
+- [ ] Commit: "fix: use relative path in mcp-config.json"
+
+---
+
+### Task 2: Fix broken /docs/exercises/ link + create exercise pages (#9 + #31)
+**Files:** `site/src/content/docs/index.md`, new `site/src/content/docs/exercises/index.md`, new `site/src/content/docs/exercises/powerpoint.md`, new `site/src/content/docs/exercises/research-brief.md`
+**Depends on:** none
+
+- [ ] Create `site/src/content/docs/exercises/index.md` with frontmatter `category: exercises, order: 1` — overview listing both exercises
+- [ ] Create `site/src/content/docs/exercises/powerpoint.md` (order: 2) — migrate from `curriculum/03-hands-on/exercise-powerpoint.md`, adapted for self-paced reference
+- [ ] Create `site/src/content/docs/exercises/research-brief.md` (order: 3) — migrate from `curriculum/03-hands-on/exercise-research.md`
+- [ ] Update `site/src/content/docs/index.md:15` link to point to `/ai-learning-pct/docs/exercises/`
+- [ ] Verify: `cd site && npm run build` succeeds
+- [ ] Commit: "fix: create exercise pages and resolve broken /docs/exercises/ link"
+
+---
+
+### Task 3: Fix skills cheatsheet wrong paths (#10)
+**Files:** `cheatsheets/pct-skills-quick-reference.md`, `cheatsheets/pct-skills-quick-reference.html`
+**Depends on:** none
+
+- [ ] Update `cheatsheets/pct-skills-quick-reference.md:118` — change `Skill source: .claude/commands/pct-*.md` to match actual paths. Verify with `ls .claude/commands/pct-*.md`
+- [ ] Verify the skill invocation syntax documented matches GHCP slash command format (`/pct-deck` etc.)
+- [ ] Regenerate HTML if applicable, or note that HTML is stale and should be regenerated
+- [ ] Commit: "fix: correct skill paths in PCT quick reference"
+
+---
+
+### Task 4: Fix model naming (#19)
+**Files:** `site/src/content/slides/01-concepts/03-the-reveal-working-memory.md` and any other slides with model names
+**Depends on:** none
+
+- [ ] In `site/src/content/slides/01-concepts/03-the-reveal-working-memory.md:25`, change `Claude 4.6` to `Claude Opus 4.6`
+- [ ] Grep all slides for model name references: `grep -r "Claude [0-9]" site/src/content/slides/` and fix any that say "Claude 4.6" without the model tier
+- [ ] Verify context window sizes match current specs (GPT-4o: 128K, Claude Opus 4.6: 1M, Gemini 2.5: 1M)
+- [ ] Commit: "fix: correct model naming to Claude Opus 4.6"
+
+---
+
+## Wave 2: Content Blocking
+
+### Task 5: Add security/governance content (#2)
+**Files:** New slides in `site/src/content/slides/02-cli/`
+**Depends on:** none
+
+**Important:** Astro glob loader sorts by filename string, not by `order` frontmatter. To insert new slides between existing ones, we must renumber the affected files OR rely purely on the `order` field for sorting in `slides/index.astro`. Check how `slides/index.astro` sorts — if it sorts by `order` field (not filename), then use fractional orders. If it sorts by filename, renumber files.
+
+- [ ] First check: read `site/src/pages/slides/index.astro` to confirm sort is by `slide.data.part` then `slide.data.order` (it should be — this is the Astro content collection pattern)
+- [ ] Create `site/src/content/slides/02-cli/17a-security-governance.md`:
+```yaml
+---
+title: "One Responsibility"
+part: 2
+order: 18
+layout: "content"
+sourceFile: "browser-vs-cli"
+---
+```
+Content: "With CLI AI in your workspace, you control what it accesses" — cover permissions model, audit trails, data residency, what NOT to share. Frame as empowerment for govt audience.
+
+- [ ] Create `site/src/content/slides/02-cli/17b-security-practices.md` with `order: 19` — practical guidance: review before accepting, don't paste credentials, use .gitignore
+- [ ] Increment `order` by 2 in all subsequent Part 2 slides (those with order >= 18) to make room. This is the safe approach — bulk-update frontmatter `order` values
+- [ ] Verify: `cd site && npm run build` succeeds and new slides appear in correct position after "The Real Difference"
+- [ ] Commit: "feat: add security/governance slides for govt audience"
+
+---
+
+### Task 6: Fix exercise timing (#3)
+**Files:** `curriculum/00-overview.md`, `site/src/content/slides/03-hands-on/*.md`
+**Depends on:** none
+
+- [ ] Update `curriculum/00-overview.md` Part 3 timing from 35 min to 40 min, compress Part 2 from 20 min to 15 min (the reorder in Task 7 will make Part 2 tighter)
+- [ ] In Part 3 slides, add a facilitator note to slide 12 (`exercise-build-a-powerpoint.md`): "If short on time, skip to the research exercise — it's more impactful for this audience"
+- [ ] Add timing annotation to Part 3 opening slide: "Pace check: should have 40 min remaining"
+- [ ] Mark the PowerPoint exercise as "Option A" and Research as "Option B — do this if time is tight" by adding facilitator notes in frontmatter
+- [ ] Commit: "fix: adjust Part 3 timing to 40 min, add skip option"
+
+---
+
+### Task 7: Reorder Part 2 slides (#8)
+**Files:** `site/src/content/slides/02-cli/*.md` (renumber `order` in frontmatter)
+**Depends on:** none
+
+- [ ] Current Part 2 order: 01-12 (best practices) → 13 (recap) → 14 (transition) → 15-24 (browser vs CLI) → 25 (transition) → 26-36 (harness) → 37 (transition) → 38-48 (session mgmt). New order should be: Browser vs CLI concepts first → Session Management → Best Practices → Harness → Recap
+- [ ] Update `order` frontmatter in each file to reflect new sequence. Target ordering:
+  - 14-24 (Browser vs CLI, currently order 14-24) → renumber to order 1-11
+  - 38-48 (Session Management, currently order 38-48) → renumber to order 12-22
+  - 01-12 (Best Practices, currently order 1-12) → renumber to order 23-34
+  - 26-36 (Harness, currently order 26-36) → renumber to order 35-45
+  - 13 (Recap, currently order 13) → renumber to order 46
+  - Transitions placed between sections
+- [ ] Verify: `cd site && npm run build` — slides render in new order
+- [ ] Commit: "fix: reorder Part 2 — concepts before practices"
+
+---
+
+## Wave 3: Skills/Installer Blocking
+
+### Task 8: Create participant copilot-instructions.md (#5)
+**Files:** `copilot-instructions.md` (rename existing), new `copilot-instructions-participant.md`, `install-harness.sh`
+**Depends on:** none
+
+- [ ] Rename current `copilot-instructions.md` to `copilot-instructions-developer.md` (this is the personal dev config)
+- [ ] Create new `copilot-instructions.md` targeted at workshop participants:
+  - Who the user is (PCT cabinet member, familiar with browser AI, new to CLI)
+  - Available skills (/pct-deck, /pct-memo, /pct-research, /pct-cheatsheet)
+  - How to start a session, iterate on output, end a session
+  - Best practices for beginners (be specific, include context files, review output)
+  - Keep it under 50 lines — concise and actionable
+- [ ] Update `install-harness.sh:90` symlink to point to the new participant version
+- [ ] Commit: "feat: create participant-focused copilot-instructions.md"
+
+---
+
+### Task 9: Fix installer MCP config merge (#11)
+**Files:** `install-harness.sh`
+**Depends on:** none
+
+- [ ] Replace `install-harness.sh:141-145` (Phase 5 MCP Registration) with a merge strategy:
+  - If `$MCP_CONFIG` exists: use `jq` to read existing config, merge in session-context entry without overwriting other servers
+  - If `$MCP_CONFIG` doesn't exist: copy fresh
+  - Add `jq` to prerequisites check (Phase 1) or fall back to manual merge instruction if jq unavailable
+- [ ] Also fix the path in the source `mcp-config.json` to use `$DOTFILES_DIR` (coordinate with Task 1's relative path fix — the installer should rewrite at install time)
+- [ ] Verify: `bash -n install-harness.sh` (syntax check)
+- [ ] Commit: "fix: merge MCP config instead of overwriting"
+
+---
+
+### Task 10: Fix broken template references (#4)
+**Files:** Multiple — `site/src/content/slides/03-hands-on/16-18.md`, `.claude/commands/pct-memo.md`, `curriculum/03-hands-on/exercise-powerpoint.md`, `install-harness.sh`
+**Depends on:** none
+
+- [ ] Audit ALL template path references: `grep -rn "templates/" site/src/content/slides/ .claude/commands/ curriculum/`
+- [ ] Verify actual template files exist: `ls templates/pct/` — confirm `nationwide_default.pptx` and `2024_Memo.dotx` exist
+- [ ] Fix slide 16 (`16-look-at-available-templates.md`): update the `ls templates/` and `cat templates/powerpoint-template.md` commands to match actual paths (`ls templates/pct/`, `cat templates/pct/README.md`)
+- [ ] Fix `.claude/commands/pct-memo.md:145`: verify `templates/pct/2024_Memo.dotx` path is correct
+- [ ] Fix `curriculum/03-hands-on/exercise-powerpoint.md:32-37`: update template paths
+- [ ] Add template validation to `install-harness.sh` after Phase 3: `test -f "$DOTFILES_DIR/templates/pct/nationwide_default.pptx" || log_warn "Template files missing"`
+- [ ] Commit: "fix: standardize template paths across slides, skills, curriculum"
+
+---
+
+### Task 11: Fix install guide confusion (#7)
+**Files:** `curriculum/03-hands-on/install-guide.md`, slides `38-46` in Part 3
+**Depends on:** none
+
+- [ ] Update `curriculum/03-hands-on/install-guide.md:20-30` — clarify that copilot-dotfiles is **bundled in this repo**, not an external clone. Change clone URL to point to ai-learning-pct repo or provide direct download instructions
+- [ ] Update the script name from `setup.sh` to `install-harness.sh` (line 44-45) to match actual filename
+- [ ] Update the "What Got Installed" section (lines 105-115) to match actual directory structure (`~/.copilot/` with symlinks to skills, agents, copilot-instructions.md)
+- [ ] Update corresponding slides (`site/src/content/slides/03-hands-on/38-install-guide.md` through `46-next-learn-the-commands.md`) to match the corrected install flow
+- [ ] Commit: "fix: clarify bundled install flow in guide and slides"
+
+---
+
+## Wave 4: High Priority
+
+### Task 12: Wire up light mode + design tokens (#12 + #28)
+**Files:** `site/src/styles/global.css`, `site/src/components/ThemeToggle.astro`, `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`, `site/src/layouts/DocsLayout.astro`, `site/src/components/SlideNav.astro`
+**Depends on:** none
+
+- [ ] In `global.css`, move light mode vars from standalone `--color-light-*` into a proper class-based override:
 ```css
-/* Diagram Slide - Side-by-side layout for Mermaid diagrams */
-.slide-diagram {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 3rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.slide-diagram h2 {
-  font-size: var(--text-3xl);
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.slide-diagram ul,
-.slide-diagram ol {
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.slide-diagram li::marker {
-  color: var(--color-accent);
-}
-
-.slide-diagram .mermaid-diagram,
-.slide-diagram pre[data-language="mermaid"] {
-  width: 100%;
-  max-height: 70vh;
-}
-
-.slide-diagram .mermaid-diagram svg {
-  max-height: 70vh;
-  width: auto;
-}
-
-@media (max-width: 768px) {
-  .slide-diagram {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.light, :root:not(.dark) .docs-layout {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
 }
 ```
-
-- [ ] **Step 2: Verify CSS syntax**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds with no CSS errors
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/styles/global.css
-git commit -m "feat: add .slide-diagram CSS layout variant
-
-Side-by-side grid: 40% content, 60% diagram
-Mobile fallback stacks vertically"
-```
+- [ ] Update `ThemeToggle.astro` script to toggle CSS custom properties by adding/removing a class on `:root` that activates light mode vars
+- [ ] Replace hardcoded Tailwind classes in `SlideDrawer.astro`: `bg-slate-800` → use CSS var, `text-slate-400` → use CSS var, `border-slate-700` → use CSS var
+- [ ] Replace hardcoded classes in `OverviewGrid.astro`: `bg-slate-900/95`, `text-white/40`, `text-white/80` → CSS var equivalents
+- [ ] Replace hardcoded classes in `DocsLayout.astro`: already uses `dark:` variants which is fine for docs
+- [ ] Fix `SlideNav.astro:53`: replace `bg-blue-500` with `bg-[var(--color-accent)]` for progress bar
+- [ ] Verify: build succeeds, light mode toggles work on docs layout
+- [ ] Commit: "feat: wire up light mode with CSS custom property overrides"
 
 ---
 
-### Task 1.2: Register diagram variant in Slide component
-
-**Files:**
-- Modify: `site/src/components/Slide.astro:1-11`
-
-- [ ] **Step 1: Update variant type to include "diagram"**
-
-Replace the interface section:
-
-```astro
----
-interface Props {
-  id: string;
-  variant?: 'title' | 'content' | 'split' | 'code' | 'diagram';
-}
-
-const { id, variant = 'content' } = Astro.props;
-
-// Map variants to CSS classes defined in global.css
-const variantClass = `slide-${variant}`;
----
-```
-
-- [ ] **Step 2: Verify component compiles**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/components/Slide.astro
-git commit -m "feat: register diagram variant in Slide component"
-```
-
----
-
-### Task 1.3: Update slides index to handle diagram layout
-
-**Files:**
-- Modify: `site/src/pages/slides/index.astro:26-30`
-
-- [ ] **Step 1: Add diagram to variant mapping**
-
-Find the `renderedSlides` mapping (around line 26) and update:
-
-```typescript
-const renderedSlides = await Promise.all(
-  sortedSlides.map(async (slide, index) => {
-    const { Content } = await render(slide);
-    return {
-      slide,
-      Content,
-      slideNumber: index + 1,
-      variant: slide.data.layout === 'quote' ? 'content' : 
-               slide.data.layout === 'diagram' ? 'diagram' : 
-               slide.data.layout,
-    };
-  })
-);
-```
-
-- [ ] **Step 2: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/pages/slides/index.astro
-git commit -m "feat: handle diagram layout in slides page"
-```
-
----
-
-### Task 1.4: Migrate diagram slides (batch 1 - concepts)
-
-**Files:**
-- Modify: `site/src/content/slides/01-concepts/03-the-reveal-working-memory.md`
-- Modify: `site/src/content/slides/01-concepts/12-rag-let-me-look-that-up.md`
-- Modify: `site/src/content/slides/01-concepts/20-the-shift-from-talking-to-doing.md`
-- Modify: `site/src/content/slides/01-concepts/21-how-tool-use-works.md`
-
-- [ ] **Step 1: Update frontmatter for 03-the-reveal-working-memory.md**
-
-Change `layout: "content"` or `layout: "code"` to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 2: Update frontmatter for 12-rag-let-me-look-that-up.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 3: Update frontmatter for 20-the-shift-from-talking-to-doing.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 4: Update frontmatter for 21-how-tool-use-works.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 5: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add site/src/content/slides/01-concepts/
-git commit -m "feat: migrate concepts slides 03,12,20,21 to diagram layout"
-```
-
----
-
-### Task 1.5: Migrate diagram slides (batch 2 - concepts continued)
-
-**Files:**
-- Modify: `site/src/content/slides/01-concepts/23-why-mcp-matters-to-you.md`
-- Modify: `site/src/content/slides/01-concepts/31-how-memory-actually-works.md`
-- Modify: `site/src/content/slides/01-concepts/33-projects-custom-instructions.md`
-
-- [ ] **Step 1: Update frontmatter for 23-why-mcp-matters-to-you.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 2: Update frontmatter for 31-how-memory-actually-works.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 3: Update frontmatter for 33-projects-custom-instructions.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 4: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add site/src/content/slides/01-concepts/
-git commit -m "feat: migrate concepts slides 23,31,33 to diagram layout"
-```
-
----
-
-### Task 1.6: Migrate diagram slides (batch 3 - CLI)
-
-**Files:**
-- Modify: `site/src/content/slides/02-cli/17-the-real-difference.md`
-- Modify: `site/src/content/slides/02-cli/18-cli-ai-in-your-workspace.md`
-- Modify: `site/src/content/slides/02-cli/28-what-is-a-harness.md`
-- Modify: `site/src/content/slides/02-cli/30-2-project-instructions.md`
-- Modify: `site/src/content/slides/02-cli/34-the-copilot-dotfiles-harness.md`
-- Modify: `site/src/content/slides/02-cli/42-the-better-approach-automatic-context-lo.md`
-
-- [ ] **Step 1: Update frontmatter for all 6 CLI slides**
-
-Change layout to `layout: "diagram"` in frontmatter for each file.
-
-- [ ] **Step 2: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/content/slides/02-cli/
-git commit -m "feat: migrate CLI slides 17,18,28,30,34,42 to diagram layout"
-```
-
----
-
-### Task 1.7: Migrate diagram slides (batch 4 - hands-on and inspiration)
-
-**Files:**
-- Modify: `site/src/content/slides/03-hands-on/45-what-got-installed.md`
-- Modify: `site/src/content/slides/04-inspiration/03-demo-script.md`
-
-- [ ] **Step 1: Update frontmatter for 45-what-got-installed.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 2: Update frontmatter for 03-demo-script.md**
-
-Change layout to `layout: "diagram"` in frontmatter.
-
-- [ ] **Step 3: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add site/src/content/slides/03-hands-on/ site/src/content/slides/04-inspiration/
-git commit -m "feat: migrate hands-on/inspiration slides to diagram layout"
-```
-
----
-
-### Task 1.8: Visual verification of diagram layouts
-
-- [ ] **Step 1: Start dev server**
-
-Run: `cd site && npm run dev`
-
-- [ ] **Step 2: Check diagram slides render correctly**
-
-Open browser to `http://localhost:4322/ai-learning-pct/slides/`
-Navigate to slides 3, 12, 20, 21, 23 (Part 1 concepts with diagrams)
-Verify: Content on left, Mermaid diagram on right, diagram uses available space
-
-- [ ] **Step 3: Check mobile fallback**
-
-Resize browser to <768px width
-Verify: Layout stacks vertically (content above, diagram below)
-
-- [ ] **Step 4: Stop dev server**
-
-Press Ctrl+C to stop the server
-
----
-
-## Feature 2: Slide Drawer Navigation
-
-### Task 2.1: Create SlideDrawer component
-
-**Files:**
-- Create: `site/src/components/SlideDrawer.astro`
-
-- [ ] **Step 1: Create the SlideDrawer component**
-
-```astro
----
-interface SlideInfo {
-  id: string;
-  title: string;
-  part: number;
-  slideNumber: number;
-}
-
-interface Props {
-  slides: SlideInfo[];
-}
-
-const { slides } = Astro.props;
-
-const partNames: Record<number, string> = {
-  1: 'Core Concepts',
-  2: 'CLI Differences',
-  3: 'Hands-On',
-  4: 'Inspiration',
-};
-
-// Group slides by part
-const slidesByPart = slides.reduce(
-  (acc, slide) => {
-    if (!acc[slide.part]) {
-      acc[slide.part] = [];
-    }
-    acc[slide.part].push(slide);
-    return acc;
-  },
-  {} as Record<number, SlideInfo[]>
-);
-
-const parts = Object.keys(slidesByPart)
-  .map(Number)
-  .sort((a, b) => a - b);
----
-
-<!-- Hamburger Button -->
-<button
-  id="drawer-toggle"
-  class="fixed top-4 left-4 z-50 p-2 rounded-lg bg-slate-800/80 border border-slate-700 hover:bg-slate-700 transition-colors"
-  aria-label="Open navigation menu"
-  aria-expanded="false"
-  aria-controls="slide-drawer"
->
-  <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-  </svg>
-</button>
-
-<!-- Drawer Backdrop -->
-<div
-  id="drawer-backdrop"
-  class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden"
-  aria-hidden="true"
-></div>
-
-<!-- Drawer Panel -->
-<nav
-  id="slide-drawer"
-  class="fixed top-0 left-0 z-50 h-full w-64 bg-slate-800 border-r border-slate-700 transform -translate-x-full transition-transform duration-200 ease-out overflow-y-auto"
-  aria-label="Slide navigation"
->
-  <div class="p-4">
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-sm font-semibold text-white">Navigation</h2>
-      <button
-        id="drawer-close"
-        class="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
-        aria-label="Close navigation"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Parts -->
-    <div class="space-y-3">
-      {parts.map((partNum) => (
-        <div class="part-section" data-part={partNum}>
-          <button
-            class="part-header w-full flex items-center gap-2 px-2 py-1.5 text-left rounded hover:bg-slate-700/50 transition-colors"
-            aria-expanded="false"
-          >
-            <svg class="part-chevron w-4 h-4 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-            <span class="text-xs font-semibold text-sky-400 uppercase tracking-wide">
-              Part {partNum}
-            </span>
-            <span class="text-xs text-slate-400 truncate">
-              {partNames[partNum]}
-            </span>
-          </button>
-          <div class="part-slides hidden mt-1 ml-6 space-y-0.5">
-            {slidesByPart[partNum].map((slide) => (
-              <a
-                href={`#${slide.id}`}
-                class="slide-link block px-2 py-1 text-xs text-slate-400 hover:text-white hover:bg-slate-700/50 rounded truncate transition-colors"
-                data-slide-id={slide.id}
-              >
-                <span class="text-slate-500 font-mono mr-1">{slide.slideNumber}</span>
-                {slide.title}
-              </a>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <!-- Keyboard hint -->
-  <div class="absolute bottom-4 left-4 right-4 text-center text-slate-500 text-xs">
-    Press <kbd class="px-1.5 py-0.5 bg-slate-700 rounded text-xs font-mono">M</kbd> to toggle
-  </div>
-</nav>
-
-<style>
-  .part-section.expanded .part-chevron {
-    transform: rotate(90deg);
-  }
-
-  .part-section.expanded .part-slides {
-    display: block;
-  }
-
-  .slide-link.active {
-    background-color: rgb(15 23 42 / 0.8);
-    color: white;
-    border-left: 2px solid #38bdf8;
-    margin-left: -2px;
-    padding-left: calc(0.5rem + 2px);
-  }
-
-  #slide-drawer.open {
-    transform: translateX(0);
-  }
-</style>
-
-<script>
-  const drawer = document.getElementById('slide-drawer');
-  const backdrop = document.getElementById('drawer-backdrop');
-  const toggleBtn = document.getElementById('drawer-toggle');
-  const closeBtn = document.getElementById('drawer-close');
-  const partHeaders = document.querySelectorAll('.part-header');
-  const slideLinks = document.querySelectorAll('.slide-link');
-
-  let isOpen = false;
-
-  function openDrawer() {
-    isOpen = true;
-    drawer?.classList.add('open');
-    backdrop?.classList.remove('hidden');
-    toggleBtn?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-
-    // Expand current part and highlight current slide
-    const hash = window.location.hash.slice(1);
-    if (hash) {
-      const activeLink = document.querySelector(`.slide-link[data-slide-id="${hash}"]`);
-      if (activeLink) {
-        activeLink.classList.add('active');
-        const partSection = activeLink.closest('.part-section');
-        if (partSection) {
-          partSection.classList.add('expanded');
-          const header = partSection.querySelector('.part-header');
-          header?.setAttribute('aria-expanded', 'true');
-        }
-        // Scroll into view
-        setTimeout(() => activeLink.scrollIntoView({ block: 'center' }), 100);
-      }
-    }
-  }
-
-  function closeDrawer() {
-    isOpen = false;
-    drawer?.classList.remove('open');
-    backdrop?.classList.add('hidden');
-    toggleBtn?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-
-    // Clear active state
-    slideLinks.forEach(link => link.classList.remove('active'));
-  }
-
-  function toggleDrawer() {
-    if (isOpen) {
-      closeDrawer();
-    } else {
-      openDrawer();
-    }
-  }
-
-  // Toggle button click
-  toggleBtn?.addEventListener('click', toggleDrawer);
-
-  // Close button click
-  closeBtn?.addEventListener('click', closeDrawer);
-
-  // Backdrop click
-  backdrop?.addEventListener('click', closeDrawer);
-
-  // Part header click (expand/collapse)
-  partHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const section = header.closest('.part-section');
-      const isExpanded = section?.classList.contains('expanded');
-      section?.classList.toggle('expanded');
-      header.setAttribute('aria-expanded', String(!isExpanded));
-    });
-  });
-
-  // Slide link click (navigate + close)
-  slideLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      setTimeout(closeDrawer, 100);
-    });
-  });
-
-  // Keyboard handling
-  document.addEventListener('keydown', (e) => {
-    // M key toggles drawer (when not in input)
-    if (e.key === 'm' || e.key === 'M') {
-      const target = e.target as HTMLElement;
-      if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        toggleDrawer();
-      }
-    }
-
-    // Escape closes drawer
-    if (e.key === 'Escape' && isOpen) {
-      closeDrawer();
-    }
-  });
-
-  // Expose for external use
-  (window as any).slideDrawer = {
-    open: openDrawer,
-    close: closeDrawer,
-    toggle: toggleDrawer,
-    isOpen: () => isOpen,
-  };
-</script>
-```
-
-- [ ] **Step 2: Verify file created**
-
-Run: `ls -la site/src/components/SlideDrawer.astro`
-Expected: File exists
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/components/SlideDrawer.astro
-git commit -m "feat: create SlideDrawer navigation component
-
-- Hamburger button (top-left)
-- Collapsible part sections
-- Current slide highlighting
-- M key toggle, Esc to close
-- Click outside to close"
-```
-
----
-
-### Task 2.2: Integrate SlideDrawer into SlideLayout
-
-**Files:**
-- Modify: `site/src/layouts/SlideLayout.astro`
-
-- [ ] **Step 1: Import SlideDrawer component**
-
-Add import at top of frontmatter (after existing imports):
-
-```astro
----
-import BaseLayout from "./BaseLayout.astro";
-import SlideDrawer from "../components/SlideDrawer.astro";
-
-interface Props {
-  title: string;
-  slides?: Array<{ id: string; title: string; part: number; slideNumber: number }>;
-}
-
-const { title, slides = [] } = Astro.props;
----
-```
-
-- [ ] **Step 2: Add SlideDrawer to template**
-
-Add after the `<slot />` and before the Mermaid script:
-
-```astro
-<BaseLayout title={title}>
-  <main class="bg-bg-primary text-text-primary">
-    <slot />
-  </main>
-
-  {slides.length > 0 && <SlideDrawer slides={slides} />}
-
-  <!-- Mermaid diagram rendering -->
-  <script>
-```
-
-- [ ] **Step 3: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add site/src/layouts/SlideLayout.astro
-git commit -m "feat: integrate SlideDrawer into SlideLayout"
-```
-
----
-
-### Task 2.3: Pass slides data to SlideLayout
-
-**Files:**
-- Modify: `site/src/pages/slides/index.astro`
-
-- [ ] **Step 1: Pass slides prop to SlideLayout**
-
-Update the SlideLayout usage (around line 42):
-
-```astro
-<SlideLayout title="AI-Powered Development Workshop" slides={slidesForOverview}>
-  {renderedSlides.map(({ slide, Content, slideNumber, variant }) => (
-    <Slide id={`slide-${slideNumber}`} variant={variant}>
-      <Content />
-    </Slide>
-  ))}
-
-  <SlideNav currentSlide={1} totalSlides={totalSlides} />
-  <SlideControls />
-  <OverviewGrid slides={slidesForOverview} />
-</SlideLayout>
-```
-
-- [ ] **Step 2: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/pages/slides/index.astro
-git commit -m "feat: pass slides data to SlideLayout for drawer"
-```
-
----
-
-### Task 2.4: Visual verification of slide drawer
-
-- [ ] **Step 1: Start dev server**
-
-Run: `cd site && npm run dev`
-
-- [ ] **Step 2: Test drawer functionality**
-
-Open browser to `http://localhost:4322/ai-learning-pct/slides/`
-Test:
-- Hamburger button visible top-left
-- Click hamburger → drawer slides in from left
-- Parts are collapsible (click header to expand/collapse)
-- Current slide is highlighted when drawer opens
-- Click slide → navigates and closes drawer
-- Press M → toggles drawer
-- Press Escape → closes drawer
-- Click backdrop → closes drawer
-
-- [ ] **Step 3: Verify coexistence with O-grid**
-
-Press O → overview grid appears (existing feature)
-Press Escape → closes grid
-Press M → drawer appears (new feature)
-Both work independently
-
-- [ ] **Step 4: Stop dev server**
-
-Press Ctrl+C to stop the server
-
----
-
-## Feature 3: Visual Polish
-
-### Task 3.1: Update color tokens
-
-**Files:**
-- Modify: `site/src/styles/global.css:28-56`
-
-- [ ] **Step 1: Update background and text colors**
-
-Replace the color tokens section:
-
+### Task 13: Fix accessibility gaps (#13)
+**Files:** `site/src/components/SlideNav.astro`, `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`, `site/src/styles/global.css`
+**Depends on:** none
+
+- [ ] **Focus styles**: Add `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400` to nav buttons in `SlideNav.astro:13-48`
+- [ ] **Hidden nav buttons**: In `SlideNav.astro:23,42`, replace `invisible` class with `disabled` attribute + `opacity-0 pointer-events-none` so they're removed from tab order at boundaries
+- [ ] **Contrast**: Replace `text-white/30` with `text-white/60` minimum in `SlideNav.astro:20,39`, `OverviewGrid.astro:77,92`, `SlideDrawer.astro:117`
+- [ ] **Reduced motion**: Add to `global.css`:
 ```css
-:root {
-  /* Colors - Background (Dark mode default - warmer grays) */
-  --color-bg-primary: #111827;   /* gray-900 (was slate-900) */
-  --color-bg-secondary: #1f2937; /* gray-800 (was slate-800) */
-  --color-bg-tertiary: #374151;  /* gray-700 (was slate-700) */
-
-  /* Colors - Text (Dark mode default - softer contrast) */
-  --color-text-primary: #f9fafb;  /* gray-50 (was slate-50) */
-  --color-text-secondary: #d1d5db; /* gray-300 (was slate-200) */
-  --color-text-muted: #9ca3af;    /* gray-400 (was slate-400) */
-
-  /* Colors - Accent (unchanged) */
-  --color-accent: #38bdf8;        /* sky-400 */
-  --color-accent-hover: #7dd3fc;  /* sky-300 */
-  --color-accent-muted: #0ea5e9;  /* sky-500 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
 ```
-
-- [ ] **Step 2: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/styles/global.css
-git commit -m "style: update color tokens for warmer professional look
-
-- Background: slate → gray (warmer)
-- Text: softer contrast for readability"
-```
+- [ ] **SVG a11y**: Add `aria-hidden="true"` to all decorative SVGs in SlideNav, SlideDrawer, OverviewGrid
+- [ ] **Focus trap**: Add basic focus trap to drawer overlay in `SlideDrawer.astro` script — trap Tab key within drawer when open
+- [ ] **Live region**: Add `aria-live="polite"` to slide counter in `SlideNav.astro:59`
+- [ ] Verify: build succeeds, tab through the UI to confirm focus visible
+- [ ] Commit: "fix: address WCAG accessibility gaps"
 
 ---
 
-### Task 3.2: Update typography and spacing
+### Task 14: Add CI quality checks (#14)
+**Files:** `.github/workflows/deploy.yml`, `site/package.json`
+**Depends on:** none
 
-**Files:**
-- Modify: `site/src/styles/global.css:155-180`
-
-- [ ] **Step 1: Update slide-content typography**
-
-Update the `.slide-content` section:
-
-```css
-/* Content Slide - Standard layout for bullet points and text */
-.slide-content {
-  justify-content: center;
-  gap: 2.5rem;
-}
-
-.slide-content h2 {
-  font-size: var(--text-4xl);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-.slide-content ul,
-.slide-content ol {
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  line-height: 1.8;
-}
-
-.slide-content li::marker {
-  color: var(--color-accent);
-}
+- [ ] Add to `site/package.json` scripts: `"check": "astro check"` (Astro type-checking)
+- [ ] Update `.github/workflows/deploy.yml` build job — add a step before build:
+```yaml
+- name: Type Check
+  run: npm run check
+  working-directory: site
 ```
-
-- [ ] **Step 2: Update slide padding**
-
-Update the base `.slide` class (around line 126):
-
-```css
-/* Base slide container */
-.slide {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-slide-y) var(--space-slide-x);
-}
+- [ ] Add npm cache to CI for speed:
+```yaml
+- name: Setup Node
+  uses: actions/setup-node@v4
+  with:
+    node-version: 22
+    cache: 'npm'
+    cache-dependency-path: site/package-lock.json
 ```
-
-And update the spacing token (around line 69):
-
-```css
-/* Spacing */
---space-slide-x: clamp(3rem, 6vw, 8rem);
---space-slide-y: clamp(2rem, 5vh, 4rem);
-```
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add site/src/styles/global.css
-git commit -m "style: improve typography and spacing
-
-- Title weight 700, tighter letter-spacing
-- Increased line-height (1.8) for body
-- More horizontal padding on slides
-- Larger gaps between elements"
-```
+- [ ] Verify: `.github/workflows/deploy.yml` is valid YAML
+- [ ] Commit: "feat: add type checking to CI pipeline"
 
 ---
 
-### Task 3.3: Polish code blocks
+### Task 15: Create proper README files (#15)
+**Files:** `README.md` (new at root), `site/README.md` (replace boilerplate)
+**Depends on:** none
 
-**Files:**
-- Modify: `site/src/styles/global.css:205-236`
-
-- [ ] **Step 1: Update code block styles**
-
-Update the `.slide-code` section:
-
-```css
-/* Code Slide - Monospace-focused layout for code examples */
-.slide-code {
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-.slide-code h2 {
-  font-size: var(--text-2xl);
-  font-weight: 600;
-}
-
-.slide-code pre,
-.slide pre[data-language] {
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-bg-tertiary);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  overflow-x: auto;
-  font-size: var(--text-base);
-  line-height: 1.7;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-}
-
-.slide-code code {
-  color: var(--color-text-secondary);
-}
-
-/* Syntax highlighting accents */
-.slide-code .keyword { color: #c792ea; }
-.slide-code .string { color: #c3e88d; }
-.slide-code .comment { color: var(--color-text-muted); }
-.slide-code .function { color: #82aaff; }
-.slide-code .number { color: #f78c6c; }
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add site/src/styles/global.css
-git commit -m "style: polish code blocks
-
-- Larger border radius (0.75rem)
-- Subtle shadow
-- Slightly larger font"
-```
+- [ ] Create root `README.md` with: project title, one-line description, directory structure overview, quick start (`cd site && npm install && npm run dev`), deployment info (GitHub Pages via Actions), link to curriculum overview
+- [ ] Replace `site/README.md` boilerplate with: local dev setup, content collections (slides, docs), component guide (Slide, SlideNav, SlideDrawer, etc.), how to add new slides
+- [ ] Keep both READMEs concise — under 80 lines each
+- [ ] Commit: "docs: create project and site README files"
 
 ---
 
-### Task 3.4: Polish tables
+### Task 16: Fill in TBD contacts (#16)
+**Files:** `cheatsheets/cli-quick-reference.md`, `cheatsheets/pct-skills-quick-reference.md`, `site/src/content/docs/cheatsheets/cli-quick-reference.md`, `site/src/content/docs/index.md`
+**Depends on:** none (needs user input — use placeholder if not known)
 
-**Files:**
-- Modify: `site/src/styles/global.css:237-284`
-
-- [ ] **Step 1: Update table styles**
-
-Update the table styles section:
-
-```css
-/* ==========================================================================
-   Table Styles (for slides and docs)
-   ========================================================================== */
-
-.slide table,
-.prose table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  font-size: var(--text-base);
-}
-
-.slide th,
-.prose th {
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  font-weight: 600;
-  text-align: left;
-  padding: 0.875rem 1.25rem;
-  border-bottom: 2px solid var(--color-accent);
-}
-
-.slide td,
-.prose td {
-  padding: 0.875rem 1.25rem;
-  border-bottom: 1px solid var(--color-bg-secondary);
-  color: var(--color-text-secondary);
-}
-
-.slide tr:nth-child(even) td,
-.prose tr:nth-child(even) td {
-  background-color: rgba(31, 41, 55, 0.5);
-}
-
-.slide tr:hover td,
-.prose tr:hover td {
-  background-color: var(--color-bg-secondary);
-}
-
-/* Responsive tables */
-@media (max-width: 640px) {
-  .slide table,
-  .prose table {
-    font-size: var(--text-sm);
-  }
-
-  .slide th,
-  .slide td,
-  .prose th,
-  .prose td {
-    padding: 0.5rem 0.75rem;
-  }
-}
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add site/src/styles/global.css
-git commit -m "style: polish tables
-
-- Alternating row backgrounds
-- Larger padding
-- Cleaner borders"
-```
+- [ ] In all files, replace `[TBD]` for Office Hours with either the actual contact info or a clear placeholder: `Office Hours: Check #ai-practitioners Slack channel for scheduling`
+- [ ] `cheatsheets/cli-quick-reference.md:97`: replace `[TBD]`
+- [ ] `site/src/content/docs/cheatsheets/cli-quick-reference.md` (if different from above): replace `[TBD]`
+- [ ] `site/src/content/docs/index.md:21`: replace `[TBD]`
+- [ ] Commit: "fix: fill in office hours contact info"
 
 ---
 
-### Task 3.5: Add slide transitions
+### Task 17: Clarify GHCP capabilities + verify syntax (#17 + #18)
+**Files:** `.claude/commands/pct-deck.md`, `.claude/commands/pct-research.md`, `curriculum/03-hands-on/install-guide.md`
+**Depends on:** none
 
-**Files:**
-- Modify: `site/src/layouts/SlideLayout.astro`
-
-- [ ] **Step 1: Add transition CSS**
-
-Add to the `<style is:global>` section at the bottom:
-
-```astro
-<style is:global>
-  html {
-    scroll-snap-type: y mandatory;
-  }
-  .slide {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    opacity: 0;
-    transition: opacity 200ms ease-out;
-  }
-  .slide.visible {
-    opacity: 1;
-  }
-</style>
-```
-
-- [ ] **Step 2: Add Intersection Observer script**
-
-Add after the Mermaid script block:
-
-```astro
-<script>
-  // Slide visibility transitions
-  const slides = document.querySelectorAll('.slide');
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  slides.forEach((slide) => {
-    observer.observe(slide);
-  });
-
-  // Make first slide visible immediately
-  slides[0]?.classList.add('visible');
-</script>
-```
-
-- [ ] **Step 3: Verify build**
-
-Run: `cd site && npm run build`
-Expected: Build succeeds
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add site/src/layouts/SlideLayout.astro
-git commit -m "style: add subtle slide transitions
-
-- Fade in on scroll (200ms ease-out)
-- Uses Intersection Observer"
-```
+- [ ] In `.claude/commands/pct-deck.md:122-155`, move Python code from the skill body into a "Post-generation" section that clearly says: "To create actual .pptx files, run the Python script separately: `python scripts/generate-pptx.py content.json output.pptx`". The skill itself should output structured JSON/markdown, not Python code inline.
+- [ ] In `.claude/commands/pct-research.md:38-49`, add explicit fallback: "If web search is unavailable, use training knowledge and clearly note 'Source: AI training data, verify independently'"
+- [ ] Add a note at the top of each /pct-* skill: "Note: GHCP generates content (text/JSON). File generation (.pptx, .docx) requires running Python scripts separately."
+- [ ] Verify `curriculum/03-hands-on/install-guide.md` GHCP commands match current syntax (`gh copilot suggest` vs `ghcp`)
+- [ ] Commit: "fix: clarify GHCP capability boundaries in skills"
 
 ---
 
-### Task 3.6: Final visual verification
+## Wave 5: Medium Content
 
-- [ ] **Step 1: Start dev server**
+### Task 18: Consolidate Part 1 memory section (#20)
+**Files:** `site/src/content/slides/01-concepts/31-how-memory-actually-works.md`, `32-what-this-means.md`, `33-projects-custom-instructions.md` (merge/delete), other `28-36` range files (renumber)
+**Depends on:** none
 
-Run: `cd site && npm run dev`
-
-- [ ] **Step 2: Full presentation walkthrough**
-
-Open browser to `http://localhost:4322/ai-learning-pct/slides/`
-Navigate through slides checking:
-- Warmer color palette (less blue, more gray)
-- Improved typography (bolder titles, better spacing)
-- Polished code blocks (shadow, larger radius)
-- Polished tables (alternating rows)
-- Subtle fade transitions when scrolling
-- Diagram layouts (side-by-side)
-- Drawer navigation (M key)
-
-- [ ] **Step 3: Check mobile responsiveness**
-
-Resize to mobile width (<768px):
-- Diagram slides stack vertically
-- Tables remain readable
-- Drawer still accessible
-
-- [ ] **Step 4: Stop dev server and final commit**
-
-Press Ctrl+C to stop server
-
-```bash
-git add -A
-git commit -m "feat: complete slide polish implementation
-
-Phase 1C polish complete:
-- Diagram layout variant (15 slides)
-- Slide drawer navigation (M key)
-- Visual polish (colors, typography, spacing, code, tables, transitions)"
-```
+- [ ] Merge slides 31 (How Memory Actually Works) and 32 (What This Means) into a single slide — combine key points
+- [ ] Compress slide 33 (Projects & Custom Instructions) into a bullet point on the merged slide or move to a "Resources" appendix
+- [ ] Update `order` frontmatter to maintain sequence with gap (renumber if needed)
+- [ ] Target: reduce from 9 slides (28-36) to 6-7 slides
+- [ ] Verify: `cd site && npm run build`
+- [ ] Commit: "fix: consolidate Part 1 memory section from 9 to 7 slides"
 
 ---
 
-## Summary
+### Task 19: Add cost/pricing slide (#21)
+**Files:** New slide in `site/src/content/slides/01-concepts/`
+**Depends on:** none
 
-| Feature | Tasks | Commits |
-|---------|-------|---------|
-| Diagram Layouts | 1.1-1.8 | 7 |
-| Slide Drawer | 2.1-2.4 | 4 |
-| Visual Polish | 3.1-3.6 | 6 |
-| **Total** | **18 tasks** | **17 commits** |
+- [ ] Create slide after the token discussion (after slide 42): `site/src/content/slides/01-concepts/42a-cost-context.md`
+- [ ] Content: order-of-magnitude costs — "1M tokens of Claude Opus ~ $15 input / $75 output. A typical research brief ~ 50-100K tokens ~ a few dollars. Budget impact is minimal for individual use."
+- [ ] Frame for budget-approving audience: "Your team's monthly AI cost will likely be less than one lunch meeting"
+- [ ] Commit: "feat: add cost/pricing context slide for PCT audience"
+
+---
+
+### Task 20: Add failure case walkthrough (#22)
+**Files:** New slide in `site/src/content/slides/03-hands-on/`
+**Depends on:** none
+
+- [ ] Create slide after the research exercise discussion. Use `order` between existing 35 (key-takeaway) and 36 (part-3-complete). Since `order` accepts any number (z.number()), use `order: 35.5`. Name the file `35a-when-it-goes-wrong.md` — filename doesn't matter for sort since `slides/index.astro` sorts by `part` then `order` field.
+- [ ] Content: "Real example: AI generated a research brief but cited a policy document that doesn't exist. Here's how to catch and fix it: 1) Always verify citations 2) Ask AI to check its own sources 3) Iterate — 'That source seems wrong, find the actual policy'"
+- [ ] Frame positively: "Failure is part of the workflow, not a bug"
+- [ ] Verify: `cd site && npm run build`
+- [ ] Commit: "feat: add failure case walkthrough slide"
+
+---
+
+### Task 21: Add timing annotations (#24)
+**Files:** Multiple slides across all parts
+**Depends on:** none
+
+**Important:** The slides schema already has a `notes: z.string().optional()` field. Use this for facilitator timing annotations — no schema change needed. Do NOT add new frontmatter fields like `paceCheck` (schema validation will fail).
+
+- [ ] Add `notes:` to frontmatter of key transition slides with pace-check timing
+- [ ] Part 1 (44 slides, 25 min): add notes at slides 1, 8 (transition), 17 (transition), 27, 37 (transition), 44 (transition)
+- [ ] Part 2 (~50 slides, 15 min): add notes at slides 1, 14 (transition), 25 (transition), 37 (transition), 48 (transition)
+- [ ] Part 3 (46 slides, 40 min): add notes at slides 1, 11, 24, 37 (transition), 46
+- [ ] Part 4 (19 slides, 10 min): add notes at slides 1, 9 (transition), 19
+- [ ] Format: `notes: "Pace check: should be at ~15 min"`
+- [ ] Verify: `cd site && npm run build` — no schema errors
+- [ ] Commit: "feat: add facilitator pace-check annotations"
+
+---
+
+### Task 22: Consolidate Part 4 closing slides (#32)
+**Files:** `site/src/content/slides/04-inspiration/13-getting-help.md`, `14-resources.md`, `17-final-words.md`, `18-questions.md`, `19-feedback.md` (merge/delete targets)
+**Depends on:** none
+
+- [ ] Merge "Final Words" (17) + "Questions" (18) into a single "Questions & Final Thoughts" slide
+- [ ] Merge "Resources" (14) + "Getting Help" (13) into a single "Resources & Support" slide
+- [ ] Remove "Feedback" slide (19) — handle offline via email/form link on resources slide
+- [ ] Add specific next-step actions to "Your Homework" slide instead of vague links
+- [ ] Target: reduce from 10 to 6-7 slides
+- [ ] Commit: "fix: consolidate Part 4 closing from 10 to 7 slides"
+
+---
+
+### Task 23: Clarify hallucination/RAG nuance (#33)
+**Files:** `site/src/content/slides/01-concepts/15-the-hallucination-problem.md`
+**Depends on:** none
+
+- [ ] Update slide content: change "RAG fixes hallucinations" framing to "RAG reduces hallucinations by grounding responses in retrieved data"
+- [ ] Add caveat: "AI can still confidently misstate things about retrieved documents — always verify critical facts"
+- [ ] Keep concise — this is one bullet point adjustment, not a rewrite
+- [ ] Commit: "fix: clarify RAG reduces but doesn't eliminate hallucinations"
+
+---
+
+### Task 24: Add bridge slides Part 2→3 (#34)
+**Files:** New slides in `site/src/content/slides/02-cli/` (at end, before transition to Part 3)
+**Depends on:** none
+
+- [ ] Create 2 bridge slides at the end of Part 2 (before the Part 2→3 transition):
+  - Slide 1: "From Concepts to Doing" — "You now understand why CLI AI is different. Next: we'll install it and build something. No CLI experience needed — we'll walk through each step."
+  - Slide 2: "What You'll Need" — checklist: terminal, GitHub access, 40 minutes. "If anything fails, pair with a neighbor or watch the demo."
+- [ ] Use layout `content`, part 2, order them just before the transition slide
+- [ ] Commit: "feat: add bridge slides easing Part 2→3 transition"
+
+---
+
+## Wave 6: Medium Docs/UI/Infra
+
+### Task 25: Sync duplicate cheatsheets (#23)
+**Files:** `cheatsheets/cli-quick-reference.md`, `site/src/content/docs/cheatsheets/cli-quick-reference.md`
+**Depends on:** none
+
+- [ ] Make `site/src/content/docs/cheatsheets/cli-quick-reference.md` the single source of truth
+- [ ] Replace `cheatsheets/cli-quick-reference.md` content with a note pointing to the site version, or make it a symlink: `ln -sf ../site/src/content/docs/cheatsheets/cli-quick-reference.md cheatsheets/cli-quick-reference.md`
+- [ ] Verify the site version has all content from both files (merge any unique content first)
+- [ ] Commit: "fix: consolidate cheatsheet to single source"
+
+---
+
+### Task 26: Remove debug artifacts (#25)
+**Files:** `site/src/components/SlideControls.astro`, `site/src/pages/test-slides.astro`, `site/src/components/Mermaid.astro`
+**Depends on:** none
+
+- [ ] Remove `console.log('[SlideControls] Presenter notes toggle (placeholder)')` from `SlideControls.astro:73` — either implement presenter notes or remove the placeholder entirely (remove the 'P' key handler if no presenter notes feature)
+- [ ] Delete `site/src/pages/test-slides.astro` (debug page)
+- [ ] Delete `site/src/components/Mermaid.astro` if unused (SlideLayout has inline mermaid rendering)
+- [ ] Verify: `cd site && npm run build`
+- [ ] Commit: "fix: remove debug artifacts from production"
+
+---
+
+### Task 27: Add font preloading (#26)
+**Files:** `site/src/layouts/BaseLayout.astro`
+**Depends on:** none
+
+- [ ] Add font preload links in `BaseLayout.astro` head (after line 20):
+```html
+<link rel="preload" href="/ai-learning-pct/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/ai-learning-pct/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin />
+```
+- [ ] Remove the outdated TODO comment on line 22-25 (the Google Fonts commented-out block)
+- [ ] Commit: "perf: add font preloading for faster first paint"
+
+---
+
+### Task 28: Update expired roadmap (#27)
+**Files:** `roadmap.md`, `CLAUDE.md`
+**Depends on:** none
+
+- [ ] Update `roadmap.md` dates to reflect actual timeline — mark completed phases with actual dates, update upcoming dates
+- [ ] Update `CLAUDE.md:80` — change "Phase 1A: Infrastructure (in progress)" to "Phase 2: Audit Remediation (in progress)"
+- [ ] Update the Timeline section in CLAUDE.md to reflect current reality
+- [ ] Commit: "docs: update roadmap and CLAUDE.md to reflect current phase"
+
+---
+
+### Task 29: Add linting setup (#29)
+**Files:** `site/package.json`, new `.prettierrc.json`, new `.editorconfig`
+**Depends on:** none
+
+- [ ] Create `.prettierrc.json` at site root: `{ "semi": true, "singleQuote": true, "trailingComma": "es5", "printWidth": 100 }`
+- [ ] Create `.editorconfig` at project root with standard settings (2-space indent for TS/Astro, LF line endings)
+- [ ] Add devDependencies to `site/package.json`: `prettier`
+- [ ] Add npm scripts: `"format": "prettier --write 'src/**/*.{astro,ts,css}'", "format:check": "prettier --check 'src/**/*.{astro,ts,css}'"`
+- [ ] Run `cd site && npm install`
+- [ ] Commit: "feat: add prettier and editorconfig for code formatting"
+
+---
+
+### Task 30: Add installer template validation (#30)
+**Files:** `install-harness.sh`
+**Depends on:** none
+
+- [ ] After Phase 3 (Symlinks), add a new phase for template validation:
+```bash
+echo "Phase 3b: Templates"
+for tmpl in templates/pct/nationwide_default.pptx templates/pct/2024_Memo.dotx; do
+  if [ -f "$DOTFILES_DIR/$tmpl" ]; then
+    log_ok "$(basename "$tmpl") found"
+  else
+    log_warn "$(basename "$tmpl") missing — document generation won't work"
+  fi
+done
+```
+- [ ] Clarify Python messaging in Phase 9: add echo "Python is optional. Not required for the 90-min workshop. Needed for actual file generation afterward."
+- [ ] Add explanatory echo before MCP build in Phase 8: "Building MCP server (optional — enables session management)"
+- [ ] Commit: "fix: add template validation and clarify optional dependencies"
+
+---
+
+### ~~Task 31: Incomplete docs — exercise walkthroughs (#31)~~
+**Merged into Task 2** (Wave 1). Exercise pages are created as part of fixing the broken /docs/exercises/ link.
+
+---
+
+### Task 32: Curriculum walkthrough mismatch (#35)
+**Files:** `curriculum/03-hands-on/cheatsheet-walkthrough.md`, `site/src/content/docs/cheatsheets/cli-quick-reference.md`
+**Depends on:** Task 25 (cheatsheet consolidation) — **must run after Task 25 completes, not parallel**
+
+- [ ] Wait for Task 25 to complete (cheatsheet consolidated to single source)
+- [ ] Compare `curriculum/03-hands-on/cheatsheet-walkthrough.md` examples against the consolidated cheatsheet at `site/src/content/docs/cheatsheets/cli-quick-reference.md`
+- [ ] Update walkthrough to reference the same commands, flags, and patterns as the cheatsheet
+- [ ] Ensure the facilitator walkthrough matches what participants see on their printed card
+- [ ] Commit: "fix: align curriculum walkthrough with actual cheatsheet"
+
+---
+
+### Task 33: Replace design tokens in components (#28) 
+**Files:** `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`, `site/src/components/SlideNav.astro`
+**Depends on:** Task 12 (light mode setup — but can proceed independently if using CSS vars already defined)
+
+- [ ] In `SlideDrawer.astro`: replace `bg-slate-800/80` with `bg-[var(--color-bg-secondary)]/80`, `border-slate-700` with `border-[var(--color-bg-tertiary)]`, `text-slate-400` with `text-[var(--color-text-muted)]`, etc.
+- [ ] In `OverviewGrid.astro`: replace `bg-slate-900/95` with `bg-[var(--color-bg-primary)]/95`, and similar token replacements
+- [ ] In `SlideNav.astro:53`: replace `bg-blue-500` with `bg-[var(--color-accent)]`
+- [ ] Verify: build succeeds, visual appearance unchanged in dark mode
+- [ ] Commit: "refactor: replace hardcoded Tailwind classes with design tokens"
+
+---
+
+## Wave 7: Low Priority
+
+### Task 34: Mermaid lazy loading + keyboard consolidation (#36)
+**Files:** `site/src/layouts/SlideLayout.astro`, `site/src/components/SlideControls.astro`, `site/src/components/SlideDrawer.astro`, `site/src/components/OverviewGrid.astro`
+**Depends on:** none
+
+- [ ] In `SlideLayout.astro` mermaid init script, wrap rendering in IntersectionObserver — only render mermaid blocks when they enter viewport
+- [ ] Declare proper window interface extension in a `src/env.d.ts` or at top of SlideControls: `declare global { interface Window { slideOverview: {...}; slideDrawer: {...}; } }` to remove `(window as any)` casts
+- [ ] Extract shared `groupSlidesByPart()` utility from SlideDrawer and OverviewGrid into a shared function (both have identical reduce logic)
+- [ ] Commit: "refactor: lazy-load mermaid, type window globals, extract shared utility"
+
+---
+
+### Task 35: Add SEO basics (#37)
+**Files:** `site/src/layouts/BaseLayout.astro`, new `site/public/robots.txt`
+**Depends on:** none
+
+- [ ] Add OG meta tags to `BaseLayout.astro` head: `og:title`, `og:description`, `og:type` (website)
+- [ ] Add canonical link: `<link rel="canonical" href={Astro.url.href} />`
+- [ ] Create `site/public/robots.txt`: `User-agent: *\nAllow: /`
+- [ ] Consider adding `@astrojs/sitemap` integration — add to `astro.config.mjs` if straightforward
+- [ ] Commit: "feat: add SEO basics — OG tags, canonical, robots.txt"
+
+---
+
+### Task 36: Skill testing and argument docs (#38)
+**Files:** New `scripts/test-skills.sh`, `.claude/commands/README.md`
+**Depends on:** none
+
+- [ ] Create `scripts/test-skills.sh` that validates each skill file exists and has required frontmatter (name, description)
+- [ ] Update `.claude/commands/README.md` with GHCP argument behavior notes and decision guidance for tier/depth options
+- [ ] Add verification step to `/pct-cheatsheet` skill: "Verify output is scannable and fits one page"
+- [ ] Commit: "feat: add skill testing script and argument documentation"
+
+---
+
+### Task 37: Add root Makefile (#39)
+**Files:** New `Makefile` at project root
+**Depends on:** none
+
+- [ ] Create `Makefile` with targets: `install` (cd site && npm install), `dev` (cd site && npm run dev), `build` (cd site && npm run build), `preview` (cd site && npm run preview), `check` (cd site && npm run check), `format` (cd site && npm run format), `clean` (rm -rf site/dist site/.astro)
+- [ ] Add `.PHONY` declarations for all targets
+- [ ] Commit: "feat: add root Makefile for dev workflow convenience"
+
+---
+
+## Verification
+
+- [ ] `cd site && npm run build` — full site builds clean
+- [ ] `cd site && npm run check` — type checking passes (after Task 14)
+- [ ] Visual check: slides render correctly, new slides in right positions
+- [ ] Visual check: light mode works on docs pages (after Task 12)
+- [ ] `bash -n install-harness.sh` — installer syntax valid
+- [ ] All 38 GitHub issues can be closed with commit references
+
+## Notes
+
+- **Task 5 (security slides)**: Use `order: 17.5` or similar fractional ordering to insert between existing slides without renumbering everything. If Astro sorts alphabetically, may need to create files with names that sort correctly.
+- **Task 7 (Part 2 reorder)**: This is the riskiest task — renumbering 48 slides' frontmatter. Test thoroughly. Consider doing a file rename to match new order numbers for maintainability.
+- **Task 12 (light mode)**: Slides are presentation-only and should stay dark. Light mode primarily matters for the docs layout. Don't force light mode on slides.
+- **Task 16 (TBD contacts)**: If no actual contact info is available, use `#ai-practitioners Slack` as the default channel.
+- **Wave ordering**: Waves 1-3 are strictly ordered (blocking first). Waves 4-7 could theoretically start earlier if blocking waves finish fast.
+- **Existing plan (Slide Polish)**: The old plan's diagram layout, drawer, and polish work is already done in the codebase. This plan supersedes it.
