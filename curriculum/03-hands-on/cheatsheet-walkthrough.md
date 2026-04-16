@@ -2,6 +2,8 @@
 
 **Time**: 5 minutes
 
+> This walkthrough matches the CLI Quick Reference card at `site/src/content/docs/cheatsheets/cli-quick-reference.md`. Both should be updated together.
+
 ---
 
 ## Quick Reference Card
@@ -14,139 +16,91 @@ This is your "keep on desk" reference. We'll walk through the key sections.
 
 | Command | What It Does |
 |---------|--------------|
-| `ghcp "prompt"` | Basic query with global instructions |
-| `ghcp -f file.md "prompt"` | Include file in context |
-| `ghcp explain` | Explain a command |
-| `ghcp suggest` | Get command suggestions |
-
----
-
-## Working with Projects
-
-### Start a Work Session
-```bash
-# Navigate to project
-cd ~/projects/my-project
-
-# If project has instructions.md, they load automatically
-ghcp "What does this project do?"
-```
-
-### Include Context
-```bash
-# Include specific files
-ghcp -f src/main.go -f README.md "Explain the architecture"
-
-# Include all markdown in directory
-ghcp -f docs/*.md "Summarize the documentation"
-```
-
----
-
-## Using Skills
-
-Skills are pre-built workflows. Invoke with a keyword or pattern.
-
-```bash
-# Commit workflow (follows conventions)
-ghcp "Use the commit skill to commit my changes"
-
-# Planning workflow
-ghcp "Use the plan skill to plan implementing feature X"
-
-# Research workflow  
-ghcp "Use the research skill to investigate topic Y"
-```
-
-**The skill tells the AI what process to follow.**
-
----
-
-## Modes of Work
-
-### Quick Task (no planning)
-```bash
-ghcp "Fix the typo in line 43 of handler.go"
-```
-
-### Exploration (learning)
-```bash
-ghcp "Explain how the auth flow works in this codebase"
-```
-
-### Building (planning first)
-```bash
-# Plan
-ghcp "Plan implementing the batch upload feature"
-
-# Then execute
-ghcp "Execute step 1 of the plan"
-```
-
-### Deep Work (multi-session)
-```bash
-# Start session with context
-ghcp -f harness/plan.md "Continue with the batch upload work"
-
-# End session with notes
-ghcp "Summarize progress for handoff"
-```
+| `ghcp "your prompt"` | Basic query |
+| `ghcp -f file.md "prompt"` | Include file context |
+| `ghcp explain "command"` | Explain a command |
+| `ghcp suggest "what I want to do"` | Get command suggestions |
 
 ---
 
 ## Context Management
 
-### What's in Context?
-- Global instructions (always loaded)
-- Project instructions.md (if present)
-- Files you include with `-f`
-- Conversation history (within session)
-
-### Managing Context Size
+### Include specific files
 ```bash
-# Start fresh (new session, just instructions)
-# Close terminal, open new one
+ghcp -f src/main.go "Explain this"
+```
 
-# Be selective about files
-ghcp -f src/specific/file.go "Focus on this"
-# vs
-ghcp -f src/**/*.go "All Go files (might be too much)"
+### Include multiple files
+```bash
+ghcp -f file1.md -f file2.md "Compare these"
+```
+
+### Include by pattern
+```bash
+ghcp -f docs/*.md "Summarize docs"
+```
+
+---
+
+## Working with Projects
+
+### Project with instructions.md loads context automatically
+```bash
+cd ~/projects/my-project
+ghcp "What is this project?"
+```
+
+### Manually include project context
+```bash
+ghcp -f CLAUDE.md -f harness/plan.md "Continue the work"
 ```
 
 ---
 
 ## Common Workflows
 
-### Code Change
-```bash
-ghcp "In src/api/handler.go, add input validation for the email field"
-```
+| Task | Command |
+|------|---------|
+| Fix specific bug | `ghcp "Fix null pointer in handler.go line 47"` |
+| Explain code | `ghcp -f file.go "Explain the auth flow"` |
+| Review changes | `ghcp -f changed-file.go "Review for issues"` |
+| From template | `ghcp -f templates/X.md "Create Y about Z"` |
+| Research | `ghcp "Research [topic], summarize in bullets"` |
+| Commit | `ghcp "Commit with message following conventions"` |
 
-### Review
-```bash
-ghcp -f path/to/changed/file.go "Review this code for issues"
-```
+---
 
-### Generate from Template
-```bash
-ghcp -f templates/pct/nationwide_default.pptx "Create a deck about Q4 results"
-```
+## Best Practices
 
-### Research
-```bash
-ghcp "Research best practices for batch processing in Go. 
-      Summarize with recommendations."
-```
+| Do | Don't |
+|----|-------|
+| Be specific about scope | "Make it better" |
+| Include relevant files | Paste huge files |
+| Review before accepting | Blindly trust |
+| Start fresh when confused | Keep broken context |
+| Use skills for repeated tasks | Explain workflow every time |
+
+---
+
+## Troubleshooting
+
+| Problem | Try |
+|---------|-----|
+| AI seems confused | Start new session, load context fresh |
+| Wrong file changes | Be more specific about which file |
+| Generic output | Add more context, be more specific |
+| Too verbose | Ask for "concise" or "bullet points" |
+| Forgot something | Check if instructions.md needs update |
 
 ---
 
 ## Quick Tips
 
-1. **Be specific** - "fix the bug" < "fix null pointer in handleRequest line 47"
-2. **Include context** - AI works better with relevant files
-3. **Verify changes** - Always review before accepting
-4. **Fresh sessions** - When confused, start clean
-5. **Use skills** - Don't reinvent workflows
+1. **Context is everything** - AI only knows what you tell it
+2. **Iterate, don't expect perfection** - First draft, then refine
+3. **Verify important facts** - AI can be confident but wrong
+4. **Templates save time** - Reuse what works
+5. **Skills encode wisdom** - Don't reinvent workflows
 
 ---
 
