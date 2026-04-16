@@ -4,7 +4,7 @@
       "type": "stdio",
       "command": "node",
       "args": [
-        "/home/keckmatd/projects/copilot-dotfiles/mcp/session-context/dist/index.js"
+        "./mcp/session-context/dist/index.js"
       ]
     }
   }

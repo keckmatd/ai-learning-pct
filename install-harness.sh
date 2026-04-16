@@ -139,14 +139,14 @@ if [ -f "$MCP_CONFIG" ]; then
   else
     log_warn "session-context not in mcp-config.json"
     if prompt_fix "Merge MCP config"; then
-      cp "$DOTFILES_DIR/mcp-config.json" "$MCP_CONFIG"
+      sed "s|\\./mcp/|$DOTFILES_DIR/mcp/|g" "$DOTFILES_DIR/mcp-config.json" > "$MCP_CONFIG"
       log_fix "Copied mcp-config.json (review for manual merge if you had custom servers)"
     fi
   fi
 else
   log_warn "mcp-config.json missing"
   if prompt_fix "Create mcp-config.json"; then
-    cp "$DOTFILES_DIR/mcp-config.json" "$MCP_CONFIG"
+    sed "s|\\./mcp/|$DOTFILES_DIR/mcp/|g" "$DOTFILES_DIR/mcp-config.json" > "$MCP_CONFIG"
     log_fix "Created mcp-config.json"
   fi
 fi
