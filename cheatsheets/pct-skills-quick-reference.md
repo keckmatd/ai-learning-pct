@@ -1,3 +1,4 @@
+<!-- NOTE: cheatsheets/pct-skills-quick-reference.html needs regeneration after this edit -->
 # PCT Skills - Quick Reference
 
 *Your AI workflow commands. Keep this handy.*
@@ -115,6 +116,7 @@ python scripts/generate-docx.py content.json output.docx
 
 ## Getting Help
 
-- Skill source: `.claude/commands/pct-*.md`
+- Skill source: `.claude/commands/pct-*.md` (project commands, not `skills/` directory)
+- Invocation: `/pct-deck`, `/pct-memo`, `/pct-research`, `/pct-cheatsheet` (Claude Code slash commands)
 - Templates: `templates/pct/`
 - Python scripts: `scripts/generate-*.py`
