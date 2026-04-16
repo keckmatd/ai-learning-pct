@@ -18,7 +18,7 @@
       return 0;
     }
 
-    function navigateToSlide(index) {
+    function navigateToSlide(index: number) {
       if (index < 0 || index >= totalSlides) return;
       const slideId = `slide-${index + 1}`;
       const slide = document.getElementById(slideId);
@@ -29,7 +29,7 @@
       }
     }
 
-    function dispatchSlideChange(slideNumber) {
+    function dispatchSlideChange(slideNumber: number) {
       const event = new CustomEvent('slidechange', {
         detail: { slide: slideNumber, total: totalSlides },
       });

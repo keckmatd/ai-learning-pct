@@ -21,13 +21,13 @@ const totalSlides = sortedSlides.length;
 const renderedSlides = await Promise.all(
   sortedSlides.map(async (slide, index) => {
     const { Content } = await render(slide);
+    const variant: 'title' | 'content' | 'split' | 'code' | 'diagram' =
+      slide.data.layout === 'quote' ? 'content' : slide.data.layout;
     return {
       slide,
       Content,
       slideNumber: index + 1,
-      variant: slide.data.layout === 'quote' ? 'content' :
-               slide.data.layout === 'diagram' ? 'diagram' :
-               slide.data.layout,
+      variant,
     };
   })
 );
