@@ -2,6 +2,10 @@
 
 Generate a Nationwide-branded PowerPoint deck from a topic or outline.
 
+> **Capability note:** This skill generates structured text content (markdown/JSON).
+> Creating actual .pptx files requires running a Python script separately — see the
+> Post-generation section at the end.
+
 ## Usage
 
 ```
@@ -119,16 +123,17 @@ The user can:
 - Request changes ("add a slide about costs", "make slide 2 more specific")
 - Ask for a different tier
 
-### Step 4: Generate the PowerPoint
+### Step 4: Deliver the content
 
-Once approved, explain how to generate the actual PPTX:
+Once approved, save the JSON structure to a file and present options:
 
 ```
-To create this PowerPoint:
+Content saved to: output/deck-[topic].json
 
-Option 1: Use python-pptx
-  pip install python-pptx
-  # Then run the generation script (see below)
+To create the actual PowerPoint file, choose one of:
+
+Option 1: Run the generation script
+  python scripts/generate-pptx.py output/deck-[topic].json
 
 Option 2: Manual creation
   1. Open templates/pct/nationwide_default.pptx
@@ -137,21 +142,6 @@ Option 2: Manual creation
 
 Option 3: Copy to clipboard
   I'll format the content for easy paste into PowerPoint.
-```
-
-If python-pptx is available, offer to generate the file directly:
-
-```python
-from pptx import Presentation
-from pptx.util import Inches, Pt
-
-# Load template
-prs = Presentation('templates/pct/nationwide_default.pptx')
-
-# Add slides based on the JSON structure
-# ... generation code ...
-
-prs.save('output.pptx')
 ```
 
 ### Step 5: Offer follow-ups
@@ -197,4 +187,36 @@ Deck: Q2 Claims Processing Improvements (5 slides, executive tier)
    - First metrics review (June 15)
 
 Generate this deck, or would you like changes?
+```
+
+## Post-generation: Creating .pptx Files
+
+GHCP generates structured content (markdown/JSON) but cannot directly create binary
+files like .pptx. To create an actual PowerPoint file from the generated content:
+
+```bash
+# Install dependency (one-time)
+pip install python-pptx
+
+# Generate the .pptx from the JSON output
+python scripts/generate-pptx.py output/deck-[topic].json
+```
+
+The generation script uses `python-pptx` to:
+1. Load the Nationwide template from `templates/pct/nationwide_default.pptx`
+2. Create slides based on the JSON structure (title, content, two_column, closing)
+3. Save the final `.pptx` to the output directory
+
+```python
+# scripts/generate-pptx.py (reference)
+from pptx import Presentation
+from pptx.util import Inches, Pt
+
+# Load template
+prs = Presentation('templates/pct/nationwide_default.pptx')
+
+# Add slides based on the JSON structure
+# ... generation code ...
+
+prs.save('output.pptx')
 ```

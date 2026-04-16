@@ -10,7 +10,7 @@ Before starting, confirm:
 
 - [ ] Terminal access (Windows Terminal, iTerm, etc.)
 - [ ] Git installed (`git --version`)
-- [ ] GitHub Copilot CLI access (`gh copilot --version` or `ghcp --version`)
+- [ ] GitHub Copilot CLI access (`gh copilot --version`)
 - [ ] Can clone from GitHub
 
 **If missing any:** Pair with someone who has it, or watch the demo.
@@ -60,10 +60,13 @@ chmod +x install-harness.sh
 
 ```bash
 # Test that global instructions load
-ghcp "What do your instructions say about commit messages?"
+gh copilot suggest "What do your instructions say about commit messages?"
 ```
 
 **Expected:** AI references your global instructions content
+
+> **Note:** Some environments alias `gh copilot` as `ghcp`. Both work — this guide
+> uses the full `gh copilot` syntax for clarity.
 
 ---
 
@@ -74,9 +77,10 @@ ghcp "What do your instructions say about commit messages?"
 chmod +x install-harness.sh
 ```
 
-### "Command not found: ghcp"
-You might need the full command:
+### "Command not found: gh copilot"
+Ensure the GitHub Copilot CLI extension is installed:
 ```bash
+gh extension install github/gh-copilot
 gh copilot suggest "test command"
 ```
 

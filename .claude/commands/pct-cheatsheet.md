@@ -2,6 +2,10 @@
 
 Generate a one-page quick reference cheatsheet in the proven PCT format.
 
+> **Capability note:** This skill generates text content. File generation (.pptx, .docx)
+> requires running Python scripts separately — see the Post-generation section in each
+> relevant skill (e.g., `/pct-deck`).
+
 ## Usage
 
 ```

@@ -2,6 +2,10 @@
 
 Generate a Nationwide-formatted memo or one-pager from a topic.
 
+> **Capability note:** This skill generates text content. File generation (.pptx, .docx)
+> requires running Python scripts separately — see the Post-generation section in each
+> relevant skill (e.g., `/pct-deck`).
+
 ## Usage
 
 ```

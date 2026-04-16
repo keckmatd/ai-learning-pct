@@ -2,6 +2,10 @@
 
 Generate a research brief on a topic for decision-making or awareness.
 
+> **Capability note:** This skill generates text content. File generation (.pptx, .docx)
+> requires running Python scripts separately — see the Post-generation section in each
+> relevant skill (e.g., `/pct-deck`).
+
 ## Usage
 
 ```
@@ -47,6 +51,10 @@ Use available tools to research:
 2. **Fetch key sources** for detailed information
 
 3. **Synthesize** - don't just summarize, analyze and connect
+
+> **Fallback:** If web search is unavailable, use training knowledge and clearly note
+> "Source: AI training data, verify independently" on any claims. Flag the limitation
+> to the user so they can supplement with their own research.
 
 ### Step 3: Generate the brief
 
