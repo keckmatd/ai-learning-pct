@@ -3,6 +3,7 @@ title: "Part 2 Recap"
 part: 2
 order: 50
 layout: "content"
+notes: "Pace check: should be at ~40 min (end of Part 2)."
 sourceFile: "best-practices"
 ---
 

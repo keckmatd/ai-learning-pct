@@ -3,7 +3,7 @@ title: "Ecosystem Demo"
 part: 4
 order: 1
 layout: "title"
-notes: "5 minutes"
+notes: "Pace check: should be at ~80 min (Part 4 start). 5 minutes for demo."
 sourceFile: "ecosystem-demo"
 ---
 

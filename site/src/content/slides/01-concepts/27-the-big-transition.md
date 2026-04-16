@@ -3,7 +3,7 @@ title: "The Big Transition"
 part: 1
 order: 27
 layout: "content"
-notes: "Now you understand the machinery. Browser AI manages all this for you - mostly hidden, somewhat limited. | CLI AI puts YOU in control. You manage context. You choose tools. You build systems. | Let's talk about what that looks like..."
+notes: "Pace check: should be at ~17 min. Now you understand the machinery. Browser AI manages all this for you - mostly hidden, somewhat limited. | CLI AI puts YOU in control. You manage context. You choose tools. You build systems. | Let's talk about what that looks like..."
 sourceFile: "mcp-and-tools"
 ---
 

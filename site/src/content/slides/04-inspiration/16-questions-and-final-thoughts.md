@@ -3,7 +3,7 @@ title: "Questions & Final Thoughts"
 part: 4
 order: 16
 layout: "content"
-notes: "Open floor for questions. Close with the takeaway: what happens next is up to them."
+notes: "Pace check: should be at ~90 min (end). Open floor for questions. Close with the takeaway: what happens next is up to them."
 sourceFile: "whats-next"
 ---
 

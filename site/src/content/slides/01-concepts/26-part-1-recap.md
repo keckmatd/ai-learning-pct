@@ -3,6 +3,7 @@ title: "Part 1 Recap"
 part: 1
 order: 26
 layout: "content"
+notes: "Pace check: should be at ~15 min."
 sourceFile: "mcp-and-tools"
 ---
 

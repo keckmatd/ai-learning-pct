@@ -3,7 +3,7 @@ title: "Check for Understanding"
 part: 2
 order: 13
 layout: "content"
-notes: "Why can't browser AI just edit your local files?"
+notes: "Pace check: should be at ~29 min. Why can't browser AI just edit your local files?"
 sourceFile: "browser-vs-cli"
 ---
 

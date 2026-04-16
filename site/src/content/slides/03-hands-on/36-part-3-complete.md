@@ -3,6 +3,7 @@ title: "Part 3 Complete"
 part: 3
 order: 36
 layout: "content"
+notes: "Pace check: should be at ~70 min."
 sourceFile: "exercise-research"
 ---
 
