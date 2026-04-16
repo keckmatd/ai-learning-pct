@@ -31,7 +31,7 @@ Give PCT cabinet members a **huge headstart** in AI-augmented work. Not a dumbed
 
 ## Current Phase
 
-**Phase 2: Audit Remediation — COMPLETE** (pushed + build-verified)
+**Phase 3: Workshop Polish — IN PROGRESS** (Phase 2 complete, pushed + build-verified)
 
 Completed:
 - Session 1: Curriculum structure, copilot-dotfiles bundled, spec, 22 issues, plan
@@ -44,6 +44,7 @@ Completed:
 - Session 8: Audit Remediation Waves 1-4. 17 tasks via parallel subagents, 16 commits, 18 issues closed (10 blocking + 8 high-priority).
 - Session 9: Audit Remediation Waves 5-7. 18 tasks via parallel subagents, 21 commits, 19 issues closed (16 medium + 3 low). Roadmap renumbered to fix duplicate Phase 3.
 - Session 10: Pushed 39 Phase-2 commits to origin. Added npm registry auto-detection (probes internal artifactory, falls back to public registry; NPM_REGISTRY env override). Normalized lockfile to public URLs so the repo installs anywhere by default. Added missing @astrojs/check + typescript deps. Fixed 3 TS errors blocking CI check gate. Closed #41.
+- Session 11: Archived stale audit remediation plan to `docs/superpowers/specs/archive/`. Closed #40 as won't-fix (commit-msg hook deemed high-friction for workshop onboarding). Phase 3 kicked off: install-only dry run from corp laptop (vanilla base) is the first action — user is running it personally.
 
 Site live: https://keckmatd.github.io/ai-learning-pct/
 Repo: https://github.com/keckmatd/ai-learning-pct
@@ -54,7 +55,8 @@ Skills added:
 - `/pct-research` - Research briefs
 - `/pct-cheatsheet` - Quick reference cards (markdown + HTML)
 
-Open issues (1 — low-severity follow-up):
-- #40: Commit subjects exceed 50-char CLAUDE.md limit (process discipline)
+Open issues: **0**
+
+Current phase: **Phase 3: Workshop Polish** — in progress. First action: install-only dry run on corp laptop (user-run). Findings will seed a concrete plan; no spec written yet.
 
 Next phase: **Phase 3: Workshop Polish** — pending first live workshop date.
