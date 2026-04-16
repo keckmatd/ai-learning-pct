@@ -62,6 +62,71 @@ When you run `/pct-deck "Topic"`, Claude:
 3. Follows the instructions
 4. Generates the output
 
+## GHCP Argument Handling
+
+GHCP (and Claude Code) expose inline arguments to a skill file through
+shell-style placeholders. Use them inside the skill body wherever you want
+the user's input to land:
+
+| Placeholder    | Captures                                                 |
+|----------------|----------------------------------------------------------|
+| `$ARGUMENTS`   | The entire argument string after the slash command       |
+| `$1`, `$2`, ...| Positional tokens (split on whitespace)                  |
+
+Rules of thumb:
+
+- Prefer `$ARGUMENTS` when the skill should interpret a natural-language
+  request (the common case for `/pct-*` skills). The skill's "Parse the
+  request" step then pulls out topic, tone, length, etc.
+- Use `$1` / `$2` only when the skill truly wants positional args (for
+  example, a strict `command <src> <dst>` shape). Quoting matters: `"two
+  words"` is one positional token.
+- Pass tier/depth options as trailing flags on the argument string so they
+  survive the `$ARGUMENTS` capture and the skill can parse them out:
+
+  ```bash
+  /pct-deck "Q2 Review" --tier=executive
+  /pct-research "Claims AI vendors" --depth=deep --focus=comparison
+  /pct-memo "Budget request" --tone=direct --length=brief
+  ```
+
+  The skill file reads `$ARGUMENTS` as a single string (`Q2 Review
+  --tier=executive`) and extracts flags during Step 1. Do not rely on `$1`
+  for flags — GHCP will split them in ways that break quoted topics.
+
+## Choosing a Tier / Depth
+
+Several skills expose a knob for how much effort to spend. Pick it on
+purpose rather than defaulting to the middle.
+
+| Skill             | Flag                | Quick pick                                  |
+|-------------------|---------------------|---------------------------------------------|
+| `/pct-deck`       | `--tier=executive`  | Leadership audience, decision-oriented deck |
+| `/pct-deck`       | `--tier=technical`  | Architects / implementers, needs detail     |
+| `/pct-research`   | `--depth=quick`     | 5-min skim, confirm a direction             |
+| `/pct-research`   | `--depth=standard`  | Default; supports a real decision           |
+| `/pct-research`   | `--depth=deep`      | High-stakes choice, external stakeholders   |
+| `/pct-memo`       | `--length=brief`    | Ask + bottom line only, 3-4 sentences       |
+| `/pct-memo`       | `--length=standard` | Half-page, standard approvals               |
+| `/pct-memo`       | `--length=detailed` | Full page with context + supporting data    |
+| `/pct-memo`       | `--tone=direct`     | Action-focused, bullet-heavy                |
+| `/pct-cheatsheet` | `--format=markdown` | Default; good for copy/paste + version ctrl |
+| `/pct-cheatsheet` | `--format=html`     | Shareable standalone page                   |
+
+Heuristic: choose the lightest option that still answers "so what?" for
+the audience. Upgrade only when the first pass falls short — it is cheaper
+to deepen a brief than to trim a bloated one.
+
+## Testing Skills
+
+Run `scripts/test-skills.sh` to verify every `pct-*.md` file has the
+metadata (name + description) that GHCP needs to surface the command.
+The script exits non-zero if anything is missing:
+
+```bash
+bash scripts/test-skills.sh
+```
+
 ## Creating Your Own Skills
 
 Copy one of these as a template and modify:

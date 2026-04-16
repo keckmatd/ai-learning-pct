@@ -243,3 +243,9 @@ Output:
 - Templates: `ls templates/pct/`
 - Workshop site: [URL]
 ```
+
+## Verification
+
+Before handing the cheatsheet back to the user, check:
+
+**Verify: output is scannable (bullet lists, tables, code blocks — not paragraphs) and fits on one printed page (roughly 60-80 lines).** If the draft reads like prose or spills past a page, tighten it before presenting.
