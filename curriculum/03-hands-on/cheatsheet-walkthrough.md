@@ -129,7 +129,7 @@ ghcp -f path/to/changed/file.go "Review this code for issues"
 
 ### Generate from Template
 ```bash
-ghcp -f templates/powerpoint-template.md "Create a deck about Q4 results"
+ghcp -f templates/pct/nationwide_default.pptx "Create a deck about Q4 results"
 ```
 
 ### Research

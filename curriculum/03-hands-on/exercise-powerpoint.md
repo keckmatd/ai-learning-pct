@@ -29,11 +29,11 @@ Ensure you have:
 ## Step 1: Examine the Template
 
 ```bash
-# Look at available templates
-ls templates/
+# Look at available PCT templates
+ls templates/pct/
 
-# Read the PowerPoint template
-cat templates/powerpoint-template.md
+# Read the template README
+cat templates/pct/README.md
 ```
 
 **Notice:** The template has structure, Nationwide branding guidelines, slide types.
@@ -54,7 +54,7 @@ Think of a simple topic. Examples:
 ## Step 3: Generate the Deck
 
 ```bash
-ghcp -f templates/powerpoint-template.md "Create a 5-slide PowerPoint about [YOUR TOPIC]. 
+ghcp -f templates/pct/nationwide_default.pptx "Create a 5-slide PowerPoint about [YOUR TOPIC]. 
 Follow the template format and Nationwide guidelines."
 ```
 

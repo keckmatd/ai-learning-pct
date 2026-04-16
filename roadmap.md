@@ -23,9 +23,10 @@ Must complete before the 90-minute workshop.
 - [ ] Verify Nationwide network compatibility
 
 ### 1.2 Templates
-- [ ] Create `templates/powerpoint-template.md` with Nationwide guidelines
+- [x] Add `templates/pct/nationwide_default.pptx` (Nationwide branded deck template)
+- [x] Add `templates/pct/2024_Memo.dotx` (Nationwide memo template)
 - [ ] Create `templates/research-brief.md` structure
-- [ ] Test both templates with ghcp
+- [ ] Test all templates with ghcp
 
 ### 1.3 Cheatsheets
 - [ ] One-page command reference (printable PDF)

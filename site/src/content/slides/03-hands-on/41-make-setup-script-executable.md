@@ -1,5 +1,5 @@
 ---
-title: "Make setup script executable"
+title: "Run the install script"
 part: 3
 order: 41
 layout: "content"
@@ -9,16 +9,17 @@ sourceFile: "install-guide"
 ## Step 2: Run Setup
 
 ```bash
-# Make setup script executable
-chmod +x setup.sh
+# Make the install script executable
+chmod +x install-harness.sh
 
-# Run setup
-./setup.sh
+# Run the installer
+./install-harness.sh
 ```
 
 **What this does:**
-- Creates symlinks for global instructions
-- Sets up skill directory
-- Configures any needed environment
+- Creates `~/.copilot/` directory
+- Symlinks global instructions, skills, and agents
+- Copies config files
+- Checks for required tools
 
 **Checkpoint:** Script completes without errors

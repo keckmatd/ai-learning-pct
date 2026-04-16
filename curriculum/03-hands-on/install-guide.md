@@ -17,37 +17,40 @@ Before starting, confirm:
 
 ---
 
-## Step 1: Clone the Repository
+## Step 1: Get the Workshop Repo
+
+The harness is **already included** in this workshop repo — no separate download needed.
 
 ```bash
 # Navigate to where you keep projects
 cd ~/projects  # or wherever you work
 
-# Clone copilot-dotfiles
-git clone https://github.com/keckmatd/copilot-dotfiles.git
+# Clone the workshop repo (skip if you already have it)
+git clone https://github.com/keckmatd/ai-learning-pct.git
 
 # Enter the directory
-cd copilot-dotfiles
+cd ai-learning-pct
 ```
 
-**Checkpoint:** You should see the repo contents (`ls`)
+**Checkpoint:** You should see `install-harness.sh` when you run `ls`
 
 ---
 
 ## Step 2: Run Setup
 
 ```bash
-# Make setup script executable
-chmod +x setup.sh
+# Make the install script executable
+chmod +x install-harness.sh
 
-# Run setup
-./setup.sh
+# Run the installer
+./install-harness.sh
 ```
 
 **What this does:**
-- Creates symlinks for global instructions
-- Sets up skill directory
-- Configures any needed environment
+- Creates `~/.copilot/` directory
+- Symlinks global instructions, skills, and agents
+- Copies config files
+- Checks for required tools
 
 **Checkpoint:** Script completes without errors
 
@@ -68,7 +71,7 @@ ghcp "What do your instructions say about commit messages?"
 
 ### "Permission denied"
 ```bash
-chmod +x setup.sh
+chmod +x install-harness.sh
 ```
 
 ### "Command not found: ghcp"
@@ -103,15 +106,18 @@ Don't debug in the workshop. Options:
 ## What Got Installed
 
 ```
-~/.config/github-copilot/
-└── instructions.md → copilot-dotfiles/instructions.md
+~/.copilot/
+├── copilot-instructions.md → ai-learning-pct/copilot-instructions.md
+├── skills/                 → ai-learning-pct/skills/
+├── agents/                 → ai-learning-pct/agents/
+└── config.json               (copied)
 
-copilot-dotfiles/
-├── instructions.md     ← Global context
-├── skills/             ← Reusable workflows
-├── templates/          ← Project starters
-├── cheatsheets/        ← Quick reference
-└── examples/           ← Sample usage
+ai-learning-pct/              ← Workshop repo (already on your machine)
+├── copilot-instructions.md   ← Global instructions
+├── skills/                   ← Workflow skills
+├── agents/                   ← Agent definitions
+├── templates/                ← Output templates
+└── install-harness.sh        ← The script you just ran
 ```
 
 ---

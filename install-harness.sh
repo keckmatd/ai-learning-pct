@@ -59,16 +59,25 @@ echo ""
 echo "Phase 1: Prerequisites"
 echo "─────────────────────"
 
-for cmd in node git copilot just gh; do
+HAS_JQ=false
+for cmd in node git copilot just gh jq; do
   if command -v "$cmd" &>/dev/null; then
     log_ok "$cmd found: $(command -v "$cmd")"
+    [[ "$cmd" == "jq" ]] && HAS_JQ=true
   else
-    log_fail "$cmd not found"
     case "$cmd" in
-      node)    echo "         Install: https://nodejs.org/" ;;
-      copilot) echo "         Install: npm install -g @github/copilot" ;;
-      just)    echo "         Install: cargo install just OR https://just.systems/man/en/installation.html" ;;
-      gh)      echo "         Install: https://cli.github.com/" ;;
+      jq)
+        log_warn "jq not found — MCP config merge will require manual editing"
+        ;;
+      *)
+        log_fail "$cmd not found"
+        case "$cmd" in
+          node)    echo "         Install: https://nodejs.org/" ;;
+          copilot) echo "         Install: npm install -g @github/copilot" ;;
+          just)    echo "         Install: cargo install just OR https://just.systems/man/en/installation.html" ;;
+          gh)      echo "         Install: https://cli.github.com/" ;;
+        esac
+        ;;
     esac
   fi
 done
@@ -112,6 +121,19 @@ for target in "${!SYMLINKS[@]}"; do
   fi
 done
 
+# ─── Phase 3b: Templates ───────────────────────────────────────────────────
+echo ""
+echo "Phase 3b: Templates"
+echo "─────────────────────"
+
+for tmpl in templates/pct/nationwide_default.pptx templates/pct/2024_Memo.dotx; do
+  if [ -f "$DOTFILES_DIR/$tmpl" ]; then
+    log_ok "$(basename "$tmpl") found"
+  else
+    log_warn "$(basename "$tmpl") missing — document generation won't work"
+  fi
+done
+
 # ─── Phase 4: Config Merge ──────────────────────────────────────────────────
 echo ""
 echo "Phase 4: Config"
@@ -138,9 +160,23 @@ if [ -f "$MCP_CONFIG" ]; then
     log_ok "session-context registered in mcp-config.json"
   else
     log_warn "session-context not in mcp-config.json"
-    if prompt_fix "Merge MCP config"; then
-      sed "s|\\./mcp/|$DOTFILES_DIR/mcp/|g" "$DOTFILES_DIR/mcp-config.json" > "$MCP_CONFIG"
-      log_fix "Copied mcp-config.json (review for manual merge if you had custom servers)"
+    if prompt_fix "Merge session-context into existing MCP config"; then
+      if $HAS_JQ; then
+        jq --arg dir "$DOTFILES_DIR" \
+          '.mcpServers["session-context"] = {"type":"stdio","command":"node","args":[$dir + "/mcp/session-context/dist/index.js"]}' \
+          "$MCP_CONFIG" > "$MCP_CONFIG.tmp" && mv "$MCP_CONFIG.tmp" "$MCP_CONFIG"
+        log_fix "Merged session-context into existing mcp-config.json"
+      else
+        echo ""
+        echo "  jq is not available. Add this entry manually to $MCP_CONFIG under mcpServers:"
+        echo ""
+        echo '    "session-context": {'
+        echo '      "type": "stdio",'
+        echo '      "command": "node",'
+        echo "      \"args\": [\"$DOTFILES_DIR/mcp/session-context/dist/index.js\"]"
+        echo '    }'
+        echo ""
+      fi
     fi
   fi
 else

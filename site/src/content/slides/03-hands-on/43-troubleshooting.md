@@ -10,7 +10,7 @@ sourceFile: "install-guide"
 
 ### "Permission denied"
 ```bash
-chmod +x setup.sh
+chmod +x install-harness.sh
 ```
 
 ### "Command not found: ghcp"

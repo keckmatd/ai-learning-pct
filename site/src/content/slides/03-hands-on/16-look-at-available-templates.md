@@ -10,10 +10,10 @@ sourceFile: "exercise-powerpoint"
 
 ```bash
 # Look at available templates
-ls templates/
+ls templates/pct/
 
-# Read the PowerPoint template
-cat templates/powerpoint-template.md
+# Read the template README
+cat templates/pct/README.md
 ```
 
 **Notice:** The template has structure, Nationwide branding guidelines, slide types.

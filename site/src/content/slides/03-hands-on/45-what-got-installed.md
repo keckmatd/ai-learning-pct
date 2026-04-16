@@ -10,16 +10,21 @@ sourceFile: "install-guide"
 
 ```mermaid
 flowchart TB
-    subgraph CONFIG["📁 ~/.config/github-copilot/"]
-        L["📋 instructions.md"]
+    subgraph COPILOT["~/.copilot/"]
+        CI["copilot-instructions.md"]
+        SK2["skills/"]
+        AG2["agents/"]
+        CF["config.json"]
     end
-    L -->|"symlink"| I
+    CI -->|"symlink"| CI2
+    SK2 -->|"symlink"| SK
+    AG2 -->|"symlink"| AG
 
-    subgraph CD["📁 copilot-dotfiles/"]
-        I["📋 instructions.md<br/><i>Global context</i>"]
-        SK["📂 skills/<br/><i>Reusable workflows</i>"]
-        T["📂 templates/<br/><i>Project starters</i>"]
-        CS["📂 cheatsheets/<br/><i>Quick reference</i>"]
-        E["📂 examples/<br/><i>Sample usage</i>"]
+    subgraph REPO["ai-learning-pct/"]
+        CI2["copilot-instructions.md<br/><i>Global instructions</i>"]
+        SK["skills/<br/><i>Workflow skills</i>"]
+        AG["agents/<br/><i>Agent definitions</i>"]
+        T["templates/<br/><i>Output templates</i>"]
+        INS["install-harness.sh"]
     end
 ```

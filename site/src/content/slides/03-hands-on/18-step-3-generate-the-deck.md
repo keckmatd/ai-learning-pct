@@ -9,7 +9,7 @@ sourceFile: "exercise-powerpoint"
 ## Step 3: Generate the Deck
 
 ```bash
-ghcp -f templates/powerpoint-template.md "Create a 5-slide PowerPoint about [YOUR TOPIC]. 
+ghcp -f templates/pct/nationwide_default.pptx "Create a 5-slide PowerPoint about [YOUR TOPIC]. 
 Follow the template format and Nationwide guidelines."
 ```
 
