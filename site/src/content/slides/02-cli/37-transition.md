@@ -1,7 +1,7 @@
 ---
 title: "Transition"
 part: 2
-order: 39
+order: 14
 layout: "content"
 notes: "Now you understand the architecture. Let's talk about what actually works in practice..."
 sourceFile: "harness-concept"

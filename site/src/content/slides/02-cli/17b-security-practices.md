@@ -1,7 +1,7 @@
 ---
 title: "Security Best Practices"
 part: 2
-order: 19
+order: 6
 layout: "content"
 sourceFile: "browser-vs-cli"
 ---

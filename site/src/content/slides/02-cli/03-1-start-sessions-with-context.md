@@ -1,7 +1,7 @@
 ---
 title: "1. Start Sessions with Context"
 part: 2
-order: 3
+order: 28
 layout: "code"
 sourceFile: "best-practices"
 ---

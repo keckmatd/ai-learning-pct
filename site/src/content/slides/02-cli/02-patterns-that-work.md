@@ -1,7 +1,7 @@
 ---
 title: "Patterns That Work"
 part: 2
-order: 2
+order: 27
 layout: "content"
 sourceFile: "best-practices"
 ---

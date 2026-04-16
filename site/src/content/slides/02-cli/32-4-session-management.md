@@ -1,7 +1,7 @@
 ---
 title: "4. Session Management"
 part: 2
-order: 34
+order: 45
 layout: "content"
 sourceFile: "harness-concept"
 ---

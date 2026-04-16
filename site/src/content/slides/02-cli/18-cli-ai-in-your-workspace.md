@@ -1,7 +1,7 @@
 ---
 title: "CLI: AI in Your Workspace"
 part: 2
-order: 20
+order: 7
 layout: "diagram"
 sourceFile: "browser-vs-cli"
 ---

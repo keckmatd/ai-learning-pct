@@ -1,7 +1,7 @@
 ---
 title: "The Surface Difference"
 part: 2
-order: 16
+order: 3
 layout: "content"
 sourceFile: "browser-vs-cli"
 ---

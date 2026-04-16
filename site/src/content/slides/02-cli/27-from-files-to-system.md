@@ -1,7 +1,7 @@
 ---
 title: "From Files to System"
 part: 2
-order: 29
+order: 40
 layout: "content"
 sourceFile: "harness-concept"
 ---

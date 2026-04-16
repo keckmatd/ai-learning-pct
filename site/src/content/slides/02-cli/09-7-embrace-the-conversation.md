@@ -1,7 +1,7 @@
 ---
 title: "7. Embrace the Conversation"
 part: 2
-order: 9
+order: 34
 layout: "code"
 sourceFile: "best-practices"
 ---

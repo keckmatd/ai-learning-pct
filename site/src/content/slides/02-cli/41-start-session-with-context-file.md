@@ -1,7 +1,7 @@
 ---
 title: "Start session with context file"
 part: 2
-order: 43
+order: 18
 layout: "split"
 sourceFile: "session-management"
 ---

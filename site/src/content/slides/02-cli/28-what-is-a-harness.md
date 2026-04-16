@@ -1,7 +1,7 @@
 ---
 title: "What Is a Harness?"
 part: 2
-order: 30
+order: 41
 layout: "diagram"
 notes: "A harness is a structured environment that wraps your AI CLI with conventions, workflows, and automation."
 sourceFile: "harness-concept"

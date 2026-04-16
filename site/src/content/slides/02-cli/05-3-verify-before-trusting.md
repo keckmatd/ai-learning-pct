@@ -1,7 +1,7 @@
 ---
 title: "3. Verify Before Trusting"
 part: 2
-order: 5
+order: 30
 layout: "code"
 sourceFile: "best-practices"
 ---

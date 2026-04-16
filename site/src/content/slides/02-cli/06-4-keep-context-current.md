@@ -1,7 +1,7 @@
 ---
 title: "4. Keep Context Current"
 part: 2
-order: 6
+order: 31
 layout: "content"
 sourceFile: "best-practices"
 ---

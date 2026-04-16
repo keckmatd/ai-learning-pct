@@ -1,7 +1,7 @@
 ---
 title: "2. Project Instructions"
 part: 2
-order: 32
+order: 43
 layout: "diagram"
 sourceFile: "harness-concept"
 ---

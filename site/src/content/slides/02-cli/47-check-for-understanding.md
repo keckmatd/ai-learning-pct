@@ -1,7 +1,7 @@
 ---
 title: "Check for Understanding"
 part: 2
-order: 49
+order: 24
 layout: "content"
 notes: "If you don't update instructions.md for a month, what happens?"
 sourceFile: "session-management"

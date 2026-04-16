@@ -1,7 +1,7 @@
 ---
 title: "The Mental Model"
 part: 2
-order: 47
+order: 22
 layout: "code"
 sourceFile: "session-management"
 ---

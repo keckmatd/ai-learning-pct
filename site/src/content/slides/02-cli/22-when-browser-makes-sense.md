@@ -1,7 +1,7 @@
 ---
 title: "When Browser Makes Sense"
 part: 2
-order: 24
+order: 11
 layout: "content"
 sourceFile: "browser-vs-cli"
 ---

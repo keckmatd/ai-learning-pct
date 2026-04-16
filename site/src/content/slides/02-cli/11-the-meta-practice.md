@@ -1,7 +1,7 @@
 ---
 title: "The Meta-Practice"
 part: 2
-order: 11
+order: 36
 layout: "content"
 notes: "Notice what works and doesn't. Encode what works into your harness."
 sourceFile: "best-practices"

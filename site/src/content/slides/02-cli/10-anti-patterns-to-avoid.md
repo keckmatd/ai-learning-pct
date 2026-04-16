@@ -1,7 +1,7 @@
 ---
 title: "Anti-Patterns to Avoid"
 part: 2
-order: 10
+order: 35
 layout: "content"
 sourceFile: "best-practices"
 ---

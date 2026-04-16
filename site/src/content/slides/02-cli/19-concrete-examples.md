@@ -1,7 +1,7 @@
 ---
 title: "Concrete Examples"
 part: 2
-order: 21
+order: 8
 layout: "code"
 sourceFile: "browser-vs-cli"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "6. Manage Context Window Intentionally"
 part: 2
-order: 8
+order: 33
 layout: "content"
 sourceFile: "best-practices"
 ---

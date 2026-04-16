@@ -1,7 +1,7 @@
 ---
 title: "5. Use Skills for Repeated Workflows"
 part: 2
-order: 7
+order: 32
 layout: "code"
 sourceFile: "best-practices"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "2. Be Specific About Scope"
 part: 2
-order: 4
+order: 29
 layout: "code"
 sourceFile: "best-practices"
 ---

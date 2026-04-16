@@ -1,7 +1,7 @@
 ---
 title: "The Living System Concept"
 part: 2
-order: 37
+order: 48
 layout: "content"
 notes: "A harness isn't static. It evolves with you."
 sourceFile: "harness-concept"

@@ -1,7 +1,7 @@
 ---
 title: "Part 2 Recap"
 part: 2
-order: 13
+order: 50
 layout: "content"
 sourceFile: "best-practices"
 ---

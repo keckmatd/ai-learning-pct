@@ -1,7 +1,7 @@
 ---
 title: "When CLI Wins"
 part: 2
-order: 25
+order: 12
 layout: "content"
 sourceFile: "browser-vs-cli"
 ---

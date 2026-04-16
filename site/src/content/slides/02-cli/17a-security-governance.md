@@ -1,7 +1,7 @@
 ---
 title: "One Responsibility"
 part: 2
-order: 18
+order: 5
 layout: "content"
 sourceFile: "browser-vs-cli"
 ---

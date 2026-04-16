@@ -1,7 +1,7 @@
 ---
 title: "Quick Reference"
 part: 2
-order: 12
+order: 37
 layout: "content"
 sourceFile: "best-practices"
 ---
