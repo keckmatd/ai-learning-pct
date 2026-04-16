@@ -34,11 +34,11 @@ Post-polish audit surfaced a batch of correctness, consistency, and cleanup item
 
 ### 2.2 Next after remediation
 - Return to workshop readiness and schedule the first live run
-- Revisit Phase 3 (formerly "Workshop Polish") below
+- Revisit Phase 3 (Workshop Polish) below
 
 ---
 
-## Phase 3 (formerly Phase 2): Workshop Polish
+## Phase 3: Workshop Polish
 
 After first live run, before wider rollout.
 
@@ -60,11 +60,11 @@ After first live run, before wider rollout.
 
 ---
 
-## Phase 3: Advanced Workshops
+## Phase 4: Advanced Workshops
 
 Follow-on sessions for people who completed the intro.
 
-### 3.1 Workshop: Building Your First Skill
+### 4.1 Workshop: Building Your First Skill
 **Duration**: 60 minutes
 - Anatomy of a skill
 - Identifying candidates (repeated workflows)
@@ -72,21 +72,21 @@ Follow-on sessions for people who completed the intro.
 - Testing and iterating
 - Adding to personal harness
 
-### 3.2 Workshop: Project-Specific Harnesses
+### 4.2 Workshop: Project-Specific Harnesses
 **Duration**: 60 minutes
 - When to create project instructions
 - What goes in project vs global
 - Session continuity patterns
 - Multi-week project workflows
 
-### 3.3 Workshop: RAG & Knowledge Systems
+### 4.3 Workshop: RAG & Knowledge Systems
 **Duration**: 90 minutes
 - Setting up local RAG
 - Connecting to Obsidian or notes
 - Building searchable knowledge
 - Maintaining and pruning
 
-### 3.4 Workshop: Advanced CLI Patterns
+### 4.4 Workshop: Advanced CLI Patterns
 **Duration**: 60 minutes
 - Multi-file context management
 - Planning and execution modes
@@ -97,31 +97,31 @@ Follow-on sessions for people who completed the intro.
 
 ---
 
-## Phase 4: Ecosystem Building
+## Phase 5: Ecosystem Building
 
 Long-term vision: integrated AI workflow for PCT.
 
-### 4.1 Shared Templates Library
+### 5.1 Shared Templates Library
 - [ ] Insurance-specific templates
 - [ ] Nationwide brand compliance built-in
 - [ ] PR/Code review templates
 - [ ] Meeting prep templates
 - [ ] Documentation templates
 
-### 4.2 Skills Library
+### 5.2 Skills Library
 - [ ] /claims-research - Insurance claims investigation
 - [ ] /policy-check - Policy compliance verification
 - [ ] /meeting-prep - Prep for specific meeting types
 - [ ] /weekly-summary - Status report generation
 - [ ] /onboarding - New project/team onboarding
 
-### 4.3 Integration Points
+### 5.3 Integration Points
 - [ ] SharePoint/Teams integration possibilities
 - [ ] Nationwide template repositories
 - [ ] Internal documentation systems
 - [ ] Code repository conventions
 
-### 4.4 Documentation
+### 5.4 Documentation
 - [ ] Complete reference guide
 - [ ] Video walkthroughs
 - [ ] Example gallery (before/after)
@@ -131,23 +131,23 @@ Long-term vision: integrated AI workflow for PCT.
 
 ---
 
-## Phase 5: Self-Sustaining Community
+## Phase 6: Self-Sustaining Community
 
 Make it run without you.
 
-### 5.1 Community Building
+### 6.1 Community Building
 - [ ] Slack channel active and moderated
 - [ ] Regular share-outs (monthly?)
 - [ ] Pair programming / office hours rotation
 - [ ] Recognition for contributions
 
-### 5.2 Knowledge Transfer
+### 6.2 Knowledge Transfer
 - [ ] Multiple trained facilitators
 - [ ] Self-serve learning path
 - [ ] Contribution guidelines for templates/skills
 - [ ] Versioning and maintenance practices
 
-### 5.3 Metrics & Improvement
+### 6.3 Metrics & Improvement
 - [ ] Track adoption (who's using it?)
 - [ ] Collect wins (time saved, quality improved)
 - [ ] Identify barriers (why aren't some people using it?)
@@ -192,9 +192,10 @@ Low-effort, high-value items to do between major phases.
 | Phase 1B (Content + templates) | Complete | 2025-Q3 |
 | Phase 1C (Polish + dry run) | Complete | 2025-Q4 |
 | Phase 2 (Audit Remediation) | In progress | Target: 2026-Q2 |
-| Phase 3 (Advanced workshops) | Upcoming | TBD |
-| Phase 4 (Ecosystem) | Upcoming | TBD |
-| Phase 5 (Self-sustaining) | Upcoming | Ongoing |
+| Phase 3 (Workshop Polish) | Upcoming | After first live workshop |
+| Phase 4 (Advanced workshops) | Upcoming | TBD |
+| Phase 5 (Ecosystem) | Upcoming | TBD |
+| Phase 6 (Self-sustaining) | Upcoming | Ongoing |
 
 **First live workshop**: TBD — pending completion of Phase 2 remediation.
 
