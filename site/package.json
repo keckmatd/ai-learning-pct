@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write 'src/**/*.{astro,ts,css}'",
+    "format:check": "prettier --check 'src/**/*.{astro,ts,css}'"
   },
   "dependencies": {
     "@pagefind/default-ui": "^1.5.2",
@@ -19,5 +21,9 @@
     "astro": "^6.1.6",
     "mermaid": "^11.14.0",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "prettier-plugin-astro": "^0.14.0"
   }
 }
