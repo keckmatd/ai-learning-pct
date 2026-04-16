@@ -220,6 +220,8 @@ echo ""
 echo "Phase 8: MCP Server Build"
 echo "──────────────────────────"
 
+echo "Building MCP server (optional — enables session management)"
+
 MCP_DIR="$DOTFILES_DIR/mcp/session-context"
 if [ -d "$MCP_DIR/dist" ]; then
   log_ok "session-context MCP server built"
@@ -235,6 +237,7 @@ fi
 echo ""
 echo "Phase 9: Python Tooling (for document generation)"
 echo "──────────────────────────────────────────────────"
+echo "Python is optional. Not required for the 90-min workshop. Needed for actual file generation afterward."
 
 if command -v python3 &>/dev/null; then
   log_ok "python3 found: $(python3 --version)"
