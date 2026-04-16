@@ -23,7 +23,12 @@ flowchart TD
 
 **It's just text** prepended to every conversation.
 
-**Managed by:**
-- The platform (ChatGPT Memory settings)
-- You explicitly ("Remember that I...")
-- AI inferring and saving
+```
+Memory ≠ Remembering
+Memory = Reading your preferences from storage every time
+```
+
+**Implications:**
+- Memory competes with context window space — the more "memory," the less room for conversation
+- You can (and should) edit/curate what's stored
+- **Projects / Gems / Custom Instructions** are the same mechanism, just scoped to one workspace instead of everywhere
