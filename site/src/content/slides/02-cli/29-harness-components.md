@@ -1,7 +1,7 @@
 ---
 title: "Harness Components"
 part: 2
-order: 29
+order: 31
 layout: "content"
 sourceFile: "harness-concept"
 ---

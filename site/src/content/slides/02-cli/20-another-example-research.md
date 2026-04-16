@@ -1,7 +1,7 @@
 ---
 title: "Another Example: Research"
 part: 2
-order: 20
+order: 22
 layout: "content"
 sourceFile: "browser-vs-cli"
 ---

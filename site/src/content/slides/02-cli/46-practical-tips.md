@@ -1,7 +1,7 @@
 ---
 title: "Practical Tips"
 part: 2
-order: 46
+order: 48
 layout: "content"
 sourceFile: "session-management"
 ---

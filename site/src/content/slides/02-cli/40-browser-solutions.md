@@ -1,7 +1,7 @@
 ---
 title: "Browser \"Solutions\""
 part: 2
-order: 40
+order: 42
 layout: "content"
 sourceFile: "session-management"
 ---

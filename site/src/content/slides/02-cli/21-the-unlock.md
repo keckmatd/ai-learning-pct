@@ -1,7 +1,7 @@
 ---
 title: "The Unlock"
 part: 2
-order: 21
+order: 23
 layout: "content"
 notes: "Browser AI is a conversation partner. CLI AI is a collaborator with hands."
 sourceFile: "browser-vs-cli"

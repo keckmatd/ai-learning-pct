@@ -1,7 +1,7 @@
 ---
 title: "Check for Understanding"
 part: 2
-order: 36
+order: 38
 layout: "content"
 notes: "What's the difference between a harness and just using CLAUDE.md?"
 sourceFile: "harness-concept"

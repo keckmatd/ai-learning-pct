@@ -1,7 +1,7 @@
 ---
 title: "Session Management"
 part: 2
-order: 38
+order: 40
 layout: "title"
 notes: "5 minutes"
 sourceFile: "session-management"

@@ -1,7 +1,7 @@
 ---
 title: "Session Continuity Pattern"
 part: 2
-order: 44
+order: 46
 layout: "code"
 sourceFile: "session-management"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "3. Skills / Commands"
 part: 2
-order: 31
+order: 33
 layout: "code"
 sourceFile: "harness-concept"
 ---

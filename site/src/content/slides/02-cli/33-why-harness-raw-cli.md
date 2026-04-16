@@ -1,7 +1,7 @@
 ---
 title: "Why Harness > Raw CLI"
 part: 2
-order: 33
+order: 35
 layout: "content"
 sourceFile: "harness-concept"
 ---
