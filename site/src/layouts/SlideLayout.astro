@@ -49,11 +49,9 @@ const { title, slides = [] } = Astro.props;
       // Get the raw code text (strip any span styling from Shiki)
       const code = pre.textContent || '';
 
-      // Create container with download button
       const container = document.createElement('div');
       container.className = 'mermaid-diagram';
 
-      // Store raw code for download
       (container as HTMLElement).dataset.mermaidSource = code.trim();
 
       try {
@@ -71,7 +69,6 @@ const { title, slides = [] } = Astro.props;
         `;
         pre.replaceWith(container);
 
-        // Wire up the download button for this diagram
         const btn = container.querySelector('.mermaid-download');
         btn?.addEventListener('click', (e) => {
           const source = (container as HTMLElement).dataset.mermaidSource || '';
