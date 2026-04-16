@@ -46,7 +46,7 @@
   --color-warning: #fbbf24;       /* amber-400 */
   --color-error: #f87171;         /* red-400 */
 
-  /* Light mode colors */
+  /* Light mode colors (referenced by :root.light override below) */
   --color-light-bg-primary: #ffffff;
   --color-light-bg-secondary: #f8fafc;  /* slate-50 */
   --color-light-bg-tertiary: #f1f5f9;   /* slate-100 */
@@ -77,6 +77,20 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
+}
+
+/* ==========================================================================
+   Light Mode Override (docs layout only — slides stay dark)
+   Activates via .light class on <html>, set by ThemeToggle
+   ========================================================================== */
+
+:root.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;  /* slate-50 */
+  --color-bg-tertiary: #f1f5f9;   /* slate-100 */
+  --color-text-primary: #0f172a;  /* slate-900 */
+  --color-text-secondary: #334155; /* slate-700 */
+  --color-text-muted: #64748b;    /* slate-500 */
 }
 
 /* ==========================================================================
