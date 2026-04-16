@@ -6,63 +6,57 @@ This document tracks all work needed to build out the full curriculum and suppor
 
 ## Current State
 
-**Phase**: Foundation complete, Phase 1A ready to execute  
-**Next**: Build Astro site infrastructure (see `harness/plan.md`)
+**Phase**: Phase 2: Audit Remediation (in progress, as of 2026-04-15)  
+**Done**: Phase 1A (Infrastructure), Phase 1B (Content migration), Phase 1C (Polish)  
+**Now**: Remediating audit findings — Waves 1-4 complete (36 tasks, 10 blocking + 8 high-priority issues closed); Waves 5-7 in progress  
+**Next**: Finish remediation waves, then return to workshop readiness (see `harness/plan.md`)
 
 ---
 
-## Phase 1: Pre-Workshop Essentials
+## Phase 1: Pre-Workshop Essentials (Complete)
 
-Must complete before the 90-minute workshop.
+Sub-phases 1A (infrastructure), 1B (content migration), 1C (polish) all shipped. Template and cheatsheet workstreams rolled in alongside the site build.
 
-### 1.1 copilot-dotfiles Ready
-- [ ] Ensure copilot-dotfiles repo has clean setup.sh
-- [ ] Verify instructions.md works with ghcp CLI
-- [ ] Test installation on clean Windows/WSL machine
-- [ ] Create troubleshooting guide for common issues
-- [ ] Verify Nationwide network compatibility
-
-### 1.2 Templates
-- [x] Add `templates/pct/nationwide_default.pptx` (Nationwide branded deck template)
-- [x] Add `templates/pct/2024_Memo.dotx` (Nationwide memo template)
-- [ ] Create `templates/research-brief.md` structure
-- [ ] Test all templates with ghcp
-
-### 1.3 Cheatsheets
-- [ ] One-page command reference (printable PDF)
-- [ ] Quick start guide (first 15 minutes)
-- [ ] Troubleshooting quick reference
-
-### 1.4 Facilitation Materials
-- [ ] Pre-workshop email (what to prepare)
-- [ ] Feedback form
-- [ ] Post-workshop follow-up email template
-
-**Estimated sessions**: 3-5
+- [x] Phase 1A: Astro site infrastructure, layouts, navigation, GitHub Pages deployment
+- [x] Phase 1B: Curriculum content migration + Nationwide templates (`nationwide_default.pptx`, `2024_Memo.dotx`) + `research-brief.md`
+- [x] Phase 1C: Polish, cheatsheets, facilitation materials, dry run
 
 ---
 
-## Phase 2: Workshop Polish
+## Phase 2: Audit Remediation (In Progress — 2026-04-15)
 
-After first run, before wider rollout.
+Post-polish audit surfaced a batch of correctness, consistency, and cleanup items. Being worked wave-by-wave.
 
-### 2.1 Curriculum Refinement
+### 2.1 Status
+- [x] Waves 1-4: 36 tasks shipped, 10 blocking + 8 high-priority issues closed (prior session)
+- [ ] Waves 5-7: in progress this session (cleanup, lower-priority findings, docs hygiene)
+- [ ] Final sign-off once all waves close
+
+### 2.2 Next after remediation
+- Return to workshop readiness and schedule the first live run
+- Revisit Phase 3 (formerly "Workshop Polish") below
+
+---
+
+## Phase 3 (formerly Phase 2): Workshop Polish
+
+After first live run, before wider rollout.
+
+### 3.1 Curriculum Refinement
 - [ ] Review timing from first workshop (what ran long/short?)
 - [ ] Update based on participant confusion points
 - [ ] Add more/fewer examples as needed
 - [ ] Strengthen transitions between sections
 
-### 2.2 Backup Materials
+### 3.2 Backup Materials
 - [ ] Pre-recorded demos for install failures
 - [ ] Offline-capable materials (no network needed)
 - [ ] Screenshots for every critical step
 
-### 2.3 Scaling Prep
+### 3.3 Scaling Prep
 - [ ] Train facilitators guide (if others will run it)
 - [ ] Self-paced version of curriculum
 - [ ] FAQ document from real questions
-
-**Estimated sessions**: 2-3
 
 ---
 
@@ -180,27 +174,29 @@ Low-effort, high-value items to do between major phases.
 | Session | Date | Focus | Outcome |
 |---------|------|-------|---------|
 | 1 | 2025-04-15 | Initial curriculum scaffold + harness setup | Complete |
-| 2 | TBD | Phase 1A: Astro infrastructure | |
-| 3 | TBD | Phase 1A: Layouts + navigation | |
-| 4 | TBD | Phase 1B: Content migration | |
-| 5 | TBD | Phase 1B: Templates from keck_companion | |
-| 6 | TBD | Phase 1C: Polish + dry run | |
-| 7 | TBD | First live workshop | |
+| 2-3 | 2025-Q2 | Phase 1A: Astro infrastructure + layouts + navigation | Complete |
+| 4-5 | 2025-Q3 | Phase 1B: Content migration + templates from keck_companion | Complete |
+| 6 | 2025-Q4 | Phase 1C: Polish + dry run | Complete |
+| 7 | 2026-04 | Phase 2: Audit Remediation Waves 1-4 (36 tasks, 18 issues closed) | Complete |
+| 8 | 2026-04-15 | Phase 2: Audit Remediation Waves 5-7 | In progress |
+| 9 | TBD | First live workshop | Upcoming |
 | ... | ... | ... | ... |
 
 ---
 
 ## Rough Timeline
 
-**Assuming ~2 sessions/week:**
+| Phase | Status | Completion |
+|-------|--------|------------|
+| Phase 1A (Infrastructure) | Complete | 2025-Q2 |
+| Phase 1B (Content + templates) | Complete | 2025-Q3 |
+| Phase 1C (Polish + dry run) | Complete | 2025-Q4 |
+| Phase 2 (Audit Remediation) | In progress | Target: 2026-Q2 |
+| Phase 3 (Advanced workshops) | Upcoming | TBD |
+| Phase 4 (Ecosystem) | Upcoming | TBD |
+| Phase 5 (Self-sustaining) | Upcoming | Ongoing |
 
-| Phase | Duration | Completion |
-|-------|----------|------------|
-| Phase 1 | 2 weeks | Pre-workshop ready |
-| Phase 2 | 1 week | Post-first-workshop polish |
-| Phase 3 | 2 months | Advanced workshops available |
-| Phase 4 | 3-6 months | Full ecosystem |
-| Phase 5 | Ongoing | Self-sustaining |
+**First live workshop**: TBD — pending completion of Phase 2 remediation.
 
 ---
 
@@ -216,7 +212,13 @@ Low-effort, high-value items to do between major phases.
 - Spec written for Astro presentation site
 - 22 issues created covering Phases 1-4
 - Plan written for Phase 1A (infrastructure)
-- ~1 month to workshop - comfortable timeline
+
+### 2026-04-15
+- Phases 1A, 1B, 1C all shipped (Astro site, content migration, polish)
+- Phase 2 (Audit Remediation) in progress — auditor flagged a mix of blocking, high-priority, and cleanup items
+- Waves 1-4 done in the prior session: 36 tasks completed, 10 blocking + 8 high-priority issues closed
+- Waves 5-7 are the focus of this session
+- Workshop date is TBD; prioritizing correctness over calendar
 
 ---
 

@@ -34,7 +34,7 @@ harness/                    # THIS PROJECT's state
 
 ## Key Files
 
-- `harness/plan.md` - Current execution plan (Phase 1A: Astro infrastructure)
+- `harness/plan.md` - Current execution plan (Phase 2: Audit Remediation)
 - `harness/issues.yaml` - 22 issues covering Phases 1-4
 - `docs/superpowers/specs/2025-04-15-presentation-site-design.md` - Site architecture spec
 - `curriculum/00-overview.md` - 90-minute session flow
@@ -70,22 +70,20 @@ cd site && npm run dev
 
 ## Current Phase
 
-**Phase 1A: Infrastructure** (in progress)
-- Initialize Astro project with Tailwind
-- Create layouts (Slide, Docs, Base)
-- Implement slide navigation
-- Design system (dark mode, fonts)
-- GitHub Pages deployment
+**Phase 2: Audit Remediation** (in progress)
+- Addressing findings from the post-Phase-1 audit
+- Waves 1-4 complete (36 tasks, 10 blocking + 8 high-priority issues closed)
+- Waves 5-7 in progress: remaining cleanup, lower-priority findings, docs hygiene
 
 See `harness/plan.md` for detailed tasks.
 
 ## Timeline
 
-~1 month to workshop:
-- Week 1: Astro infrastructure (Phase 1A)
-- Week 2: Content migration + templates (Phase 1B)
-- Week 3: Polish + dry run (Phase 1C)
-- Week 4: Buffer
+**As of 2026-04-15:**
+- Done: Phase 1A (Astro infrastructure), Phase 1B (content + templates), Phase 1C (polish + dry run)
+- In progress: Phase 2 Audit Remediation — Waves 5-7
+- Next: Return to workshop readiness once remediation closes
+- Workshop date: TBD (will be scheduled after Phase 2 signs off)
 
 ---
 
